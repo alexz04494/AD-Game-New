@@ -11,7 +11,6 @@ const shopDiv = document.getElementById("shop");
 const moneyDiv = document.getElementById("money");
 const proceedBtn = document.getElementById("proceedBtn");
 const startPage = document.getElementById("start-page");
-const startBtn = document.getElementById("startBtn");
 const uiDiv = document.getElementById("ui");
 const startSound = document.getElementById("start-sound");
 const cancelSound = document.getElementById("cancel-sound");
@@ -20,6 +19,37 @@ const simulationPage = document.getElementById("simulation-page");
 const dryerResult = document.getElementById("dryer-result");
 const continueBtn = document.getElementById("continueBtn");
 const eventsPage = document.getElementById("events");
+const typingSound = document.getElementById("typing-sound");
+
+// Typewriter effect
+const typewriterText = "You have been entrusted with using this year's budget to buy solutions to help the factory profit. You should use it carefully or you might lose it.";
+const typewriterElement = document.getElementById("typewriter-text");
+let currentIndex = 0;
+
+function typeWriter() {
+  if (currentIndex < typewriterText.length) {
+    // Play typing sound for each character (but not on spaces)
+    if (typewriterText[currentIndex] !== ' ') {
+      typingSound.currentTime = 0; // Reset sound to beginning
+      typingSound.play().catch(e => console.log('Audio play failed:', e));    }
+    
+    typewriterElement.innerHTML = typewriterText.substring(0, currentIndex + 1) + '<span class="cursor">|</span>';
+    currentIndex++;
+    setTimeout(typeWriter, 50); // Adjust speed here (50ms between characters)
+  } else {
+    // Show the continue arrow after typing is complete
+    setTimeout(() => {
+      document.getElementById("continue-arrow").style.display = "block";
+    }, 1000);
+  }
+}
+
+// Start the typewriter effect when the page loads
+window.addEventListener('load', () => {
+  setTimeout(typeWriter, 500); // Small delay before starting
+});
+
+const startBtn = document.getElementById("startBtn");
 
 startBtn.onclick = () => {
   startPage.style.display = "none";

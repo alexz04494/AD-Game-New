@@ -6,14 +6,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <img src="assets/icons/signet.png" alt="Signet" id="signet">
-
   <div id="start-page">
-    <h1>AD Tycoon</h1>
     <div class="intro-text">
-      <p>You have been entrusted with using this year's budget to buy solutions to help the factory profit. You should use it carefully or you might lose it.</p>
+      <p id="typewriter-text"><span class="cursor">|</span></p>
     </div>
-    <button id="startBtn">Continue</button>
+    <button id="startBtn">Start Game</button>
   </div>
 
   <div id="ui" style="display:none;">
@@ -40,6 +37,7 @@
   <audio id="start-sound" src="assets/sounds/game-start-317318.mp3"></audio>
   <audio id="cancel-sound" src="assets/sounds/cancel_purchase.mp3"></audio>
   <audio id="beep-sound" src="assets/sounds/beep-6-96243.mp3"></audio>
+  <audio id="typing-sound" src="assets/sounds/SFX_RetroMultiplev5.wav"></audio>
 
   <script src="game.js"></script>
 </body>

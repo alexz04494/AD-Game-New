@@ -15,12 +15,30 @@ body {
   font-family: 'ShareTechMono', 'Segoe UI', Arial, sans-serif;
   line-height: 1.5;
   /* Gradient from Dark Blue → Base Blue */
-  background: linear-gradient(135deg, rgba(0, 58, 112, 0.8) 0%, rgba(0, 117, 190, 0.8) 100%), url('assets/backgrounds/Stripes\ medium\ 2.png');
+  background: linear-gradient(135deg, rgba(0, 58, 112, 0.8) 0%, rgba(0, 117, 190, 0.8) 100%);
   min-height: 100vh;
   color: #1E1E1E;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ---- animated signet pattern ---- */
+body::before {
+  content: "";
+  position: fixed;          /* covers whole viewport */
+  inset: 0;
+  background: url("assets/overlay/signet-small.png") repeat;
+  background-size: 40px;   /* spacing between instances */
+  opacity: 0.1;            /* subtle! adjust 0.03–0.08 */
+  pointer-events: none;     /* keep it non-interactive */
+  animation: drift 90s linear infinite;
+  /* optional tint so the pattern inherits page hue */
+  mix-blend-mode: overlay;  /* keeps your blue gradient visible */
+}
+
+@keyframes drift {
+  to { background-position: 600px 600px; } /* diagonal scroll */
 }
 
 /*---------------------------------------------------
@@ -47,7 +65,12 @@ body {
   border-radius: 0;
   box-shadow: none;
   text-align: center;
-  padding: 40px;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #start-page h1 {
@@ -57,20 +80,32 @@ body {
 }
 
 .intro-text {
-  border: 30px solid transparent;
-  border-image-source: url('assets/borders/border_02_nobackground.png');
-  border-image-slice: 20;
-  border-image-repeat: stretch;
-  background: #bfcedb;
-  padding: 20px;
-  margin-bottom: 32px;
-  border-radius: 0;
-  text-align: left;
+    border: 30px solid transparent;
+    border-image-source: url('assets/borders/border_02_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
+    background: #bfcedb;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border-radius: 0;
+    text-align: left;
+    width: 90%;
+    max-width: 800px;
+    min-height: 100px;
 }
 
 .intro-text p {
   font-size: 1.1rem;
   color: #003a70;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 #startBtn {
@@ -84,6 +119,7 @@ body {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   text-transform: uppercase;
   box-shadow: 2px 2px 0px #7f7f7f;
+  margin-bottom: 30px;
 }
 
 #startBtn:hover {
@@ -157,18 +193,6 @@ h1 {
 }
 
 /*---------------------------------------------------
-  Signet
----------------------------------------------------*/
-#signet {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 75px;
-  height: 50px;
-  z-index: 100;
-}
-
-/*---------------------------------------------------
   Simulation Page
 ---------------------------------------------------*/
 #simulation-page {
@@ -201,4 +225,44 @@ h1 {
 
 #continueBtn:hover {
   background-color: #406B94;   /* Dark-blue 75% */
+}
+
+/*---------------------------------------------------
+  Dialogue Box
+---------------------------------------------------*/
+#dialogue-box {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 98%;
+    padding: 10px;
+    background-color: var(--dialogue-bg);
+    border: 2px solid #003A70;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 200;
+}
+
+#dialogue-box p {
+    margin: 0;
+    font-size: 1rem;
+    color: #003A70;
+    line-height: 1.4;
+}
+
+#dialogue-box button {
+    margin-top: 5px;
+    background-color: #003A70;
+    color: #FFFFFF;
+    padding: 5px 5px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#dialogue-box button:hover {
+    background-color: #406B94;
 }
