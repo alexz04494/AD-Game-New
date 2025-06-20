@@ -3,6 +3,11 @@
   src: url('assets/fonts/ShareTechMono-Regular.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url("assets/fonts/PressStart2P-Regular.ttf") format('truetype');
+}
+
 /*---------------------------------------------------
   Global resets + font
 ---------------------------------------------------*/
@@ -29,10 +34,10 @@ body::before {
   position: fixed;          /* covers whole viewport */
   inset: 0;
   background: url("assets/overlay/signet-small.png") repeat;
-  background-size: 40px;   /* spacing between instances */
-  opacity: 0.1;            /* subtle! adjust 0.03–0.08 */
+  background-size: 70px;   /* spacing between instances */
+  opacity: 0.08;            /* subtle! adjust 0.03–0.08 */
   pointer-events: none;     /* keep it non-interactive */
-  animation: drift 90s linear infinite;
+  animation: drift 60s linear infinite;
   /* optional tint so the pattern inherits page hue */
   mix-blend-mode: overlay;  /* keeps your blue gradient visible */
 }
@@ -71,60 +76,42 @@ body::before {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-#start-page h1 {
-  color: #FFFFFF;
-  font-size: 2.8rem;
-  margin-bottom: 24px;
+#game-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 9vh;
+    color: white;
+    text-shadow: 4px 4px 0px #003A70;
 }
 
-.intro-text {
-    border: 30px solid transparent;
-    border-image-source: url('assets/borders/border_02_nobackground.png');
-    border-image-slice: 20;
-    border-image-repeat: stretch;
-    background: #bfcedb;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-    border-radius: 0;
-    text-align: left;
-    width: 90%;
-    max-width: 800px;
-    min-height: 100px;
-}
-
-.intro-text p {
-  font-size: 1.1rem;
-  color: #003a70;
-}
-
-.cursor {
-  animation: blink 1s infinite;
+.start-prompt {
+    font-family: 'ShareTechMono', 'Segoe UI', Arial, sans-serif;
+    color: white;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    opacity: 0.8;
+    animation: blink 1.5s infinite;
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-#startBtn {
-  background-color: transparent;
-  color: #FFFFFF;
-  padding: 12px 24px;
-  font-size: 1.2rem;
-  border: 2px solid #FFFFFF;
-  border-radius: 0;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  text-transform: uppercase;
-  box-shadow: 2px 2px 0px #7f7f7f;
-  margin-bottom: 30px;
+#main-game-page {
+    position: fixed;
+    inset: 0;
+    background: url('assets/backgrounds/feedmill.jpg') no-repeat center center/cover;
+    z-index: 10;
 }
 
-#startBtn:hover {
-  background-color: #FFFFFF;
-  color: #003a70;
+#main-game-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 58, 112, 0.25) 0%, rgba(0, 117, 190, 0.25) 100%);
 }
 
 /*---------------------------------------------------
@@ -228,41 +215,82 @@ h1 {
 }
 
 /*---------------------------------------------------
-  Dialogue Box
+  Dialogue Container
 ---------------------------------------------------*/
-#dialogue-box {
-    position: absolute;
-    bottom: 40px;
+#dialogue-container {
+    position: fixed;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 98%;
-    padding: 10px;
-    background-color: var(--dialogue-bg);
-    border: 2px solid #003A70;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 200;
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    z-index: 100;
 }
 
-#dialogue-box p {
-    margin: 0;
-    font-size: 1rem;
-    color: #003A70;
-    line-height: 1.4;
+#character-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
-#dialogue-box button {
-    margin-top: 5px;
-    background-color: #003A70;
-    color: #FFFFFF;
-    padding: 5px 5px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+#character-box {
+    width: 160px;
+    height: 160px;
+    border: 20px solid transparent;
+    border-image-source: url('assets/borders/border_02_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#dialogue-box button:hover {
-    background-color: #406B94;
+#character-box img {
+    max-width: 100%;
+    height: auto;
+}
+
+.character-name {
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    margin-top: 10px;
+    text-shadow: 2px 2px 2px #000;
+    animation: bob 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+#text-box {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    color: #1E1E1E;
+    line-height: 1.5;
+    height: 150px;
+    overflow-y: auto;
+    margin-left: 20px;
+}
+
+/*---------------------------------------------------*/
+.copyright {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 10px;
+    color: white;
+    opacity: 0.5;
 }

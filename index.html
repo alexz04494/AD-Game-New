@@ -7,10 +7,19 @@
 </head>
 <body>
   <div id="start-page">
-    <div class="intro-text">
-      <p id="typewriter-text"><span class="cursor">|</span></p>
+    <h1 id="game-title">AD Tycoon</h1>
+    <p class="start-prompt">Click to Start</p>
+  </div>
+
+  <div id="main-game-page" style="display:none;">    <div id="dialogue-container">
+      <div id="character-container">
+        <div id="character-box">
+          <img src="assets/sprites/director.avif" alt="Character">
+        </div>
+        <div id="text-box">
+        </div>
+      </div>
     </div>
-    <button id="startBtn">Start Game</button>
   </div>
 
   <div id="ui" style="display:none;">
@@ -32,6 +41,10 @@
       <p id="dryer-result"></p>
     </div>
     <button id="continueBtn">Continue</button>
+  </div>
+
+  <div class="copyright">
+    © 2025 ANDRITZ.
   </div>
 
   <audio id="start-sound" src="assets/sounds/game-start-317318.mp3"></audio>

@@ -12,6 +12,7 @@ const moneyDiv = document.getElementById("money");
 const proceedBtn = document.getElementById("proceedBtn");
 const startPage = document.getElementById("start-page");
 const uiDiv = document.getElementById("ui");
+const mainGamePage = document.getElementById("main-game-page");
 const startSound = document.getElementById("start-sound");
 const cancelSound = document.getElementById("cancel-sound");
 const beepSound = document.getElementById("beep-sound");
@@ -21,41 +22,50 @@ const continueBtn = document.getElementById("continueBtn");
 const eventsPage = document.getElementById("events");
 const typingSound = document.getElementById("typing-sound");
 
-// Typewriter effect
-const typewriterText = "You have been entrusted with using this year's budget to buy solutions to help the factory profit. You should use it carefully or you might lose it.";
-const typewriterElement = document.getElementById("typewriter-text");
-let currentIndex = 0;
+const dialogue = [
+  "Welcome to AD Tycoon. As the new director, you will be in charge of this facility.",
+  "Your goal is to make this facility as profitable as possible.",
+  "You can buy upgrades to improve the facility.",
+  "Good luck."
+];
+let dialogueIndex = 0;
+let isTyping = false;
 
-function typeWriter() {
-  if (currentIndex < typewriterText.length) {
-    // Play typing sound for each character (but not on spaces)
-    if (typewriterText[currentIndex] !== ' ') {
-      typingSound.currentTime = 0; // Reset sound to beginning
-      typingSound.play().catch(e => console.log('Audio play failed:', e));    }
-    
-    typewriterElement.innerHTML = typewriterText.substring(0, currentIndex + 1) + '<span class="cursor">|</span>';
-    currentIndex++;
-    setTimeout(typeWriter, 50); // Adjust speed here (50ms between characters)
+const textBox = document.getElementById("text-box");
+
+mainGamePage.addEventListener('click', nextDialogue);
+
+startPage.onclick = () => {
+  startPage.style.display = "none";
+  mainGamePage.style.display = "block";
+  beepSound.play();
+  nextDialogue();
+};
+
+function typeWriter(text, i) {
+  isTyping = true;
+  if (i < text.length) {
+    textBox.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(() => typeWriter(text, i), 50);
   } else {
-    // Show the continue arrow after typing is complete
-    setTimeout(() => {
-      document.getElementById("continue-arrow").style.display = "block";
-    }, 1000);
+    isTyping = false;
   }
 }
 
-// Start the typewriter effect when the page loads
-window.addEventListener('load', () => {
-  setTimeout(typeWriter, 500); // Small delay before starting
-});
+function nextDialogue() {
+  if(isTyping) return;
 
-const startBtn = document.getElementById("startBtn");
-
-startBtn.onclick = () => {
-  startPage.style.display = "none";
-  uiDiv.style.display = "block";
-  startSound.play();
-};
+  if (dialogueIndex < dialogue.length) {
+    textBox.innerHTML = "";
+    typeWriter(dialogue[dialogueIndex], 0);
+    dialogueIndex++;
+  } else {
+    mainGamePage.style.display = "none";
+    uiDiv.style.display = "block";
+    mainGamePage.removeEventListener('click', nextDialogue);
+  }
+}
 
 function updateUI() {
   moneyDiv.textContent = `Money: €${state.money}`;
