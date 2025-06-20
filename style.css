@@ -230,15 +230,18 @@ h1 {
 
 #character-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    height: 100%;
+    height: 160px;
     position: relative;
 }
 
 #character-box {
     width: 160px;
     height: 160px;
+    min-width: 160px;
+    min-height: 160px;
+    flex-shrink: 0;
     border: 20px solid transparent;
     border-image-source: url('assets/borders/border_02_nobackground.png');
     border-image-slice: 20;
@@ -280,9 +283,11 @@ h1 {
     font-size: 1.2rem;
     color: #1E1E1E;
     line-height: 1.5;
-    height: 150px;
+    height: 160px;
+    max-height: 160px;
     overflow-y: auto;
     margin-left: 20px;
+    box-sizing: border-box;
 }
 
 /*---------------------------------------------------*/

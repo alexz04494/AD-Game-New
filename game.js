@@ -23,10 +23,9 @@ const eventsPage = document.getElementById("events");
 const typingSound = document.getElementById("typing-sound");
 
 const dialogue = [
-  "Welcome to AD Tycoon. As the new director, you will be in charge of this facility.",
-  "Your goal is to make this facility as profitable as possible.",
-  "You can buy upgrades to improve the facility.",
-  "Good luck."
+  "Welcome aboard, General Manager. The plant's performance is in your hands now — and so is a discretionary budget of €500000.",
+  "Over the next two years, you'll have multiple chances to invest in upgrades and digital solutions. Each choice you make will shape the factory's future.",
+  "Spend wisely. Your goal is simple: finish the 24-month run with as much money earned as possible. Good luck!"
 ];
 let dialogueIndex = 0;
 let isTyping = false;
@@ -46,8 +45,9 @@ function typeWriter(text, i) {
   isTyping = true;
   if (i < text.length) {
     textBox.innerHTML += text.charAt(i);
+    typingSound.play();
     i++;
-    setTimeout(() => typeWriter(text, i), 50);
+    setTimeout(() => typeWriter(text, i), 30);
   } else {
     isTyping = false;
   }
