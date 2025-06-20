@@ -1,0 +1,204 @@
+@font-face {
+  font-family: 'ShareTechMono';
+  src: url('assets/fonts/ShareTechMono-Regular.ttf') format('truetype');
+}
+
+/*---------------------------------------------------
+  Global resets + font
+---------------------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'ShareTechMono', 'Segoe UI', Arial, sans-serif;
+  line-height: 1.5;
+  /* Gradient from Dark Blue → Base Blue */
+  background: linear-gradient(135deg, rgba(0, 58, 112, 0.8) 0%, rgba(0, 117, 190, 0.8) 100%), url('assets/backgrounds/Stripes\ medium\ 2.png');
+  min-height: 100vh;
+  color: #1E1E1E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*---------------------------------------------------
+  App container
+---------------------------------------------------*/
+#ui,
+#events,
+#start-page,
+#simulation-page {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 640px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/*---------------------------------------------------
+  Start Page
+---------------------------------------------------*/
+#start-page {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: center;
+  padding: 40px;
+}
+
+#start-page h1 {
+  color: #FFFFFF;
+  font-size: 2.8rem;
+  margin-bottom: 24px;
+}
+
+.intro-text {
+  border: 30px solid transparent;
+  border-image-source: url('assets/borders/border_02_nobackground.png');
+  border-image-slice: 20;
+  border-image-repeat: stretch;
+  background: #bfcedb;
+  padding: 20px;
+  margin-bottom: 32px;
+  border-radius: 0;
+  text-align: left;
+}
+
+.intro-text p {
+  font-size: 1.1rem;
+  color: #003a70;
+}
+
+#startBtn {
+  background-color: transparent;
+  color: #FFFFFF;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  border: 2px solid #FFFFFF;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0px #7f7f7f;
+}
+
+#startBtn:hover {
+  background-color: #FFFFFF;
+  color: #003a70;
+}
+
+/*---------------------------------------------------
+  Header & Money display
+---------------------------------------------------*/
+h1 {
+  font-size: 2rem;
+  color: #003A70;
+  margin-bottom: 12px;
+}
+#money {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/*---------------------------------------------------
+  Shop buttons
+---------------------------------------------------*/
+#shop button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 8px 0;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #4098CE;   /* ANDRITZ blue 75% */
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+#shop button:hover:not(:disabled) {
+  background-color: #7FBADE;   /* ANDRITZ blue 50% */
+}
+#shop button:disabled {
+  background-color: #BFDCEF;   /* ANDRITZ blue 25% */
+  cursor: not-allowed;
+}
+
+/*---------------------------------------------------
+  Proceed button
+---------------------------------------------------*/
+#proceedBtn {
+  margin-top: 24px;
+  background-color: #003A70;   /* ANDRITZ dark blue */
+  color: #FFFFFF;
+}
+#proceedBtn:hover {
+  background-color: #406B94;   /* Dark-blue 75% */
+}
+
+/*---------------------------------------------------
+  Event screen
+---------------------------------------------------*/
+#events h2 {
+  font-size: 1.75rem;
+  color: #003A70;
+  margin-bottom: 16px;
+}
+#events p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/*---------------------------------------------------
+  Signet
+---------------------------------------------------*/
+#signet {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 75px;
+  height: 50px;
+  z-index: 100;
+}
+
+/*---------------------------------------------------
+  Simulation Page
+---------------------------------------------------*/
+#simulation-page {
+  text-align: center;
+}
+
+.scenario-text {
+  border: 2px solid #003A70;
+  padding: 20px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  background: #f0f8ff;
+  text-align: left;
+}
+
+.scenario-text p {
+  font-size: 1.1rem;
+}
+
+#continueBtn {
+  background-color: #003A70;   /* ANDRITZ dark blue */
+  color: #FFFFFF;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#continueBtn:hover {
+  background-color: #406B94;   /* Dark-blue 75% */
+}
