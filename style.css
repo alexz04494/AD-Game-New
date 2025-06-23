@@ -306,7 +306,7 @@ h1 {
 /*---------------------------------------------------
   Money Bar
 ---------------------------------------------------*/
-#money-bar {
+#money-bar, #money-bar-tasks {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -522,7 +522,7 @@ h1 {
     animation: bob 3s ease-in-out infinite;
 }
 
-#month-counter {
+#month-counter, #month-counter-tasks {
     position: fixed;
     top: 20px;
     left: 20px;
@@ -623,11 +623,11 @@ h1 {
 
 .task-list-title {
     font-family: 'Press Start 2P', cursive;
-    font-size: 2rem;
-    color: white;
-    text-shadow: 2px 2px 0px #000;
+    font-size: 1rem;
+    color:black;
+    text-shadow: none;
     position: absolute;
-    top: 100px;
+    top: 50px;
     width: 100%;
     text-align: center;
     z-index: 21;
@@ -640,4 +640,5 @@ h1 {
     margin: 20px 0;
     position: relative;
     z-index: 21;
+    transform: translateY(150px);
 }

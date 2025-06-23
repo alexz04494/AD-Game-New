@@ -49,6 +49,8 @@ const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
 const taskListPage = document.getElementById('task-list-page');
 const taskListCard = document.getElementById('task-list-card');
+const moneyBarTasks = document.getElementById('money-bar-tasks');
+const monthCounterTasks = document.getElementById('month-counter-tasks');
 
 const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
 const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
@@ -56,8 +58,8 @@ if (catalogueTextBox) catalogueTextBox.textContent = '';
 
 const dialogue = [
   "Welcome aboard, General Manager. The plant's performance is in your hands now — and so is a discretionary budget of €500000.",
-  "Over the next two years, you'll have multiple chances to invest in upgrades and digital solutions. Each choice you make will shape the factory's future.",
-  "Spend wisely. Your goal is simple: finish the 24-month run with as much money earned as possible. Good luck!"
+  "Over the next year, you'll have multiple chances to invest in upgrades and digital solutions. Each choice you make will shape the factory's future.",
+  "Spend wisely. Your goal is simple: finish the 12-month run with as much money earned as possible. Good luck!"
 ];
 let dialogueIndex = 0;
 let isTyping = false;
@@ -134,8 +136,14 @@ function nextDialogue() {
   }
 }
 
+function updateMoneyBars() {
+  const moneyText = `€${state.money}`;
+  moneyBar.textContent = moneyText;
+  moneyBarTasks.textContent = moneyText;
+}
+
 function updateUI() {
-  moneyBar.textContent = `€${state.money}`;
+  updateMoneyBars();
 
   // Clear shop and create single card
   shopDiv.innerHTML = "";
@@ -229,6 +237,8 @@ function updateUI() {
 }
 
 function renderTaskListCard() {
+  updateMoneyBars();
+  monthCounterTasks.textContent = "MONTH: 1/12";
   taskListCard.innerHTML = ''; // Clear previous content
   const card = document.createElement('div');
   card.className = 'shop-card';
