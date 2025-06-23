@@ -230,11 +230,20 @@ function updateUI() {
 
 function renderTaskListCard() {
   taskListCard.innerHTML = ''; // Clear previous content
-  const signet = document.createElement("img");
-  signet.className = "card-signet-large";
-  signet.src = "assets/icons/signet.png";
-  signet.alt = "ANDRITZ";
-  taskListCard.appendChild(signet);
+  const card = document.createElement('div');
+  card.className = 'shop-card';
+
+  const signet = document.createElement('img');
+  signet.className = 'card-signet';
+  signet.src = 'assets/icons/signet.png';
+  signet.alt = 'ANDRITZ';
+  card.appendChild(signet);
+
+  const title = document.createElement('h3');
+  title.textContent = 'Task List';
+  card.appendChild(title);
+
+  taskListCard.appendChild(card);
 }
 
 continueBtn.onclick = () => {
