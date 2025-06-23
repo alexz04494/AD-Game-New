@@ -283,25 +283,45 @@ function renderTaskListCard() {
   });
 
   card.appendChild(list);
-
   const finishBtn = document.createElement('button');
   finishBtn.className = 'finish-month-btn';
-  finishBtn.textContent = 'Finish Month';
+  finishBtn.textContent = 'Proceed';
+  finishBtn.disabled = true; // Start as disabled
   card.appendChild(finishBtn);
 
   taskListCard.appendChild(card);
   typeWriterTask(taskDialogue, 0);
 
   const pencilSound = document.getElementById('pencil-check-sound');
-  list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+  const allCheckboxes = list.querySelectorAll('input[type="checkbox"]');
+  
+  // Function to check if all tasks are completed
+  function checkAllTasksCompleted() {
+    const completedTasks = list.querySelectorAll('input[type="checkbox"]:checked').length;
+    const totalTasks = allCheckboxes.length;
+    
+    if (completedTasks === totalTasks) {
+      finishBtn.disabled = false;
+      finishBtn.classList.add('enabled');
+    } else {
+      finishBtn.disabled = true;
+      finishBtn.classList.remove('enabled');
+    }
+  }
+  
+  allCheckboxes.forEach(cb => {
     cb.addEventListener('change', () => {
       if (cb.checked) {
         pencilSound.currentTime = 0;
         pencilSound.play();
         cb.disabled = true;
       }
+      checkAllTasksCompleted();
     });
   });
+  
+  // Initial check
+  checkAllTasksCompleted();
 }
 
 continueBtn.onclick = () => {

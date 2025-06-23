@@ -376,24 +376,43 @@ h1 {
 
 /* Finish month button on task pane */
 .finish-month-btn {
-    background-color: #0075be;
+    background-color: #6c757d; /* Grey by default (disabled) */
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 6px;
     font-family: 'Press Start 2P', cursive;
     font-size: 0.7rem;
-    cursor: pointer;
+    cursor: not-allowed; /* Not clickable by default */
     transition: background-color 0.2s ease;
     position: absolute;
     bottom: 15px; /* Position from bottom edge of card */
     left: 30px;
     right: 30px;
     width: calc(100% - 60px); /* Account for left/right positioning */
+    text-align: center;
 }
 
-.finish-month-btn:hover {
+.finish-month-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.finish-month-btn.enabled {
+    background-color: #0075be;
+    cursor: pointer;
+    opacity: 1;
+    animation: flash 2s infinite;
+}
+
+.finish-month-btn.enabled:hover {
     background-color: #005a8b;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .shop-card h3 {
@@ -752,13 +771,13 @@ h1 {
     margin-bottom: 50px; /* reduced space for finish button */
     text-align: left;
     font-family: 'ShareTechMono', monospace;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
 
 .task-checkbox {
     display: flex;
     align-items: center;
-    margin: 8px 0;
+    margin: 16px 0;
     width: 100%;
 }
 
@@ -774,7 +793,7 @@ h1 {
     height: 20px;
     border: 2px solid #003A70;
     border-radius: 0;
-    margin-right: 10px;
+    margin-right: 25px;
     flex-shrink: 0;
     cursor: pointer;
     position: relative;
