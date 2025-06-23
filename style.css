@@ -341,7 +341,6 @@ h1 {
     border: 8px solid #000000;
     border-radius: 12px;
     padding: 30px;
-    padding-bottom: 100px; /* Extra space for arrow and counter */
     text-align: center;
     position: relative;
     display: flex;
@@ -379,17 +378,18 @@ h1 {
 .finish-month-btn {
     background-color: #0075be;
     color: white;
-    padding: 12px 24px;
+    padding: 10px 15px;
     border: none;
     border-radius: 6px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 15px; /* Position from bottom edge of card */
+    left: 30px;
+    right: 30px;
+    width: calc(100% - 60px); /* Account for left/right positioning */
 }
 
 .finish-month-btn:hover {
@@ -664,6 +664,10 @@ h1 {
     transform: translateY(150px);
 }
 
+#task-list-card .shop-card {
+    padding-bottom: 50px;
+}
+
 /* Task list dialogue styling */
 #task-dialogue-container {
     position: fixed;
@@ -739,17 +743,17 @@ h1 {
     margin-top: 20px;
     width: 100%;
     flex-grow: 1;
-    justify-content: space-around;
-    margin-bottom: 60px; /* space for finish button */
+    justify-content: flex-start;
+    margin-bottom: 50px; /* reduced space for finish button */
+    text-align: left;
+    font-family: 'ShareTechMono', monospace;
+    font-size: 0.9rem;
 }
 
 .task-checkbox {
     display: flex;
     align-items: center;
-    margin: 10px 0;
-    font-family: "Press Start 2P", cursive;
-    font-size: 0.8rem; /* smaller font for tasks */
-    color: #000;
+    margin: 8px 0;
     width: 100%;
 }
 
@@ -758,15 +762,26 @@ h1 {
 }
 
 .task-checkbox input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
+    border: 2px solid #003A70;
+    border-radius: 0;
     margin-right: 10px;
-    border: 2px solid #000;
-    border-radius: 0; /* rectangular shape */
+    flex-shrink: 0;
     cursor: pointer;
+    position: relative;
 }
 
-.task-checkbox input[type="checkbox"]:checked {
-    background: url("assets/icons/checkmark.png") center/contain no-repeat;
+.task-checkbox input[type="checkbox"]:checked::before {
+    content: 'X';
+    font-size: 18px;
+    color: #003A70;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
 }
