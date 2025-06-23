@@ -56,6 +56,10 @@ const catalogueTextBox = document.querySelector('#catalogue-text-box .text-conte
 const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
 if (catalogueTextBox) catalogueTextBox.textContent = '';
 
+const taskTextBox = document.querySelector('#task-text-box .text-content');
+const taskDialogue = taskTextBox ? taskTextBox.textContent : '';
+if (taskTextBox) taskTextBox.textContent = '';
+
 const dialogue = [
   "Welcome aboard, General Manager. The plant's performance is in your hands now — and so is a discretionary budget of €500000.",
   "Over the next year, you'll have multiple chances to invest in upgrades and digital solutions. Each choice you make will shape the factory's future.",
@@ -109,6 +113,15 @@ function typeWriterCatalogue(text, i) {
     catalogueTextBox.textContent += text.charAt(i);
     typingSound.play();
     setTimeout(() => typeWriterCatalogue(text, i + 1), 30);
+  }
+}
+
+function typeWriterTask(text, i) {
+  if (!taskTextBox) return;
+  if (i < text.length) {
+    taskTextBox.textContent += text.charAt(i);
+    typingSound.play();
+    setTimeout(() => typeWriterTask(text, i + 1), 30);
   }
 }
 
@@ -254,6 +267,7 @@ function renderTaskListCard() {
   card.appendChild(title);
 
   taskListCard.appendChild(card);
+  typeWriterTask(taskDialogue, 0);
 }
 
 continueBtn.onclick = () => {

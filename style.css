@@ -642,3 +642,71 @@ h1 {
     z-index: 21;
     transform: translateY(150px);
 }
+
+/* Task list dialogue styling */
+#task-dialogue-container {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    z-index: 100;
+}
+
+#task-character-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    height: 160px;
+    position: relative;
+}
+
+#task-character-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+#task-character-box {
+    width: 160px;
+    height: 160px;
+    min-width: 160px;
+    min-height: 160px;
+    flex-shrink: 0;
+    border: 20px solid transparent;
+    border-image-source: url('assets/borders/border_02_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#task-character-box img {
+    max-width: 120%;
+    height: auto;
+}
+
+#task-text-box {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.8);
+    border: 20px solid transparent;
+    border-image-source: url('assets/borders/border_05_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
+    border-radius: 0;
+    padding: 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.1rem;
+    color: #1E1E1E;
+    line-height: 1.5;
+    height: 160px;
+    max-height: 160px;
+    overflow-y: auto;
+    margin-left: 20px;
+    box-sizing: border-box;
+}
