@@ -375,6 +375,27 @@ h1 {
     background-color: #005a8b;
 }
 
+/* Finish month button on task pane */
+.finish-month-btn {
+    background-color: #0075be;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.finish-month-btn:hover {
+    background-color: #005a8b;
+}
+
 .shop-card h3 {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.9rem;
@@ -719,6 +740,7 @@ h1 {
     width: 100%;
     flex-grow: 1;
     justify-content: space-around;
+    margin-bottom: 60px; /* space for finish button */
 }
 
 .task-checkbox {
@@ -726,7 +748,7 @@ h1 {
     align-items: center;
     margin: 10px 0;
     font-family: "Press Start 2P", cursive;
-    font-size: 1rem;
+    font-size: 0.8rem; /* smaller font for tasks */
     color: #000;
     width: 100%;
 }
@@ -737,10 +759,11 @@ h1 {
 
 .task-checkbox input[type="checkbox"] {
     appearance: none;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
     border: 2px solid #000;
+    border-radius: 0; /* rectangular shape */
     cursor: pointer;
 }
 

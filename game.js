@@ -283,6 +283,12 @@ function renderTaskListCard() {
   });
 
   card.appendChild(list);
+
+  const finishBtn = document.createElement('button');
+  finishBtn.className = 'finish-month-btn';
+  finishBtn.textContent = 'Finish Month';
+  card.appendChild(finishBtn);
+
   taskListCard.appendChild(card);
   typeWriterTask(taskDialogue, 0);
 
