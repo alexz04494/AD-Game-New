@@ -75,7 +75,7 @@ const dialogue = [
 
 const incidentDialogue = [
   { name: 'Director', sprite: 'director.avif', text: 'How could this have happened?' },
-  { name: 'Operator', sprite: 'operator.webp', text: 'Sorry boss, I messed up...' },
+  { name: 'Operator', sprite: 'operator.webp', text: 'Sorry boss... I don\'t know how it happened' },
   { name: 'Director', sprite: 'director.avif', text: "We can't afford these kind of mistakes.. Maybe someone should’ve invested in proper training tools before this happened." }
 ];
 
@@ -90,7 +90,12 @@ function nextIncidentDialogue() {
     return;
   }
   const entry = incidentDialogue[incidentIndex];
-  taskTextBox.textContent = '';
+  
+  // Ensure text is completely cleared before starting new text
+  if (taskTextBox) {
+    taskTextBox.textContent = '';
+  }
+  
   setIncidentSpeaker(entry);
   typeWriterTask(entry.text, 0);
   incidentIndex++;
@@ -148,9 +153,19 @@ function typeWriterCatalogue(text, i) {
 
 function typeWriterTask(text, i) {
   if (!taskTextBox) return;
+  
+  // If starting fresh, clear the text first
+  if (i === 0) {
+    taskTextBox.textContent = '';
+  }
+  
   if (i < text.length) {
     taskTextBox.textContent += text.charAt(i);
-    typingSound.play();
+    // Play sound only occasionally to avoid conflicts
+    if (i % 2 === 0) {
+      typingSound.currentTime = 0;
+      typingSound.play();
+    }
     setTimeout(() => typeWriterTask(text, i + 1), 30);
   }
 }

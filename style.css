@@ -736,8 +736,9 @@ h1 {
 }
 
 #task-character-box img {
-    max-width: 120%;
+    max-width: 80%;
     height: auto;
+    object-fit: contain;
 }
 
 #task-text-box {
