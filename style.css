@@ -386,7 +386,7 @@ h1 {
     cursor: pointer;
     transition: background-color 0.2s ease;
     position: absolute;
-    bottom: 5px; /* closer to the bottom edge of the card */
+    bottom: 15px; /* Position from bottom edge of card */
     left: 30px;
     right: 30px;
     width: calc(100% - 60px); /* Account for left/right positioning */
