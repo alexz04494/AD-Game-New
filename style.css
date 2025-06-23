@@ -231,10 +231,7 @@ h1 {
     min-width: 160px;
     min-height: 160px;
     flex-shrink: 0;
-    border: 20px solid transparent;
-    border-image-source: url('assets/borders/border_02_nobackground.png');
-    border-image-slice: 20;
-    border-image-repeat: stretch;
+    border: 8px solid #000;
     background: white;
     display: flex;
     align-items: center;
@@ -268,10 +265,7 @@ h1 {
 #text-box {
     flex-grow: 1;
     background: rgba(255, 255, 255, 0.8);
-    border: 20px solid transparent;
-    border-image-source: url('assets/borders/border_05_nobackground.png');
-    border-image-slice: 20;
-    border-image-repeat: stretch;
+    border: 8px solid #000;
     border-radius: 0;    padding: 20px;
     font-family: 'Press Start 2P', cursive;
     font-size: 1.1rem;
@@ -517,10 +511,7 @@ h1 {
     min-width: 160px;
     min-height: 160px;
     flex-shrink: 0;
-    border: 20px solid transparent;
-    border-image-source: url('assets/borders/border_02_nobackground.png');
-    border-image-slice: 20;
-    border-image-repeat: stretch;
+    border: 8px solid #000;
     background: white;
     display: flex;
     align-items: center;
@@ -535,10 +526,7 @@ h1 {
 #catalogue-text-box {
     flex-grow: 1;
     background: rgba(255, 255, 255, 0.8);
-    border: 20px solid transparent;
-    border-image-source: url('assets/borders/border_05_nobackground.png');
-    border-image-slice: 20;
-    border-image-repeat: stretch;
+    border: 8px solid #000;
     border-radius: 0;
     padding: 20px;
     font-family: 'Press Start 2P', cursive;
