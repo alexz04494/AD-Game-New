@@ -1,15 +1,31 @@
 const state = {
-  money: 250000,
+  money: 500000,
   upgrades: {
-    dryer: { name: "Dryer ACE", price: 100000, active: false },
-    vibe: { name: "Vibe System", price: 75000, active: false },
-    ots: { name: "Operator Training Sim", price: 50000, active: false }
+    dryer: { 
+      name: "Dryer ACE", 
+      price: 100000, 
+      active: false,
+      description: "Advanced moisture control system that reduces pellet variability and improves product quality."
+    },
+    vibe: { 
+      name: "Vibe System", 
+      price: 75000, 
+      active: false,
+      description: "Vibration monitoring system that detects equipment issues before they cause downtime."
+    },
+    ots: { 
+      name: "Operator Training Sim", 
+      price: 50000, 
+      active: false,
+      description: "Virtual reality training system that improves operator skills and reduces human error."    }
   }
 };
 
+let currentShopItem = 0;
+const shopItems = Object.keys(state.upgrades);
+
 const shopDiv = document.getElementById("shop");
-const moneyDiv = document.getElementById("money");
-const proceedBtn = document.getElementById("proceedBtn");
+const moneyBar = document.getElementById("money-bar");
 const startPage = document.getElementById("start-page");
 const uiDiv = document.getElementById("ui");
 const mainGamePage = document.getElementById("main-game-page");
@@ -21,6 +37,8 @@ const dryerResult = document.getElementById("dryer-result");
 const continueBtn = document.getElementById("continueBtn");
 const eventsPage = document.getElementById("events");
 const typingSound = document.getElementById("typing-sound");
+const pageTurnSound = document.getElementById("page-turn-sound");
+const cashRegisterSound = document.getElementById("cash-register-sound");
 
 const dialogue = [
   "Welcome aboard, General Manager. The plant's performance is in your hands now — and so is a discretionary budget of €500000.",
@@ -29,36 +47,56 @@ const dialogue = [
 ];
 let dialogueIndex = 0;
 let isTyping = false;
+let currentText = "";
+let skipTyping = false;
 
 const textBox = document.getElementById("text-box");
+const continueIndicator = document.getElementById("continue-indicator");
 
 mainGamePage.addEventListener('click', nextDialogue);
 
 startPage.onclick = () => {
   startPage.style.display = "none";
   mainGamePage.style.display = "block";
+  beepSound.currentTime = 0;
   beepSound.play();
   nextDialogue();
 };
 
 function typeWriter(text, i) {
   isTyping = true;
+  continueIndicator.style.opacity = '0';
+  
+  if (skipTyping) {
+    textBox.firstChild.textContent = text;
+    isTyping = false;
+    skipTyping = false;
+    continueIndicator.style.opacity = '1';
+    return;
+  }
   if (i < text.length) {
-    textBox.innerHTML += text.charAt(i);
+    textBox.firstChild.textContent += text.charAt(i);
     typingSound.play();
     i++;
     setTimeout(() => typeWriter(text, i), 30);
   } else {
     isTyping = false;
+    continueIndicator.style.opacity = '1';
   }
 }
 
 function nextDialogue() {
-  if(isTyping) return;
+  if (isTyping) {
+    // If currently typing, skip to the end of current text
+    skipTyping = true;
+    return;
+  }
 
   if (dialogueIndex < dialogue.length) {
-    textBox.innerHTML = "";
-    typeWriter(dialogue[dialogueIndex], 0);
+    continueIndicator.style.opacity = '0';
+    textBox.innerHTML = '<div class="text-content"></div><div class="continue-indicator" id="continue-indicator"></div>';
+    currentText = dialogue[dialogueIndex];
+    typeWriter(currentText, 0);
     dialogueIndex++;
   } else {
     mainGamePage.style.display = "none";
@@ -68,44 +106,81 @@ function nextDialogue() {
 }
 
 function updateUI() {
-  moneyDiv.textContent = `Money: €${state.money}`;
+  moneyBar.textContent = `€${state.money}`;
+
+  // Clear shop and create single card
   shopDiv.innerHTML = "";
 
-  for (const key in state.upgrades) {
-    const item = state.upgrades[key];
-    const btn = document.createElement("button");
+  const itemKey = shopItems[currentShopItem];
+  const item = state.upgrades[itemKey];
+  // Create card container
+  const card = document.createElement("div");
+  card.className = "shop-card";
 
-    btn.textContent = item.active
-      ? `Cancel ${item.name} (+€${item.price})`
-      : `Buy ${item.name} (€${item.price})`;
+  // Add signet to top left corner
+  const signet = document.createElement("img");
+  signet.className = "card-signet";
+  signet.src = "assets/icons/signet.png";
+  signet.alt = "ANDRITZ";
+  card.appendChild(signet);
 
-    btn.disabled = !item.active && state.money < item.price;
+  // Add title
+  const title = document.createElement("h3");
+  title.textContent = item.name;
+  card.appendChild(title);
 
-    btn.onclick = () => {
-      if (item.active) {
-        cancelSound.play();
-      } else {
-        beepSound.play();
-      }
-      item.active = !item.active;
-      state.money += item.active ? -item.price : item.price;
-      updateUI();
-    };
+  // Add price
+  const price = document.createElement("div");
+  price.className = "price";
+  price.textContent = `€${item.price}`;
+  card.appendChild(price);
 
-    shopDiv.appendChild(btn);
-  }
+  // Add description
+  const description = document.createElement("div");
+  description.className = "description";
+  description.textContent = item.description;
+  card.appendChild(description);
+
+  // Add button
+  const btn = document.createElement("button");
+  btn.className = item.active ? "cancel-btn" : "buy-btn";
+  btn.textContent = item.active ? `CANCEL (+€${item.price})` : `BUY`;
+  btn.disabled = !item.active && state.money < item.price;
+  btn.onclick = () => {
+    if (item.active) {
+      cancelSound.currentTime = 0;
+      cancelSound.play();
+    } else {
+      cashRegisterSound.currentTime = 0;
+      cashRegisterSound.play();
+    }
+    item.active = !item.active;
+    state.money += item.active ? -item.price : item.price;
+    updateUI();};
+
+  card.appendChild(btn);
+
+  // Add navigation arrow (positioned absolutely)
+  const arrow = document.createElement("img");
+  arrow.className = "nav-arrow";
+  arrow.src = "assets/icons/1-next_back_arrow_game_application_mobile_up_down_left_right-256.webp";
+  arrow.alt = "Next";
+  arrow.onclick = () => {
+    pageTurnSound.currentTime = 0;
+    pageTurnSound.play();
+    currentShopItem = (currentShopItem + 1) % shopItems.length;
+    updateUI();
+  };
+  card.appendChild(arrow);
+
+  // Add item counter (positioned absolutely)
+  const counter = document.createElement("div");
+  counter.className = "item-counter";
+  counter.textContent = `${currentShopItem + 1}/${shopItems.length}`;
+  card.appendChild(counter);
+
+  shopDiv.appendChild(card);
 }
-
-proceedBtn.onclick = () => {
-  uiDiv.style.display = "none";
-  simulationPage.style.display = "block";
-
-  if (state.upgrades.dryer.active) {
-    dryerResult.textContent = "Dryer Ace has greatly reduced variability. 50k has been saved in costs!";
-  } else {
-    dryerResult.textContent = "The PID could not handle it. 50k lost.";
-  }
-};
 
 continueBtn.onclick = () => {
   simulationPage.style.display = "none";
