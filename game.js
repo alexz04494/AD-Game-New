@@ -48,6 +48,8 @@ const pageTurnSound = document.getElementById("page-turn-sound");
 const cashRegisterSound = document.getElementById("cash-register-sound");
 const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
+const fireballSound = document.getElementById("fireball-sound");
+const incidentMusic = document.getElementById("incident-music");
 const taskListPage = document.getElementById('task-list-page');
 const taskListCard = document.getElementById('task-list-card');
 const moneyBarTasks = document.getElementById('money-bar-tasks');
@@ -151,14 +153,18 @@ function typeWriterCatalogue(text, i) {
   }
 }
 
+let taskTypingTimeout = null;
+
 function typeWriterTask(text, i) {
   if (!taskTextBox) return;
-  
-  // If starting fresh, clear the text first
+
   if (i === 0) {
+    if (taskTypingTimeout) {
+      clearTimeout(taskTypingTimeout);
+    }
     taskTextBox.textContent = '';
   }
-  
+
   if (i < text.length) {
     taskTextBox.textContent += text.charAt(i);
     // Play sound only occasionally to avoid conflicts
@@ -166,7 +172,9 @@ function typeWriterTask(text, i) {
       typingSound.currentTime = 0;
       typingSound.play();
     }
-    setTimeout(() => typeWriterTask(text, i + 1), 30);
+    taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1), 30);
+  } else {
+    taskTypingTimeout = null;
   }
 }
 
@@ -370,6 +378,11 @@ function renderTaskListCard() {
   finishBtn.addEventListener('click', () => {
     if (!state.upgrades.ots.active && !incidentTriggered) {
       incidentTriggered = true;
+      fireballSound.currentTime = 0;
+      fireballSound.play();
+      mainThemeMusic.pause();
+      incidentMusic.volume = 0.2;
+      incidentMusic.play();
       renderIncidentCard();
     }
   });
