@@ -350,6 +350,30 @@ h1 {
     transform: translateY(-60px);
 }
 
+.finish-selection-container {
+    text-align: center;
+    margin-top: -60px;
+    position: relative;
+    z-index: 100;
+}
+
+.finish-selection-btn {
+    background-color: #0075be;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin: auto;
+}
+
+.finish-selection-btn:hover {
+    background-color: #005a8b;
+}
+
 .shop-card h3 {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.9rem;
@@ -462,6 +486,19 @@ h1 {
     filter: brightness(0) saturate(100%) invert(12%) sepia(100%) saturate(3684%) hue-rotate(211deg) brightness(89%) contrast(101%);
 }
 
+.card-signet-large {
+    width: 150px;
+    height: 150px;
+    opacity: 0.7;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(12%) sepia(100%) saturate(3684%) hue-rotate(211deg) brightness(89%) contrast(101%);
+    margin: auto;
+}
+
+.finish-card {
+    justify-content: center;
+}
+
 /*---------------------------------------------------*/
 .copyright {
     position: fixed;
@@ -482,6 +519,17 @@ h1 {
     z-index: 1000;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
     animation: bob 3s ease-in-out infinite;
+}
+
+#month-counter {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    z-index: 1000;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
 }
 
 /* Catalogue dialogue styling */
@@ -550,4 +598,36 @@ h1 {
     overflow-y: auto;
     margin-left: 20px;
     box-sizing: border-box;
+}
+
+/*---------------------------------------------------
+  Task List Page
+---------------------------------------------------*/
+#task-list-page {
+    position: fixed;
+    inset: 0;
+    background: url('assets/backgrounds/feedmill.jpg') no-repeat center center/cover;
+    z-index: 20;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#task-list-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.task-list-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2rem;
+    color: white;
+    text-shadow: 2px 2px 0px #000;
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    text-align: center;
+    z-index: 21;
 }

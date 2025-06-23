@@ -3,21 +3,27 @@ const state = {
   upgrades: {
     dryer: { 
       name: "Dryer ACE", 
-      price: 100000, 
+      price: 250000, 
       active: false,
-      description: "Advanced moisture control system that reduces pellet variability and improves product quality."
+      description: "Advanced control expert that reduces pellet moisture variability and improves product quality."
     },
     vibe: { 
       name: "Vibe System", 
-      price: 75000, 
+      price: 150000, 
       active: false,
       description: "Vibration monitoring system that detects equipment issues before they cause downtime."
     },
     ots: { 
       name: "Operator Training Sim", 
-      price: 50000, 
+      price: 150000, 
       active: false,
-      description: "Virtual reality training system that improves operator skills and reduces human error."    }
+      description: "Digital twin based training system that facilitates operator training and reduces human error."    },
+    finish: {
+      name: "",
+      price: 0,
+      active: false,
+      description: ""
+    }
   }
 };
 
@@ -39,6 +45,10 @@ const eventsPage = document.getElementById("events");
 const typingSound = document.getElementById("typing-sound");
 const pageTurnSound = document.getElementById("page-turn-sound");
 const cashRegisterSound = document.getElementById("cash-register-sound");
+const catalogueMusic = document.getElementById("catalogue-music");
+const mainThemeMusic = document.getElementById("main-theme-music");
+const taskListPage = document.getElementById('task-list-page');
+const taskListCard = document.getElementById('task-list-card');
 
 const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
 const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
@@ -64,6 +74,8 @@ startPage.onclick = () => {
   mainGamePage.style.display = "block";
   beepSound.currentTime = 0;
   beepSound.play();
+  mainThemeMusic.volume = 0.2;
+  mainThemeMusic.play();
   nextDialogue();
 };
 
@@ -93,7 +105,6 @@ function typeWriterCatalogue(text, i) {
   if (!catalogueTextBox) return;
   if (i < text.length) {
     catalogueTextBox.textContent += text.charAt(i);
-    typingSound.currentTime = 0;
     typingSound.play();
     setTimeout(() => typeWriterCatalogue(text, i + 1), 30);
   }
@@ -117,6 +128,9 @@ function nextDialogue() {
     uiDiv.style.display = "block";
     mainGamePage.removeEventListener('click', nextDialogue);
     typeWriterCatalogue(catalogueDialogue, 0);
+    mainThemeMusic.pause();
+    catalogueMusic.volume = 0.1; // Set volume 
+    catalogueMusic.play();
   }
 }
 
@@ -139,41 +153,58 @@ function updateUI() {
   signet.alt = "ANDRITZ";
   card.appendChild(signet);
 
-  // Add title
-  const title = document.createElement("h3");
-  title.textContent = item.name;
-  card.appendChild(title);
+  if (item.name) {
+    // Add title
+    const title = document.createElement("h3");
+    title.textContent = item.name;
+    card.appendChild(title);
 
-  // Add price
-  const price = document.createElement("div");
-  price.className = "price";
-  price.textContent = `€${item.price}`;
-  card.appendChild(price);
+    // Add price
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = `€${item.price}`;
+    card.appendChild(price);
 
-  // Add description
-  const description = document.createElement("div");
-  description.className = "description";
-  description.textContent = item.description;
-  card.appendChild(description);
+    // Add description
+    const description = document.createElement("div");
+    description.className = "description";
+    description.textContent = item.description;
+    card.appendChild(description);
 
-  // Add button
-  const btn = document.createElement("button");
-  btn.className = item.active ? "cancel-btn" : "buy-btn";
-  btn.textContent = item.active ? `CANCEL (+€${item.price})` : `BUY`;
-  btn.disabled = !item.active && state.money < item.price;
-  btn.onclick = () => {
-    if (item.active) {
-      cancelSound.currentTime = 0;
-      cancelSound.play();
-    } else {
-      cashRegisterSound.currentTime = 0;
-      cashRegisterSound.play();
-    }
-    item.active = !item.active;
-    state.money += item.active ? -item.price : item.price;
-    updateUI();};
+    // Add button
+    const btn = document.createElement("button");
+    btn.className = item.active ? "cancel-btn" : "buy-btn";
+    btn.textContent = item.active ? `CANCEL (+€${item.price})` : `BUY`;
+    btn.disabled = !item.active && state.money < item.price;
+    btn.onclick = () => {
+      if (item.active) {
+        cancelSound.currentTime = 0;
+        cancelSound.play();
+      } else {
+        cashRegisterSound.currentTime = 0;
+        cashRegisterSound.play();
+      }
+      item.active = !item.active;
+      state.money += item.active ? -item.price : item.price;
+      updateUI();};
 
-  card.appendChild(btn);
+    card.appendChild(btn);
+  } else {
+    signet.className = 'card-signet-large';
+    card.classList.add('finish-card');
+    // Add finish button
+    const btn = document.createElement("button");
+    btn.className = "finish-selection-btn";
+    btn.textContent = "Finish Selection";
+    btn.onclick = () => {
+      uiDiv.style.display = 'none';
+      taskListPage.style.display = 'block';
+      catalogueMusic.pause();
+      mainThemeMusic.play();
+      renderTaskListCard();
+    };
+    card.appendChild(btn);
+  }
 
   // Add navigation arrow (positioned absolutely)
   const arrow = document.createElement("img");
@@ -195,6 +226,15 @@ function updateUI() {
   card.appendChild(counter);
 
   shopDiv.appendChild(card);
+}
+
+function renderTaskListCard() {
+  taskListCard.innerHTML = ''; // Clear previous content
+  const signet = document.createElement("img");
+  signet.className = "card-signet-large";
+  signet.src = "assets/icons/signet.png";
+  signet.alt = "ANDRITZ";
+  taskListCard.appendChild(signet);
 }
 
 continueBtn.onclick = () => {
