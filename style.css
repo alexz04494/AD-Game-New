@@ -710,3 +710,9 @@ h1 {
     margin-left: 20px;
     box-sizing: border-box;
 }
+/* Task checkboxes */
+.task-list{display:flex;flex-direction:column;align-items:flex-start;margin-top:20px;}
+.task-checkbox{display:flex;align-items:center;margin:10px 0;font-family:"Press Start 2P",cursive;font-size:0.8rem;color:#000;}
+.task-checkbox input[type="checkbox"]{appearance:none;width:20px;height:20px;margin-right:10px;border:2px solid #000;cursor:pointer;}
+.task-checkbox input[type="checkbox"]:checked{background:url("assets/icons/checkmark.png") center/contain no-repeat;}
+

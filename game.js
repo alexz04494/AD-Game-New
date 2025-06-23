@@ -266,8 +266,37 @@ function renderTaskListCard() {
   title.textContent = 'Task List';
   card.appendChild(title);
 
+  const list = document.createElement('div');
+  list.className = 'task-list';
+  for (let i = 1; i <= 5; i++) {
+    const label = document.createElement('label');
+    label.className = 'task-checkbox';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `task-${i}`;
+
+    const span = document.createElement('span');
+    span.textContent = `Task ${i}`;
+
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    list.appendChild(label);
+  }
+  card.appendChild(list);
+
   taskListCard.appendChild(card);
   typeWriterTask(taskDialogue, 0);
+
+  const pencilSound = document.getElementById('pencil-check-sound');
+  list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) {
+        pencilSound.currentTime = 0;
+        pencilSound.play();
+      }
+    });
+  });
 }
 
 continueBtn.onclick = () => {
