@@ -605,7 +605,7 @@ h1 {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(0, 58, 112, 0.25) 0%, rgba(0, 117, 190, 0.25) 100%);
 }
 
 .task-list-title {
@@ -617,5 +617,14 @@ h1 {
     top: 100px;
     width: 100%;
     text-align: center;
+    z-index: 21;
+}
+
+#task-list-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
     z-index: 21;
 }
