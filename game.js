@@ -40,6 +40,10 @@ const typingSound = document.getElementById("typing-sound");
 const pageTurnSound = document.getElementById("page-turn-sound");
 const cashRegisterSound = document.getElementById("cash-register-sound");
 
+const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
+const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
+if (catalogueTextBox) catalogueTextBox.textContent = '';
+
 const dialogue = [
   "Welcome aboard, General Manager. The plant's performance is in your hands now — and so is a discretionary budget of €500000.",
   "Over the next two years, you'll have multiple chances to invest in upgrades and digital solutions. Each choice you make will shape the factory's future.",
@@ -85,6 +89,16 @@ function typeWriter(text, i) {
   }
 }
 
+function typeWriterCatalogue(text, i) {
+  if (!catalogueTextBox) return;
+  if (i < text.length) {
+    catalogueTextBox.textContent += text.charAt(i);
+    typingSound.currentTime = 0;
+    typingSound.play();
+    setTimeout(() => typeWriterCatalogue(text, i + 1), 30);
+  }
+}
+
 function nextDialogue() {
   if (isTyping) {
     // If currently typing, skip to the end of current text
@@ -102,6 +116,7 @@ function nextDialogue() {
     mainGamePage.style.display = "none";
     uiDiv.style.display = "block";
     mainGamePage.removeEventListener('click', nextDialogue);
+    typeWriterCatalogue(catalogueDialogue, 0);
   }
 }
 
