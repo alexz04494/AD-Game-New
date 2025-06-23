@@ -266,8 +266,47 @@ function renderTaskListCard() {
   title.textContent = 'Task List';
   card.appendChild(title);
 
+  const list = document.createElement('div');
+  list.className = 'task-list';
+
+  const tasks = [
+    'Review Production Report',
+    'Sign Purchase Orders',
+    'Approve Maintenance Log',
+    'Confirm Shipping Schedule',
+    'Approve Staff Timesheet'
+  ];
+
+  tasks.forEach((text, index) => {
+    const label = document.createElement('label');
+    label.className = 'task-checkbox';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `task-${index + 1}`;
+
+    const span = document.createElement('span');
+    span.textContent = text;
+
+    label.appendChild(checkbox);
+    label.appendChild(span);
+    list.appendChild(label);
+  });
+  card.appendChild(list);
+
   taskListCard.appendChild(card);
   typeWriterTask(taskDialogue, 0);
+
+  const pencilSound = document.getElementById('pencil-check-sound');
+  list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) {
+        pencilSound.currentTime = 0;
+        pencilSound.play();
+        cb.disabled = true;
+      }
+    });
+  });
 }
 
 continueBtn.onclick = () => {
