@@ -93,7 +93,6 @@ function typeWriterCatalogue(text, i) {
   if (!catalogueTextBox) return;
   if (i < text.length) {
     catalogueTextBox.textContent += text.charAt(i);
-    typingSound.currentTime = 0;
     typingSound.play();
     setTimeout(() => typeWriterCatalogue(text, i + 1), 30);
   }
