@@ -231,7 +231,10 @@ h1 {
     min-width: 160px;
     min-height: 160px;
     flex-shrink: 0;
-    border: 8px solid #000;
+    border: 20px solid transparent;
+    border-image-source: url('assets/borders/border_02_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
     background: white;
     display: flex;
     align-items: center;
@@ -265,8 +268,12 @@ h1 {
 #text-box {
     flex-grow: 1;
     background: rgba(255, 255, 255, 0.8);
-    border: 8px solid #000;
-    border-radius: 0;    padding: 20px;
+    border: 20px solid transparent;
+    border-image-source: url('assets/borders/border_05_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
+    border-radius: 0;
+    padding: 20px;
     font-family: 'Press Start 2P', cursive;
     font-size: 1.1rem;
     color: #1E1E1E;
@@ -559,7 +566,10 @@ h1 {
     min-width: 160px;
     min-height: 160px;
     flex-shrink: 0;
-    border: 8px solid #000;
+    border: 20px solid transparent;
+    border-image-source: url('assets/borders/border_02_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
     background: white;
     display: flex;
     align-items: center;
@@ -574,7 +584,10 @@ h1 {
 #catalogue-text-box {
     flex-grow: 1;
     background: rgba(255, 255, 255, 0.8);
-    border: 8px solid #000;
+    border: 20px solid transparent;
+    border-image-source: url('assets/borders/border_05_nobackground.png');
+    border-image-slice: 20;
+    border-image-repeat: stretch;
     border-radius: 0;
     padding: 20px;
     font-family: 'Press Start 2P', cursive;
@@ -605,7 +618,7 @@ h1 {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, rgba(0, 58, 112, 0.25) 0%, rgba(0, 117, 190, 0.25) 100%);
 }
 
 .task-list-title {
@@ -617,5 +630,14 @@ h1 {
     top: 100px;
     width: 100%;
     text-align: center;
+    z-index: 21;
+}
+
+#task-list-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
     z-index: 21;
 }
