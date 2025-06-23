@@ -17,7 +17,8 @@ const state = {
       name: "Operator Training Sim", 
       price: 150000, 
       active: false,
-      description: "Digital twin based training system that facilitates operator training and reduces human error."    },
+      description: "Digital twin based training system that facilitates operator training and reduces human error."    
+    },
     finish: {
       name: "",
       price: 0,
@@ -127,7 +128,6 @@ function typeWriterTask(text, i) {
 
 function nextDialogue() {
   if (isTyping) {
-    // If currently typing, skip to the end of current text
     skipTyping = true;
     return;
   }
@@ -144,7 +144,7 @@ function nextDialogue() {
     mainGamePage.removeEventListener('click', nextDialogue);
     typeWriterCatalogue(catalogueDialogue, 0);
     mainThemeMusic.pause();
-    catalogueMusic.volume = 0.1; // Set volume 
+    catalogueMusic.volume = 0.1;
     catalogueMusic.play();
   }
 }
@@ -157,17 +157,13 @@ function updateMoneyBars() {
 
 function updateUI() {
   updateMoneyBars();
-
-  // Clear shop and create single card
   shopDiv.innerHTML = "";
 
   const itemKey = shopItems[currentShopItem];
   const item = state.upgrades[itemKey];
-  // Create card container
   const card = document.createElement("div");
   card.className = "shop-card";
 
-  // Add signet to top left corner
   const signet = document.createElement("img");
   signet.className = "card-signet";
   signet.src = "assets/icons/signet.png";
@@ -175,24 +171,20 @@ function updateUI() {
   card.appendChild(signet);
 
   if (item.name) {
-    // Add title
     const title = document.createElement("h3");
     title.textContent = item.name;
     card.appendChild(title);
 
-    // Add price
     const price = document.createElement("div");
     price.className = "price";
     price.textContent = `€${item.price}`;
     card.appendChild(price);
 
-    // Add description
     const description = document.createElement("div");
     description.className = "description";
     description.textContent = item.description;
     card.appendChild(description);
 
-    // Add button
     const btn = document.createElement("button");
     btn.className = item.active ? "cancel-btn" : "buy-btn";
     btn.textContent = item.active ? `CANCEL (+€${item.price})` : `BUY`;
@@ -207,13 +199,12 @@ function updateUI() {
       }
       item.active = !item.active;
       state.money += item.active ? -item.price : item.price;
-      updateUI();};
-
+      updateUI();
+    };
     card.appendChild(btn);
   } else {
     signet.className = 'card-signet-large';
     card.classList.add('finish-card');
-    // Add finish button
     const btn = document.createElement("button");
     btn.className = "finish-selection-btn";
     btn.textContent = "Finish Selection";
@@ -227,7 +218,6 @@ function updateUI() {
     card.appendChild(btn);
   }
 
-  // Add navigation arrow (positioned absolutely)
   const arrow = document.createElement("img");
   arrow.className = "nav-arrow";
   arrow.src = "assets/icons/1-next_back_arrow_game_application_mobile_up_down_left_right-256.webp";
@@ -240,7 +230,6 @@ function updateUI() {
   };
   card.appendChild(arrow);
 
-  // Add item counter (positioned absolutely)
   const counter = document.createElement("div");
   counter.className = "item-counter";
   counter.textContent = `${currentShopItem + 1}/${shopItems.length}`;
@@ -252,7 +241,7 @@ function updateUI() {
 function renderTaskListCard() {
   updateMoneyBars();
   monthCounterTasks.textContent = "MONTH: 1/12";
-  taskListCard.innerHTML = ''; // Clear previous content
+  taskListCard.innerHTML = '';
   const card = document.createElement('div');
   card.className = 'shop-card';
 
@@ -292,8 +281,8 @@ function renderTaskListCard() {
     label.appendChild(span);
     list.appendChild(label);
   });
-  card.appendChild(list);
 
+  card.appendChild(list);
   taskListCard.appendChild(card);
   typeWriterTask(taskDialogue, 0);
 
