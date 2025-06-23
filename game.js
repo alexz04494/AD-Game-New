@@ -53,6 +53,12 @@ const taskListCard = document.getElementById('task-list-card');
 const moneyBarTasks = document.getElementById('money-bar-tasks');
 const monthCounterTasks = document.getElementById('month-counter-tasks');
 
+const taskCharacterImg = document.querySelector('#task-character-box img');
+const taskCharacterName = document.querySelector('#task-character-section .character-name');
+
+let incidentTriggered = false;
+let incidentIndex = 0;
+
 const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
 const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
 if (catalogueTextBox) catalogueTextBox.textContent = '';
@@ -66,6 +72,29 @@ const dialogue = [
   "Over the next year, you'll have multiple chances to invest in upgrades and digital solutions. Each choice you make will shape the factory's future.",
   "Spend wisely. Your goal is simple: finish the 12-month run with as much money earned as possible. Good luck!"
 ];
+
+const incidentDialogue = [
+  { name: 'Director', sprite: 'director.avif', text: 'How could this have happened?' },
+  { name: 'Operator', sprite: 'operator.webp', text: 'Sorry boss, I messed up...' },
+  { name: 'Director', sprite: 'director.avif', text: "We can't afford these kind of mistakes.. Maybe someone should’ve invested in proper training tools before this happened." }
+];
+
+function setIncidentSpeaker(entry) {
+  taskCharacterImg.src = `assets/sprites/${entry.sprite}`;
+  taskCharacterName.textContent = entry.name;
+}
+
+function nextIncidentDialogue() {
+  if (incidentIndex >= incidentDialogue.length) {
+    taskListPage.removeEventListener('click', nextIncidentDialogue);
+    return;
+  }
+  const entry = incidentDialogue[incidentIndex];
+  taskTextBox.textContent = '';
+  setIncidentSpeaker(entry);
+  typeWriterTask(entry.text, 0);
+  incidentIndex++;
+}
 let dialogueIndex = 0;
 let isTyping = false;
 let currentText = "";
@@ -319,9 +348,46 @@ function renderTaskListCard() {
       checkAllTasksCompleted();
     });
   });
-  
+
   // Initial check
   checkAllTasksCompleted();
+
+  finishBtn.addEventListener('click', () => {
+    if (!state.upgrades.ots.active && !incidentTriggered) {
+      incidentTriggered = true;
+      renderIncidentCard();
+    }
+  });
+}
+
+function renderIncidentCard() {
+  updateMoneyBars();
+  taskListCard.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'shop-card';
+
+  const signet = document.createElement('img');
+  signet.className = 'card-signet';
+  signet.src = 'assets/icons/signet.png';
+  signet.alt = 'ANDRITZ';
+  card.appendChild(signet);
+
+  const title = document.createElement('h3');
+  title.className = 'incident-title';
+  title.textContent = 'Incident Report';
+  card.appendChild(title);
+
+  const desc = document.createElement('div');
+  desc.className = 'incident-description';
+  desc.textContent = 'An operator deviated from standard procedure during a routine task, resulting in production delays and material waste. Root cause analysis indicates inadequate familiarity with updated protocols.';
+  card.appendChild(desc);
+
+  taskListCard.appendChild(card);
+
+  incidentIndex = 0;
+  nextIncidentDialogue();
+  taskListPage.addEventListener('click', nextIncidentDialogue);
 }
 
 continueBtn.onclick = () => {
