@@ -437,6 +437,17 @@ h1 {
     margin-bottom: 15px;
     line-height: 1.4;
     flex-grow: 1;
+    text-align: left;
+}
+
+.shop-card .description p {
+    margin-bottom: 8px;
+}
+
+.shop-card .description ul {
+    padding-left: 20px;
+    margin: 0;
+    list-style-position: inside;
 }
 
 .shop-card button {
