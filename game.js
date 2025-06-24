@@ -343,11 +343,9 @@ function updateUI() {
       renderTaskListCard();
     };
     card.appendChild(btn);
-  }
-
-  const arrow = document.createElement("img");
+  }  const arrow = document.createElement("img");
   arrow.className = "nav-arrow";
-  arrow.src = "assets/icons/1-next_back_arrow_game_application_mobile_up_down_left_right-256.webp";
+  arrow.src = "assets/icons/undo.svg";
   arrow.alt = "Next";
   arrow.onclick = () => {
     pageTurnSound.currentTime = 0;
@@ -356,6 +354,21 @@ function updateUI() {
     updateUI();
   };
   card.appendChild(arrow);
+
+  // Add previous button for pages 2 onwards
+  if (currentShopItem > 0) {
+    const prevArrow = document.createElement("img");
+    prevArrow.className = "nav-arrow-prev";
+    prevArrow.src = "assets/icons/undo.svg";
+    prevArrow.alt = "Previous";
+    prevArrow.onclick = () => {
+      pageTurnSound.currentTime = 0;
+      pageTurnSound.play();
+      currentShopItem = (currentShopItem - 1 + shopItems.length) % shopItems.length;
+      updateUI();
+    };
+    card.appendChild(prevArrow);
+  }
 
   const counter = document.createElement("div");
   counter.className = "item-counter";

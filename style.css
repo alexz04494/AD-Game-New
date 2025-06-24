@@ -517,9 +517,26 @@ h1 {
     transition: opacity 0.2s ease;
     object-fit: contain;
     z-index: 10;
+    transform: scaleX(-1);
 }
 
 .nav-arrow:hover {
+    opacity: 0.7;
+}
+
+.nav-arrow-prev {
+    position: absolute;
+    bottom: 25px;
+    right: 65px; /* Position to the left of the next arrow */
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    object-fit: contain;
+    z-index: 10;
+}
+
+.nav-arrow-prev:hover {
     opacity: 0.7;
 }
 
