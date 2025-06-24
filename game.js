@@ -82,11 +82,33 @@ const incidentDialogue = [
 ];
 
 function setIncidentSpeaker(entry) {
-  taskCharacterImg.src = `assets/sprites/${entry.sprite}`;
-  taskCharacterName.textContent = entry.name;
+    const characterImg = document.querySelector('#task-character-box img');
+    if (characterImg) {
+        // Set the sprite source from the entry
+        characterImg.src = `assets/sprites/${entry.sprite}`;
+        
+        // Add operator-specific class if it's the operator
+        if (entry.name === 'Operator') {
+            characterImg.classList.add('operator-sprite');
+        } else {
+            characterImg.classList.remove('operator-sprite');
+        }
+    }
+    
+    // Also update the character name
+    const characterName = document.querySelector('#task-character-section .character-name');
+    if (characterName) {
+        characterName.textContent = entry.name;
+    }
 }
 
 function nextIncidentDialogue() {
+  // Clear autoplay timer if user manually proceeds
+  if (incidentDialogueAutoplayTimer) {
+    clearTimeout(incidentDialogueAutoplayTimer);
+    incidentDialogueAutoplayTimer = null;
+  }
+  
   if (incidentIndex >= incidentDialogue.length) {
     taskListPage.removeEventListener('click', nextIncidentDialogue);
     return;
@@ -107,6 +129,10 @@ let isTyping = false;
 let currentText = "";
 let skipTyping = false;
 
+// Autoplay timers
+let mainDialogueAutoplayTimer = null;
+let incidentDialogueAutoplayTimer = null;
+
 const textBox = document.getElementById("text-box");
 const continueIndicator = document.getElementById("continue-indicator");
 
@@ -126,11 +152,21 @@ function typeWriter(text, i) {
   isTyping = true;
   continueIndicator.style.opacity = '0';
   
+  // Clear any existing autoplay timer
+  if (mainDialogueAutoplayTimer) {
+    clearTimeout(mainDialogueAutoplayTimer);
+    mainDialogueAutoplayTimer = null;
+  }
+  
   if (skipTyping) {
     textBox.firstChild.textContent = text;
     isTyping = false;
     skipTyping = false;
     continueIndicator.style.opacity = '1';
+    // Start autoplay timer when typing is complete
+    mainDialogueAutoplayTimer = setTimeout(() => {
+      nextDialogue();
+    }, 5000);
     return;
   }
   if (i < text.length) {
@@ -141,6 +177,10 @@ function typeWriter(text, i) {
   } else {
     isTyping = false;
     continueIndicator.style.opacity = '1';
+    // Start autoplay timer when typing is complete
+    mainDialogueAutoplayTimer = setTimeout(() => {
+      nextDialogue();
+    }, 5000);
   }
 }
 
@@ -162,6 +202,11 @@ function typeWriterTask(text, i) {
     if (taskTypingTimeout) {
       clearTimeout(taskTypingTimeout);
     }
+    // Clear any existing autoplay timer
+    if (incidentDialogueAutoplayTimer) {
+      clearTimeout(incidentDialogueAutoplayTimer);
+      incidentDialogueAutoplayTimer = null;
+    }
     taskTextBox.textContent = '';
   }
 
@@ -175,10 +220,22 @@ function typeWriterTask(text, i) {
     taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1), 30);
   } else {
     taskTypingTimeout = null;
+    // Start autoplay timer when typing is complete (only for incident dialogue)
+    if (incidentIndex > 0 && incidentIndex <= incidentDialogue.length) {
+      incidentDialogueAutoplayTimer = setTimeout(() => {
+        nextIncidentDialogue();
+      }, 5000);
+    }
   }
 }
 
 function nextDialogue() {
+  // Clear autoplay timer if user manually proceeds
+  if (mainDialogueAutoplayTimer) {
+    clearTimeout(mainDialogueAutoplayTimer);
+    mainDialogueAutoplayTimer = null;
+  }
+  
   if (isTyping) {
     skipTyping = true;
     return;
