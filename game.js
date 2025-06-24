@@ -33,7 +33,7 @@ const state = {
     },
     plantInsights: {
       name: "Plant Insights with OEE",
-      price: 160000,
+      price: 175000,
       active: false,
       description: "<p>Track Overall Equipment Effectiveness (OEE) with precision to identify bottlenecks, reduce downtime, and maximize asset utilization.</p><ul><li>Monitors production efficiency</li><li>Identifies downtime causes</li><li>Supports continuous improvement</li><li>Drives better asset management</li></ul>"
     },
