@@ -5,37 +5,37 @@ const state = {
       name: "ACE Moisture Control",
       price: 180000,
       active: false,
-      description: "Advanced moisture control technology ensuring consistent pellet quality."
+      description: "<p>Maintain pellet moisture with pinpoint accuracy, eliminating costly spec deviations and rework. ACE Moisture Control optimizes drying processes for consistent quality.</p><ul><li>Reduces moisture variability</li><li>Minimizes fines and rework</li><li>Improves product shelf life</li><li>Enhances buyer confidence</li></ul>"
     },
     training: {
       name: "Operator Training Suite",
       price: 140000,
       active: false,
-      description: "Comprehensive digital training tools that minimize human error."
+      description: "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p><ul><li>Standardizes best practices</li><li>Improves operator confidence</li><li>Reduces human error & downtime</li><li>Supports continuous learning</li></ul>"
     },
     traceability: {
-      name: "Traceability & QA",
+      name: "Traceability & QA Platform",
       price: 150000,
       active: false,
-      description: "End-to-end traceability and quality assurance solution."
+      description: "<p>Ensure full batch genealogy and instant QA reporting to meet audit demands and boost customer trust with this robust traceability system.</p><ul><li>Instant batch genealogy</li><li>Automated QA reporting</li><li>Simplifies compliance audits</li><li>Enhances product recall management</li></ul>"
     },
     retrofit: {
       name: "PLC/SCADA Retrofit",
       price: 220000,
       active: false,
-      description: "Modernized control systems with upgraded PLC/SCADA."
+      description: "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p><ul><li>Reduces unplanned downtime</li><li>Improves control reliability</li><li>Enables integration with analytics</li><li>Future-proofs your automation</li></ul>"
     },
     digitalTwin: {
-      name: "Digital Twin & Predictive",
+      name: "Digital Twin & Analytics",
       price: 200000,
       active: false,
-      description: "Predictive digital twin analytics for optimized operations."
+      description: "<p>Leverage real-time simulation and analytics to predict issues before they occur, optimizing throughput and maintenance scheduling.</p><ul><li>Real-time operational insights</li><li>Predictive maintenance alerts</li><li>Optimizes throughput</li><li>Supports data-driven decisions</li></ul>"
     },
     plantInsights: {
       name: "Plant Insights with OEE",
       price: 160000,
       active: false,
-      description: "Track overall equipment effectiveness with precision to identify bottlenecks, reduce downtime and maximize asset utilization."
+      description: "<p>Track Overall Equipment Effectiveness (OEE) with precision to identify bottlenecks, reduce downtime, and maximize asset utilization.</p><ul><li>Monitors production efficiency</li><li>Identifies downtime causes</li><li>Supports continuous improvement</li><li>Drives better asset management</li></ul>"
     },
     finish: {
       name: "",
@@ -309,7 +309,7 @@ function updateUI() {
 
     const description = document.createElement("div");
     description.className = "description";
-    description.textContent = item.description;
+    description.innerHTML = item.description;
     card.appendChild(description);
 
     const btn = document.createElement("button");
