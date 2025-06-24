@@ -31,6 +31,12 @@ const state = {
       active: false,
       description: "Predictive digital twin analytics for optimized operations."
     },
+    plantInsights: {
+      name: "Plant Insights with OEE",
+      price: 160000,
+      active: false,
+      description: "Track overall equipment effectiveness with precision to identify bottlenecks, reduce downtime and maximize asset utilization."
+    },
     finish: {
       name: "",
       price: 0,
