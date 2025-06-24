@@ -1,23 +1,35 @@
 const state = {
   money: 500000,
   upgrades: {
-    dryer: { 
-      name: "Dryer ACE", 
-      price: 250000, 
+    moisture: {
+      name: "ACE Moisture Control",
+      price: 180000,
       active: false,
-      description: "Advanced control expert that reduces pellet moisture variability and improves product quality."
+      description: "Advanced moisture control technology ensuring consistent pellet quality."
     },
-    vibe: { 
-      name: "Vibe System", 
-      price: 150000, 
+    training: {
+      name: "Operator Training Suite",
+      price: 140000,
       active: false,
-      description: "Vibration monitoring system that detects equipment issues before they cause downtime."
+      description: "Comprehensive digital training tools that minimize human error."
     },
-    ots: { 
-      name: "Operator Training Sim", 
-      price: 150000, 
+    traceability: {
+      name: "Traceability & QA",
+      price: 150000,
       active: false,
-      description: "Digital twin based training system that facilitates operator training and reduces human error."    
+      description: "End-to-end traceability and quality assurance solution."
+    },
+    retrofit: {
+      name: "PLC/SCADA Retrofit",
+      price: 220000,
+      active: false,
+      description: "Modernized control systems with upgraded PLC/SCADA."
+    },
+    digitalTwin: {
+      name: "Digital Twin & Predictive",
+      price: 200000,
+      active: false,
+      description: "Predictive digital twin analytics for optimized operations."
     },
     finish: {
       name: "",
@@ -433,7 +445,7 @@ function renderTaskListCard() {
   checkAllTasksCompleted();
 
   finishBtn.addEventListener('click', () => {
-    if (!state.upgrades.ots.active && !incidentTriggered) {
+    if (!state.upgrades.training.active && !incidentTriggered) {
       incidentTriggered = true;
       fireballSound.currentTime = 0;
       fireballSound.play();
@@ -480,9 +492,9 @@ continueBtn.onclick = () => {
   eventsPage.style.display = "block";
 
   let loss = 0;
-  if (!state.upgrades.dryer.active) loss += 50000;
-  if (!state.upgrades.vibe.active) loss += 30000;
-  if (!state.upgrades.ots.active) loss += 20000;
+  if (!state.upgrades.moisture.active) loss += 50000;
+  if (!state.upgrades.traceability.active) loss += 30000;
+  if (!state.upgrades.training.active) loss += 20000;
 
   state.money -= loss;
 
