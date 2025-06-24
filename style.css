@@ -428,25 +428,25 @@ h1 {
     font-family: 'Press Start 2P', cursive;
     font-size: 1rem;
     color: #1E1E1E;
-    margin: 10px 0;
+    margin: 15px 0 15px 0;
 }
 
 .shop-card .description {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #666;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     line-height: 1.4;
     flex-grow: 1;
     text-align: left;
 }
 
 .shop-card .description p {
-    margin-bottom: 8px;
+    margin-bottom: 18px;
 }
 
 .shop-card .description ul {
     padding-left: 20px;
-    margin: 0;
+    margin: 10px 0 0 0;
     list-style-position: inside;
 }
 
