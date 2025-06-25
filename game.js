@@ -56,7 +56,6 @@ const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
 const incidentMusic = document.getElementById("incident-music");
 const taskListPage = document.getElementById('task-list-page');
-const taskListCard = document.getElementById('task-list-card');
 const pointsCounter = document.getElementById('points-counter');
 
 const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
@@ -336,7 +335,9 @@ function updateUI() {
       catalogueMusic.pause();
       incidentMusic.volume = 0.2;
       incidentMusic.play();
-      renderTaskListCard();
+      updateMoneyBar();
+      taskDialogueIndex = 0;
+      nextTaskDialogue();
     };
     card.appendChild(btn);
   }  const arrow = document.createElement("img");
@@ -372,25 +373,6 @@ function updateUI() {
   card.appendChild(counter);
 
   shopDiv.appendChild(card);
-}
-
-function renderTaskListCard() {
-  updateMoneyBar();
-  taskListCard.innerHTML = '';
-
-  const card = document.createElement('div');
-  card.className = 'shop-card';
-
-  const signet = document.createElement('img');
-  signet.className = 'card-signet';
-  signet.src = 'assets/icons/signet.png';
-  signet.alt = 'ANDRITZ';
-  card.appendChild(signet);
-
-  taskListCard.appendChild(card);
-
-  taskDialogueIndex = 0;
-  nextTaskDialogue();
 }
 
 

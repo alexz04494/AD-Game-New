@@ -730,20 +730,6 @@ h1 {
     z-index: 21;
 }
 
-#task-list-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    position: relative;
-    z-index: 21;
-    transform: translateY(150px);
-}
-
-#task-list-card .shop-card {
-    padding-bottom: 50px;
-}
-
 /* Task list dialogue styling */
 #task-dialogue-container {
     position: fixed;
