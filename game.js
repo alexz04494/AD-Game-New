@@ -305,6 +305,10 @@ function showScenarioOptions() {
   taskListPage.removeEventListener('click', nextTaskDialogue);
 
   optionDeploy.disabled = false;
+  optionManual.disabled = false;
+  optionMaintenance.disabled = false;
+  optionNothing.disabled = false;
+
   if (currentScenario === 1 && !state.upgrades.moisture.active) {
     optionDeploy.disabled = true;
   } else if (currentScenario === 2 && !state.upgrades.plantInsights.active) {
