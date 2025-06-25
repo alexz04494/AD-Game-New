@@ -864,3 +864,44 @@ h1 {
     line-height: 1.4;
     margin-top: 15px;
 }
+
+/* Scenario options */
+#scenario-options {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 10px solid transparent;
+    border-image-source: url('assets/borders/border_05_nobackground.png');
+    border-image-slice: 10;
+    border-image-repeat: stretch;
+    padding: 15px;
+    width: 80%;
+    max-width: 400px;
+    z-index: 150;
+}
+
+#scenario-options button {
+    background-color: #0075be;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+#scenario-options button:hover:not(:disabled) {
+    background-color: #005a8b;
+}
+
+#scenario-options button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}

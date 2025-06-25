@@ -57,6 +57,12 @@ const mainThemeMusic = document.getElementById("main-theme-music");
 const incidentMusic = document.getElementById("incident-music");
 const taskListPage = document.getElementById('task-list-page');
 const pointsCounter = document.getElementById('points-counter');
+let points = 0;
+const scenarioOptionsDiv = document.getElementById('scenario-options');
+const optionDeploy = document.getElementById('option-deploy');
+const optionManual = document.getElementById('option-manual');
+const optionMaintenance = document.getElementById('option-maintenance');
+const optionNothing = document.getElementById('option-nothing');
 
 const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
 const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
@@ -189,6 +195,9 @@ function typeWriterTask(text, i) {
     taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1), 30);
   } else {
     taskTypingTimeout = null;
+    if (taskDialogueIndex >= taskDialogue.length) {
+      showScenarioOptions();
+    }
   }
 }
 
@@ -239,6 +248,28 @@ function nextTaskDialogue() {
   }
 }
 
+function showScenarioOptions() {
+  if (!scenarioOptionsDiv) return;
+  scenarioOptionsDiv.style.display = 'flex';
+  taskListPage.removeEventListener('click', nextTaskDialogue);
+
+  if (!state.upgrades.moisture.active) {
+    optionDeploy.disabled = true;
+  }
+
+  const select = (pointsChange) => {
+    if (scenarioOptionsDiv.dataset.selected) return;
+    scenarioOptionsDiv.dataset.selected = 'true';
+    updatePoints(pointsChange);
+    [optionDeploy, optionManual, optionMaintenance, optionNothing].forEach(btn => btn.disabled = true);
+  };
+
+  optionDeploy.onclick = () => select(25);
+  optionManual.onclick = () => select(-15);
+  optionMaintenance.onclick = () => select(-10);
+  optionNothing.onclick = () => select(-20);
+}
+
 function nextDialogue() {
   // Clear autoplay timer if user manually proceeds
   if (mainDialogueAutoplayTimer) {
@@ -274,6 +305,11 @@ function nextDialogue() {
 function updateMoneyBar() {
   const moneyText = `€${state.money}`;
   moneyBar.textContent = moneyText;
+}
+
+function updatePoints(amount) {
+  points += amount;
+  pointsCounter.textContent = `POINTS: ${points}`;
 }
 
 function updateUI() {
@@ -393,5 +429,6 @@ continueBtn.onclick = () => {
 };
 
 updateUI();
+updatePoints(0);
 
 taskListPage.addEventListener('click', nextTaskDialogue);
