@@ -17,7 +17,7 @@ const state = {
       name: "Plant Solutions",
       price: 220000,
       active: false,
-      description: "<ul><li>PLC/SCADA retrofit</li><li>Full batch traceability</li></ul>"
+      description: "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p><ul><li>PLC/SCADA retrofit</li><li>Full batch traceability</li><li>Reduces unplanned downtime</li><li>Future-proofs your automation</li></ul>"
     },
     plantInsights: {
       name: "Plant Insights with OEE",
