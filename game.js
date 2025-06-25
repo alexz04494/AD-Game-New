@@ -113,6 +113,38 @@ const doNothingDialogue = [
   { name: 'Director', sprite: 'directorclown.png', text: "I'm disappointed, General manager. Why did I hire you? You make me look like a clown." }
 ];
 
+// ---------- Scenario 2 Dialogue ----------
+const scenario2Intro = [
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "Mill 3 just went down — dead stop. No warnings, no alarms. We\u2019ve got a 500-ton order due in 36 hours, and we\u2019re already behind." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "It jammed mid-run. Could be a drive fault, maybe a bearing. I can\u2019t say for sure. But we\u2019re not grinding anything until it\u2019s cleared." },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "We can\u2019t afford a long delay on this. What\u2019s the plan?" },
+];
+
+const scenario2DeployDialogue = [
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Pulling OEE diagnostics now... got it. Sensor flagged inconsistent load data before the stop — looks like a motor issue tied to the pre-cleaner cycle." },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "That saved us a lot of time. We\u2019re already halfway through the fix." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ll be back on target. We just bought back a big chunk of our lead time." },
+  { name: 'Director', sprite: 'director.png', text: "Nice recovery. System says we cut downtime by 40% compared to standard response." },
+];
+
+const scenario2ManualDialogue = [
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "They\u2019re checking the belts and drives now. It\u2019s slow going — access panels are tight on that line." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Took a while, but they found the fault — coupler alignment was off." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "The fix will take four hours. We\u2019re behind, but we can still hit the window if everything else holds." },
+];
+
+const scenario2TechDialogue = [
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "I called a tech from the vendor. He\u2019ll be here in an hour." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "They know the hardware, but they\u2019re expensive and usually take their time running full diagnostics." },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "They found the issue, but we lost a lot of time and money already.." },
+];
+
+const scenario2NothingDialogue = [
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "We held off hoping it\u2019d reset or give us something in the logs. Nothing." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "Mill sat idle for ten hours before we even isolated the fault." },
+  { name: 'Director', sprite: 'directorclown.png', text: "This delay puts the order at risk. Customer\u2019s going to feel it. What are you doing, general manager?" },
+];
+
 let scenarioDialogue = [];
 let scenarioDialogueIndex = 0;
 
@@ -272,7 +304,10 @@ function showScenarioOptions() {
   scenarioOptionsDiv.style.display = 'flex';
   taskListPage.removeEventListener('click', nextTaskDialogue);
 
-  if (!state.upgrades.moisture.active) {
+  optionDeploy.disabled = false;
+  if (currentScenario === 1 && !state.upgrades.moisture.active) {
+    optionDeploy.disabled = true;
+  } else if (currentScenario === 2 && !state.upgrades.plantInsights.active) {
     optionDeploy.disabled = true;
   }
 
@@ -294,10 +329,27 @@ function showScenarioOptions() {
     nextScenarioDialogue();
   };
 
-  optionDeploy.onclick = () => select(25, deployAceDialogue);
-  optionManual.onclick = () => select(-15, manualTuningDialogue);
-  optionMaintenance.onclick = () => select(-10, maintenanceDialogue);
-  optionNothing.onclick = () => select(-20, doNothingDialogue);
+  if (currentScenario === 1) {
+    optionDeploy.textContent = 'Deploy Dryer ACE';
+    optionManual.textContent = 'Do manual tuning';
+    optionMaintenance.textContent = 'Call maintenance';
+    optionNothing.textContent = 'Do nothing';
+
+    optionDeploy.onclick = () => select(25, deployAceDialogue);
+    optionManual.onclick = () => select(-15, manualTuningDialogue);
+    optionMaintenance.onclick = () => select(-10, maintenanceDialogue);
+    optionNothing.onclick = () => select(-20, doNothingDialogue);
+  } else if (currentScenario === 2) {
+    optionDeploy.textContent = 'Deploy Plant Insights + OEE System';
+    optionManual.textContent = 'Send Operators to Do Manual Checks';
+    optionMaintenance.textContent = 'Call External Technician';
+    optionNothing.textContent = 'Do Nothing';
+
+    optionDeploy.onclick = () => select(20, scenario2DeployDialogue);
+    optionManual.onclick = () => select(-5, scenario2ManualDialogue);
+    optionMaintenance.onclick = () => select(-10, scenario2TechDialogue);
+    optionNothing.onclick = () => select(-15, scenario2NothingDialogue);
+  }
 }
 
 function nextScenarioDialogue() {
@@ -318,7 +370,28 @@ function nextScenarioDialogue() {
     scenarioDialogueIndex++;
   } else {
     taskListPage.removeEventListener('click', nextScenarioDialogue);
+    if (currentScenario === 1) {
+      taskListPage.addEventListener('click', handleNextScenarioClick);
+    }
   }
+}
+
+function handleNextScenarioClick() {
+  taskListPage.removeEventListener('click', handleNextScenarioClick);
+  nextScenarioPrompt.style.display = 'none';
+  startScenarioTwo();
+}
+
+function startScenarioTwo() {
+  currentScenario = 2;
+  scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
+  scenarioOptionsDiv.dataset.selected = '';
+  taskDialogue = scenario2Intro;
+  taskDialogueIndex = 0;
+  scenarioDialogueIndex = 0;
+  taskListPage.style.backgroundImage = "url('assets/backgrounds/hammermillscene.png')";
+  taskListPage.addEventListener('click', nextTaskDialogue);
+  nextTaskDialogue();
 }
 
 function nextDialogue() {
