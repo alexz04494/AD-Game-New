@@ -58,7 +58,10 @@ const incidentMusic = document.getElementById("incident-music");
 const retroCoinSound = document.getElementById("retro-coin-sound");
 const taskListPage = document.getElementById('task-list-page');
 const pointsCounter = document.getElementById('points-counter');
+const scenarioCounter = document.getElementById('scenario-counter');
+const nextScenarioPrompt = document.getElementById('next-scenario-prompt');
 let points = 0;
+let currentScenario = 1;
 const scenarioOptionsDiv = document.getElementById('scenario-options');
 const optionDeploy = document.getElementById('option-deploy');
 const optionManual = document.getElementById('option-manual');
@@ -180,7 +183,7 @@ function typeWriterCatalogue(text, i) {
 
 let taskTypingTimeout = null;
 
-function typeWriterTask(text, i) {
+function typeWriterTask(text, i, callback) {
   if (!taskTextBox) return;
 
   if (i === 0) {
@@ -194,6 +197,7 @@ function typeWriterTask(text, i) {
     taskTextBox.textContent = text;
     taskSkipTyping = false;
     taskTypingTimeout = null;
+    if (callback) callback();
     return;
   }
 
@@ -204,12 +208,13 @@ function typeWriterTask(text, i) {
       typingSound.currentTime = 0;
       typingSound.play();
     }
-    taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1), 30);
+    taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1, callback), 30);
   } else {
     taskTypingTimeout = null;
     if (taskDialogueIndex >= taskDialogue.length && !scenarioOptionsDiv.dataset.selected) {
       showScenarioOptions();
     }
+    if (callback) callback();
   }
 }
 
@@ -304,7 +309,12 @@ function nextScenarioDialogue() {
     const entry = scenarioDialogue[scenarioDialogueIndex];
     setTaskSpeaker(entry);
     taskCurrentText = entry.text;
-    typeWriterTask(taskCurrentText, 0);
+    const isLast = scenarioDialogueIndex === scenarioDialogue.length - 1;
+    typeWriterTask(taskCurrentText, 0, () => {
+      if (isLast) {
+        nextScenarioPrompt.style.display = 'block';
+      }
+    });
     scenarioDialogueIndex++;
   } else {
     taskListPage.removeEventListener('click', nextScenarioDialogue);
@@ -420,6 +430,9 @@ function updateUI() {
       incidentMusic.play();
       updateMoneyBar();
       taskDialogueIndex = 0;
+      scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
+      scenarioCounter.style.display = 'block';
+      nextScenarioPrompt.style.display = 'none';
       nextTaskDialogue();
     };
     card.appendChild(btn);
