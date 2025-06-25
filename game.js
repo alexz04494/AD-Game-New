@@ -94,8 +94,8 @@ const dialogue = [
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "And let\u2019s not forget the customer complaints. We've had three traceability requests we couldn\u2019t fully satisfy. If this happens during an audit we're in trouble" },
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Frankly, we\u2019re stretching that PLC system past its limits. Half of it still runs on patched code from ten years ago. SCADA\u2019s sluggish, diagnostics are vague \u2014 it\u2019s no surprise things slip through." },
   { name: 'HR Officer', sprite: 'hrlady.png', text: "We\u2019ve had three serious errors this month alone, and they all came from new hires. They\u2019re not unmotivated \u2014 they just weren\u2019t ready. We\u2019re putting them on the floor before they understand the process." },
-  { name: 'Director', sprite: 'director.png', text: "Alright. We\u2019ve aired enough for one morning. Here's the plan \u2014 next week, an ANDRITZ representative is coming to present five solutions they believe can help us get back on track." },
-  { name: 'Director', sprite: 'director.png', text: 'You, as General Manager, will have a budget of \u20ac500000. Choose carefully. You won\u2019t be able to fix everything, but the right decisions could turn this plant around.' }
+  { name: 'Director', sprite: 'director.png', text: "Alright. We\u2019ve aired enough for one morning. Here's the plan \u2014 next week, an ANDRITZ representative is coming to present some solutions they believe can help us get back on track." },
+  { name: 'Director', sprite: 'director.png', text: 'You, as General Manager, will have a budget of \u20ac500000. Choose carefully. The right decisions could turn this plant around.' }
 ];
 
 const incidentDialogue = [

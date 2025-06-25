@@ -111,7 +111,7 @@ body::before {
 #main-game-page {
     position: fixed;
     inset: 0;
-    background: url('assets/backgrounds/boardroom.webp') no-repeat;
+    background: url('assets/backgrounds/boardroom.png') no-repeat;
     background-position: 150% center;
     background-size: 100%;
     z-index: 15;
