@@ -84,6 +84,35 @@ let taskDialogueIndex = 0;
 let taskCurrentText = '';
 let taskSkipTyping = false;
 
+// Dialogue sequences triggered after selecting a scenario option
+const deployAceDialogue = [
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Dryer ACE is online. It's already adjusting for recipe variance and particle size. You can see it stabilizing in real-time." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "Moisture\u2019s back within 0.5% of the target \u2014 and output is up. That\u2019s the tightest control we\u2019ve had in weeks." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Confirmed. QA readings are clean across the board. No returns, no fines." },
+  { name: 'Director', sprite: 'director.png', text: "Good decision. Also, energy use per ton is down by about 6%. That\u2019ll show up nicely in next month\u2019s numbers." }
+];
+
+const manualTuningDialogue = [
+  { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve started manual adjustments, but it\u2019s all over the place. The dryer doesn\u2019t respond consistently." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Moisture readings are now 8% off-spec on the latest batch. We\u2019re reacting too slowly \u2014 the operators can\u2019t keep up with the variability." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "That\u2019ll cost us. We\u2019re looking at fines or full batch rejections if this keeps up." }
+];
+
+const maintenanceDialogue = [
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "We\u2019ve got a technician en route, but parts of the system are too old to give us decent diagnostics. We\u2019re flying blind until we can isolate the issue." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "In the meantime, we\u2019re stuck running the line at half speed just to stay under moisture limits. That\u2019s not sustainable." },
+  { name: 'Director', sprite: 'director.png', text: "We\u2019ll lose time and money on this. This isn\u2019t a fix \u2014 it\u2019s damage control." }
+];
+
+const doNothingDialogue = [
+  { name: 'Production Manager', sprite: 'production manager.png', text: "Moisture levels continue drifting. We\u2019ve had three batches go out off-spec \u2014 and one\u2019s already come back." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Customer flagged the feed as noncompliant. We\u2019re now in breach of contract for that delivery." },
+  { name: 'Director', sprite: 'directorclown.png', text: "I'm disappointed, General manager. Why did I hire you? You make me look like a clown" }
+];
+
+let scenarioDialogue = [];
+let scenarioDialogueIndex = 0;
+
 const dialogue = [
   { name: 'Director', sprite: 'director.png', text: 'Alright, let\u2019s get started \u2014 we\u2019ve had another rough quarter, and I want to hear where the bottlenecks really are.' },
   { name: 'Production Manager', sprite: 'production manager.png', text: "We've missed moisture targets again \u2014ten batches were flagged by QA just last week. It\u2019s not just specs, it\u2019s throughput too. We\u2019re constantly adjusting the dryer, but it never settles. It\u2019s costing us output." },
@@ -260,22 +289,44 @@ function showScenarioOptions() {
     optionDeploy.disabled = true;
   }
 
-  const select = (pointsChange) => {
+  const select = (pointsChange, dialogueArray) => {
     if (scenarioOptionsDiv.dataset.selected) return;
     scenarioOptionsDiv.dataset.selected = 'true';
-    
+
     // Play retro coin sound when option is selected
     retroCoinSound.currentTime = 0;
     retroCoinSound.play();
-    
+
     updatePoints(pointsChange);
     [optionDeploy, optionManual, optionMaintenance, optionNothing].forEach(btn => btn.disabled = true);
+
+    scenarioOptionsDiv.style.display = 'none';
+    scenarioDialogue = dialogueArray;
+    scenarioDialogueIndex = 0;
+    taskListPage.addEventListener('click', nextScenarioDialogue);
+    nextScenarioDialogue();
   };
 
-  optionDeploy.onclick = () => select(25);
-  optionManual.onclick = () => select(-15);
-  optionMaintenance.onclick = () => select(-10);
-  optionNothing.onclick = () => select(-20);
+  optionDeploy.onclick = () => select(25, deployAceDialogue);
+  optionManual.onclick = () => select(-15, manualTuningDialogue);
+  optionMaintenance.onclick = () => select(-10, maintenanceDialogue);
+  optionNothing.onclick = () => select(-20, doNothingDialogue);
+}
+
+function nextScenarioDialogue() {
+  if (taskTypingTimeout) {
+    taskSkipTyping = true;
+    return;
+  }
+  if (scenarioDialogueIndex < scenarioDialogue.length) {
+    const entry = scenarioDialogue[scenarioDialogueIndex];
+    setTaskSpeaker(entry);
+    taskCurrentText = entry.text;
+    typeWriterTask(taskCurrentText, 0);
+    scenarioDialogueIndex++;
+  } else {
+    taskListPage.removeEventListener('click', nextScenarioDialogue);
+  }
 }
 
 function nextDialogue() {
