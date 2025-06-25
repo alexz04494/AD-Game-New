@@ -13,23 +13,11 @@ const state = {
       active: false,
       description: "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p><ul><li>Standardizes best practices</li><li>Improves operator confidence</li><li>Reduces human error & downtime</li><li>Supports continuous learning</li></ul>"
     },
-    traceability: {
-      name: "Traceability & QA Platform",
-      price: 150000,
-      active: false,
-      description: "<p>Ensure full batch genealogy and instant QA reporting to meet audit demands and boost customer trust with this robust traceability system.</p><ul><li>Instant batch genealogy</li><li>Automated QA reporting</li><li>Simplifies compliance audits</li><li>Enhances product recall management</li></ul>"
-    },
     retrofit: {
-      name: "PLC/SCADA Retrofit",
+      name: "Plant Solutions",
       price: 220000,
       active: false,
-      description: "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p><ul><li>Reduces unplanned downtime</li><li>Improves control reliability</li><li>Enables integration with analytics</li><li>Future-proofs your automation</li></ul>"
-    },
-    digitalTwin: {
-      name: "Digital Twin & Analytics",
-      price: 200000,
-      active: false,
-      description: "<p>Leverage real-time simulation and analytics to predict issues before they occur, optimizing throughput and maintenance scheduling.</p><ul><li>Real-time operational insights</li><li>Predictive maintenance alerts</li><li>Optimizes throughput</li><li>Supports data-driven decisions</li></ul>"
+      description: "<ul><li>PLC/SCADA retrofit</li><li>Full batch traceability</li></ul>"
     },
     plantInsights: {
       name: "Plant Insights with OEE",
@@ -538,7 +526,6 @@ continueBtn.onclick = () => {
 
   let loss = 0;
   if (!state.upgrades.moisture.active) loss += 50000;
-  if (!state.upgrades.traceability.active) loss += 30000;
   if (!state.upgrades.training.active) loss += 20000;
 
   state.money -= loss;
