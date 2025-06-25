@@ -225,6 +225,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
+    width: 160px;
 }
 
 #character-box {
@@ -268,6 +269,9 @@ h1 {
     text-shadow: 2px 2px 2px #000;
     font-size: 0.8rem;
     text-align: center;
+    width: 100%;
+    animation: bob 2s ease-in-out infinite;
+    word-wrap: break-word;
 }
 
 @keyframes bob {
@@ -646,6 +650,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
+    width: 160px;
 }
 
 #catalogue-character-box {
@@ -760,6 +765,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
+    width: 160px;
 }
 
 #task-character-box {
