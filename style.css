@@ -244,8 +244,17 @@ h1 {
 }
 
 #character-box img {
-    max-width: 120%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
+    object-fit: contain;
+}
+
+.dialogue-sprite {
+    display: none;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .character-name {
@@ -277,7 +286,7 @@ h1 {
     border-radius: 0;
     padding: 20px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #1E1E1E;
     line-height: 1.5;
     height: 160px;
@@ -786,7 +795,7 @@ h1 {
     border-radius: 0;
     padding: 20px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #1E1E1E;
     line-height: 1.5;
     height: 160px;
