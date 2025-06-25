@@ -375,7 +375,10 @@ function nextScenarioDialogue() {
   } else {
     taskListPage.removeEventListener('click', nextScenarioDialogue);
     if (currentScenario === 1) {
-      taskListPage.addEventListener('click', handleNextScenarioClick);
+      // Add a small delay to prevent the same click from triggering the next scenario
+      setTimeout(() => {
+        taskListPage.addEventListener('click', handleNextScenarioClick);
+      }, 100);
     }
   }
 }
