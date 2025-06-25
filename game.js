@@ -161,8 +161,8 @@ startPage.onclick = () => {
   mainGamePage.style.display = "block";
   beepSound.currentTime = 0;
   beepSound.play();
-  mainThemeMusic.volume = 0.2;
-  mainThemeMusic.play();
+  incidentMusic.volume = 0.2;
+  incidentMusic.play();
   nextDialogue();
 };
 
