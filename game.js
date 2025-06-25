@@ -86,7 +86,7 @@ let taskSkipTyping = false;
 
 // Dialogue sequences triggered after selecting a scenario option
 const deployAceDialogue = [
-  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Dryer ACE is online. It's already adjusting for recipe variance and particle size. You can see it stabilizing in real-time." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Dryer ACE is online. You can see it stabilizing in real-time." },
   { name: 'Production Manager', sprite: 'production manager.png', text: "Moisture\u2019s back within 0.5% of the target \u2014 and output is up. That\u2019s the best variability we\u2019ve had in weeks." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Confirmed. QA readings are clean across the board. No returns, no fines." },
   { name: 'Director', sprite: 'director.png', text: "Good decision. Also, energy use per ton is down by about 6%. That\u2019ll show up nicely in next month\u2019s numbers." }
@@ -94,7 +94,7 @@ const deployAceDialogue = [
 
 const manualTuningDialogue = [
   { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve started manual adjustments, but it\u2019s all over the place. The dryer doesn\u2019t respond consistently." },
-  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Moisture readings are now 8% off-spec on the latest batch. We\u2019re reacting too slowly \u2014 the operators can\u2019t keep up with the variability." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "8% of the product is off-spec. We\u2019re reacting too slowly \u2014 the operators can\u2019t keep up with the variability." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "That\u2019ll cost us. We\u2019re looking at fines or full batch rejections if this keeps up." }
 ];
 
@@ -107,7 +107,7 @@ const maintenanceDialogue = [
 const doNothingDialogue = [
   { name: 'Production Manager', sprite: 'production manager.png', text: "Moisture levels continue drifting. We\u2019ve had three batches go out off-spec \u2014 and one\u2019s already come back." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Customer flagged the feed as noncompliant. We\u2019re now in breach of contract for that delivery." },
-  { name: 'Director', sprite: 'directorclown.png', text: "I'm disappointed, General manager. Why did I hire you? You make me look like a clown" }
+  { name: 'Director', sprite: 'directorclown.png', text: "I'm disappointed, General manager. Why did I hire you? You make me look like a clown." }
 ];
 
 let scenarioDialogue = [];
@@ -128,10 +128,6 @@ let dialogueIndex = 0;
 let isTyping = false;
 let currentText = "";
 let skipTyping = false;
-
-// Autoplay timers
-let mainDialogueAutoplayTimer = null;
-
 
 const textBox = document.getElementById("text-box");
 let continueIndicator = document.getElementById("continue-indicator");
@@ -155,21 +151,11 @@ function typeWriter(text, i) {
   isTyping = true;
   continueIndicator.style.opacity = '0';
   
-  // Clear any existing autoplay timer
-  if (mainDialogueAutoplayTimer) {
-    clearTimeout(mainDialogueAutoplayTimer);
-    mainDialogueAutoplayTimer = null;
-  }
-  
   if (skipTyping) {
     textBox.firstChild.textContent = text;
     isTyping = false;
     skipTyping = false;
     continueIndicator.style.opacity = '1';
-    // Start autoplay timer when typing is complete
-    mainDialogueAutoplayTimer = setTimeout(() => {
-      nextDialogue();
-    }, 5000);
     return;
   }
   if (i < text.length) {
@@ -180,10 +166,6 @@ function typeWriter(text, i) {
   } else {
     isTyping = false;
     continueIndicator.style.opacity = '1';
-    // Start autoplay timer when typing is complete
-    mainDialogueAutoplayTimer = setTimeout(() => {
-      nextDialogue();
-    }, 5000);
   }
 }
 
@@ -330,12 +312,6 @@ function nextScenarioDialogue() {
 }
 
 function nextDialogue() {
-  // Clear autoplay timer if user manually proceeds
-  if (mainDialogueAutoplayTimer) {
-    clearTimeout(mainDialogueAutoplayTimer);
-    mainDialogueAutoplayTimer = null;
-  }
-  
   if (isTyping) {
     skipTyping = true;
     return;
