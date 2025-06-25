@@ -87,7 +87,7 @@ let taskSkipTyping = false;
 // Dialogue sequences triggered after selecting a scenario option
 const deployAceDialogue = [
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Dryer ACE is online. It's already adjusting for recipe variance and particle size. You can see it stabilizing in real-time." },
-  { name: 'Production Manager', sprite: 'production manager.png', text: "Moisture\u2019s back within 0.5% of the target \u2014 and output is up. That\u2019s the tightest control we\u2019ve had in weeks." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "Moisture\u2019s back within 0.5% of the target \u2014 and output is up. That\u2019s the best variability we\u2019ve had in weeks." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Confirmed. QA readings are clean across the board. No returns, no fines." },
   { name: 'Director', sprite: 'director.png', text: "Good decision. Also, energy use per ton is down by about 6%. That\u2019ll show up nicely in next month\u2019s numbers." }
 ];
