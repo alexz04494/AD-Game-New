@@ -55,6 +55,7 @@ const cashRegisterSound = document.getElementById("cash-register-sound");
 const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
 const incidentMusic = document.getElementById("incident-music");
+const retroCoinSound = document.getElementById("retro-coin-sound");
 const taskListPage = document.getElementById('task-list-page');
 const pointsCounter = document.getElementById('points-counter');
 let points = 0;
@@ -262,6 +263,11 @@ function showScenarioOptions() {
   const select = (pointsChange) => {
     if (scenarioOptionsDiv.dataset.selected) return;
     scenarioOptionsDiv.dataset.selected = 'true';
+    
+    // Play retro coin sound when option is selected
+    retroCoinSound.currentTime = 0;
+    retroCoinSound.play();
+    
     updatePoints(pointsChange);
     [optionDeploy, optionManual, optionMaintenance, optionNothing].forEach(btn => btn.disabled = true);
   };
@@ -311,7 +317,19 @@ function updateMoneyBar() {
 
 function updatePoints(amount) {
   points += amount;
-  pointsCounter.textContent = `POINTS: ${points}`;
+  
+  // Determine the color class based on points value
+  let colorClass = '';
+  if (points > 0) {
+    colorClass = 'points-positive';
+  } else if (points < 0) {
+    colorClass = 'points-negative';
+  } else {
+    colorClass = 'points-zero';
+  }
+  
+  // Update the points counter with colored number
+  pointsCounter.innerHTML = `POINTS: <span class="${colorClass}">${points}</span>`;
 }
 
 function updateUI() {
