@@ -624,7 +624,7 @@ h1 {
     left: 20px;
     color: white;
     font-family: 'Press Start 2P', cursive;
-    font-size: 1rem;
+    font-size: 0.8rem;
     z-index: 1000;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
 }
@@ -655,7 +655,7 @@ h1 {
 
 #next-scenario-prompt {
     position: fixed;
-    top: 50%;
+    top: calc(50% - 40px);
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Press Start 2P', cursive;
