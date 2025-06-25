@@ -78,7 +78,7 @@ if (taskTextBox) taskTextBox.textContent = '';
 const taskCharacterName = document.querySelector('#task-character-section .character-name');
 const taskCharacterBox = document.getElementById('task-character-box');
 
-const taskDialogue = [
+let taskDialogue = [
   { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve got a problem. Moisture levels in the pellets are reading nearly 2% above spec. We\u2019ve already had one buyer flag the last shipment, and others are threatening to reject deliveries." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "This isn\u2019t just about customer complaints \u2014 we could face penalties. And if word gets out, it\u2019ll hurt our reputation with the rest of the supply chain." },
   { name: 'Production Manager', sprite: 'production manager.png', text: "Right. We need a response now. What do you want to do, general manager?" }
