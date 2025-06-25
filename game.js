@@ -225,7 +225,7 @@ function typeWriterTask(text, i) {
     taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1), 30);
   } else {
     taskTypingTimeout = null;
-    if (taskDialogueIndex >= taskDialogue.length) {
+    if (taskDialogueIndex >= taskDialogue.length && !scenarioOptionsDiv.dataset.selected) {
       showScenarioOptions();
     }
   }
