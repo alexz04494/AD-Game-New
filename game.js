@@ -54,25 +54,16 @@ const pageTurnSound = document.getElementById("page-turn-sound");
 const cashRegisterSound = document.getElementById("cash-register-sound");
 const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
-const fireballSound = document.getElementById("fireball-sound");
-const incidentMusic = document.getElementById("incident-music");
 const taskListPage = document.getElementById('task-list-page');
 const taskListCard = document.getElementById('task-list-card');
 const moneyBarTasks = document.getElementById('money-bar-tasks');
 const monthCounterTasks = document.getElementById('month-counter-tasks');
-
-const taskCharacterImg = document.querySelector('#task-character-box img');
-const taskCharacterName = document.querySelector('#task-character-section .character-name');
-
-let incidentTriggered = false;
-let incidentIndex = 0;
 
 const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
 const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
 if (catalogueTextBox) catalogueTextBox.textContent = '';
 
 const taskTextBox = document.querySelector('#task-text-box .text-content');
-const taskDialogue = taskTextBox ? taskTextBox.textContent : '';
 if (taskTextBox) taskTextBox.textContent = '';
 
 const dialogue = [
@@ -86,55 +77,6 @@ const dialogue = [
   { name: 'Director', sprite: 'director.png', text: 'General manager, I let the decision be up to you. Bring the plant back on its feet!' }
 ];
 
-const incidentDialogue = [
-  { name: 'Director', sprite: 'director.avif', text: 'How could this have happened?' },
-  { name: 'Operator', sprite: 'operator.webp', text: 'Sorry boss... I don\'t know how it happened' },
-  { name: 'Director', sprite: 'director.avif', text: "We can't afford these kind of mistakes.. Maybe someone should’ve invested in proper training tools before this happened." }
-];
-
-function setIncidentSpeaker(entry) {
-    const characterImg = document.querySelector('#task-character-box img');
-    if (characterImg) {
-        // Set the sprite source from the entry
-        characterImg.src = `assets/sprites/${entry.sprite}`;
-        
-        // Add operator-specific class if it's the operator
-        if (entry.name === 'Operator') {
-            characterImg.classList.add('operator-sprite');
-        } else {
-            characterImg.classList.remove('operator-sprite');
-        }
-    }
-    
-    // Also update the character name
-    const characterName = document.querySelector('#task-character-section .character-name');
-    if (characterName) {
-        characterName.textContent = entry.name;
-    }
-}
-
-function nextIncidentDialogue() {
-  // Clear autoplay timer if user manually proceeds
-  if (incidentDialogueAutoplayTimer) {
-    clearTimeout(incidentDialogueAutoplayTimer);
-    incidentDialogueAutoplayTimer = null;
-  }
-  
-  if (incidentIndex >= incidentDialogue.length) {
-    taskListPage.removeEventListener('click', nextIncidentDialogue);
-    return;
-  }
-  const entry = incidentDialogue[incidentIndex];
-  
-  // Ensure text is completely cleared before starting new text
-  if (taskTextBox) {
-    taskTextBox.textContent = '';
-  }
-  
-  setIncidentSpeaker(entry);
-  typeWriterTask(entry.text, 0);
-  incidentIndex++;
-}
 let dialogueIndex = 0;
 let isTyping = false;
 let currentText = "";
@@ -142,7 +84,7 @@ let skipTyping = false;
 
 // Autoplay timers
 let mainDialogueAutoplayTimer = null;
-let incidentDialogueAutoplayTimer = null;
+
 
 const textBox = document.getElementById("text-box");
 let continueIndicator = document.getElementById("continue-indicator");
@@ -154,8 +96,6 @@ startPage.onclick = () => {
   mainGamePage.style.display = "block";
   beepSound.currentTime = 0;
   beepSound.play();
-  incidentMusic.volume = 0.2;
-  incidentMusic.play();
   nextDialogue();
 };
 
@@ -213,11 +153,6 @@ function typeWriterTask(text, i) {
     if (taskTypingTimeout) {
       clearTimeout(taskTypingTimeout);
     }
-    // Clear any existing autoplay timer
-    if (incidentDialogueAutoplayTimer) {
-      clearTimeout(incidentDialogueAutoplayTimer);
-      incidentDialogueAutoplayTimer = null;
-    }
     taskTextBox.textContent = '';
   }
 
@@ -231,12 +166,6 @@ function typeWriterTask(text, i) {
     taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1), 30);
   } else {
     taskTypingTimeout = null;
-    // Start autoplay timer when typing is complete (only for incident dialogue)
-    if (incidentIndex > 0 && incidentIndex <= incidentDialogue.length) {
-      incidentDialogueAutoplayTimer = setTimeout(() => {
-        nextIncidentDialogue();
-      }, 5000);
-    }
   }
 }
 
@@ -396,103 +325,6 @@ function renderTaskListCard() {
   updateMoneyBars();
   monthCounterTasks.textContent = "MONTH: 1/12";
   taskListCard.innerHTML = '';
-  const card = document.createElement('div');
-  card.className = 'shop-card';
-
-  const signet = document.createElement('img');
-  signet.className = 'card-signet';
-  signet.src = 'assets/icons/signet.png';
-  signet.alt = 'ANDRITZ';
-  card.appendChild(signet);
-
-  const title = document.createElement('h3');
-  title.textContent = 'Task List';
-  card.appendChild(title);
-
-  const list = document.createElement('div');
-  list.className = 'task-list';
-
-  const tasks = [
-    'Review Production Report',
-    'Sign Purchase Orders',
-    'Approve Maintenance Log',
-    'Confirm Shipping Schedule',
-    'Approve Staff Timesheet'
-  ];
-
-  tasks.forEach((text, index) => {
-    const label = document.createElement('label');
-    label.className = 'task-checkbox';
-
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = `task-${index + 1}`;
-
-    const span = document.createElement('span');
-    span.textContent = text;
-
-    label.appendChild(checkbox);
-    label.appendChild(span);
-    list.appendChild(label);
-  });
-
-  card.appendChild(list);
-  const finishBtn = document.createElement('button');
-  finishBtn.className = 'finish-month-btn';
-  finishBtn.textContent = 'Proceed';
-  finishBtn.disabled = true; // Start as disabled
-  card.appendChild(finishBtn);
-
-  taskListCard.appendChild(card);
-  typeWriterTask(taskDialogue, 0);
-
-  const pencilSound = document.getElementById('pencil-check-sound');
-  const allCheckboxes = list.querySelectorAll('input[type="checkbox"]');
-  
-  // Function to check if all tasks are completed
-  function checkAllTasksCompleted() {
-    const completedTasks = list.querySelectorAll('input[type="checkbox"]:checked').length;
-    const totalTasks = allCheckboxes.length;
-    
-    if (completedTasks === totalTasks) {
-      finishBtn.disabled = false;
-      finishBtn.classList.add('enabled');
-    } else {
-      finishBtn.disabled = true;
-      finishBtn.classList.remove('enabled');
-    }
-  }
-  
-  allCheckboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      if (cb.checked) {
-        pencilSound.currentTime = 0;
-        pencilSound.play();
-        cb.disabled = true;
-      }
-      checkAllTasksCompleted();
-    });
-  });
-
-  // Initial check
-  checkAllTasksCompleted();
-
-  finishBtn.addEventListener('click', () => {
-    if (!state.upgrades.training.active && !incidentTriggered) {
-      incidentTriggered = true;
-      fireballSound.currentTime = 0;
-      fireballSound.play();
-      mainThemeMusic.pause();
-      incidentMusic.volume = 0.2;
-      incidentMusic.play();
-      renderIncidentCard();
-    }
-  });
-}
-
-function renderIncidentCard() {
-  updateMoneyBars();
-  taskListCard.innerHTML = '';
 
   const card = document.createElement('div');
   card.className = 'shop-card';
@@ -503,22 +335,9 @@ function renderIncidentCard() {
   signet.alt = 'ANDRITZ';
   card.appendChild(signet);
 
-  const title = document.createElement('h3');
-  title.className = 'incident-title';
-  title.textContent = 'Incident Report';
-  card.appendChild(title);
-
-  const desc = document.createElement('div');
-  desc.className = 'incident-description';
-  desc.textContent = 'An operator deviated from standard procedure during a routine task, resulting in production delays and material waste. Root cause analysis indicates inadequate familiarity with updated protocols.';
-  card.appendChild(desc);
-
   taskListCard.appendChild(card);
-
-  incidentIndex = 0;
-  nextIncidentDialogue();
-  taskListPage.addEventListener('click', nextIncidentDialogue);
 }
+
 
 continueBtn.onclick = () => {
   simulationPage.style.display = "none";
