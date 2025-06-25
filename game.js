@@ -54,6 +54,7 @@ const pageTurnSound = document.getElementById("page-turn-sound");
 const cashRegisterSound = document.getElementById("cash-register-sound");
 const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
+const incidentMusic = document.getElementById("incident-music");
 const taskListPage = document.getElementById('task-list-page');
 const taskListCard = document.getElementById('task-list-card');
 const pointsCounter = document.getElementById('points-counter');
@@ -107,6 +108,11 @@ startPage.onclick = () => {
   mainGamePage.style.display = "block";
   beepSound.currentTime = 0;
   beepSound.play();
+  
+  // Start incident music for the first dialogue
+  incidentMusic.volume = 0.2;
+  incidentMusic.play();
+  
   nextDialogue();
 };
 
@@ -260,7 +266,7 @@ function nextDialogue() {
     uiDiv.style.display = "block";
     mainGamePage.removeEventListener('click', nextDialogue);
     typeWriterCatalogue(catalogueDialogue, 0);
-    mainThemeMusic.pause();
+    incidentMusic.pause();
     catalogueMusic.volume = 0.1;
     catalogueMusic.play();
   }
@@ -328,7 +334,8 @@ function updateUI() {
       uiDiv.style.display = 'none';
       taskListPage.style.display = 'block';
       catalogueMusic.pause();
-      mainThemeMusic.play();
+      incidentMusic.volume = 0.2;
+      incidentMusic.play();
       renderTaskListCard();
     };
     card.appendChild(btn);
