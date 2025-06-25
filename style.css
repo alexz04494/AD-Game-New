@@ -330,7 +330,7 @@ h1 {
 /*---------------------------------------------------
   Money Bar
 ---------------------------------------------------*/
-#money-bar, #money-bar-tasks {
+#money-bar {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -619,10 +619,21 @@ h1 {
     animation: bob 3s ease-in-out infinite;
 }
 
-#month-counter, #month-counter-tasks {
+#month-counter {
     position: fixed;
     top: 20px;
     left: 20px;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    z-index: 1000;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+}
+
+#points-counter {
+    position: fixed;
+    top: 20px;
+    right: 20px;
     color: white;
     font-family: 'Press Start 2P', cursive;
     font-size: 0.7rem;
@@ -705,7 +716,7 @@ h1 {
 #task-list-page {
     position: fixed;
     inset: 0;
-    background: url('assets/backgrounds/feedmill.jpg') no-repeat center center/cover;
+    background: url('assets/backgrounds/controlroom.png') no-repeat center center/cover;
     z-index: 20;
     display: none;
     align-items: center;

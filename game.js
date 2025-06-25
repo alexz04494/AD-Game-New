@@ -56,8 +56,7 @@ const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
 const taskListPage = document.getElementById('task-list-page');
 const taskListCard = document.getElementById('task-list-card');
-const moneyBarTasks = document.getElementById('money-bar-tasks');
-const monthCounterTasks = document.getElementById('month-counter-tasks');
+const pointsCounter = document.getElementById('points-counter');
 
 const catalogueTextBox = document.querySelector('#catalogue-text-box .text-content');
 const catalogueDialogue = catalogueTextBox ? catalogueTextBox.textContent : '';
@@ -65,6 +64,18 @@ if (catalogueTextBox) catalogueTextBox.textContent = '';
 
 const taskTextBox = document.querySelector('#task-text-box .text-content');
 if (taskTextBox) taskTextBox.textContent = '';
+
+const taskCharacterName = document.querySelector('#task-character-section .character-name');
+const taskCharacterBox = document.getElementById('task-character-box');
+
+const taskDialogue = [
+  { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve got a problem. Moisture levels in the pellets are reading nearly 2% above spec. We\u2019ve already had one buyer flag the last shipment, and others are threatening to reject deliveries." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "This isn\u2019t just about customer complaints \u2014 we could face penalties. And if word gets out, it\u2019ll hurt our reputation with the rest of the supply chain." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "Right. We need a response now. What do you want to do, general manager?" }
+];
+let taskDialogueIndex = 0;
+let taskCurrentText = '';
+let taskSkipTyping = false;
 
 const dialogue = [
   { name: 'Director', sprite: 'director.png', text: 'Alright, let\u2019s get started \u2014 we\u2019ve had another rough quarter, and I want to hear where the bottlenecks really are.' },
@@ -156,6 +167,13 @@ function typeWriterTask(text, i) {
     taskTextBox.textContent = '';
   }
 
+  if (taskSkipTyping) {
+    taskTextBox.textContent = text;
+    taskSkipTyping = false;
+    taskTypingTimeout = null;
+    return;
+  }
+
   if (i < text.length) {
     taskTextBox.textContent += text.charAt(i);
     // Play sound only occasionally to avoid conflicts
@@ -184,6 +202,35 @@ function setMainSpeaker(entry) {
       mainCharacterImg.src = '';
       mainCharacterImg.style.display = 'none';
     }
+  }
+}
+
+function setTaskSpeaker(entry) {
+  if (taskCharacterName) {
+    taskCharacterName.textContent = entry.name;
+  }
+  if (taskCharacterBox) {
+    taskCharacterBox.innerHTML = '';
+    if (entry.sprite) {
+      const img = document.createElement('img');
+      img.src = `assets/sprites/${entry.sprite}`;
+      img.alt = entry.name;
+      taskCharacterBox.appendChild(img);
+    }
+  }
+}
+
+function nextTaskDialogue() {
+  if (taskTypingTimeout) {
+    taskSkipTyping = true;
+    return;
+  }
+  if (taskDialogueIndex < taskDialogue.length) {
+    const entry = taskDialogue[taskDialogueIndex];
+    setTaskSpeaker(entry);
+    taskCurrentText = entry.text;
+    typeWriterTask(taskCurrentText, 0);
+    taskDialogueIndex++;
   }
 }
 
@@ -219,14 +266,13 @@ function nextDialogue() {
   }
 }
 
-function updateMoneyBars() {
+function updateMoneyBar() {
   const moneyText = `€${state.money}`;
   moneyBar.textContent = moneyText;
-  moneyBarTasks.textContent = moneyText;
 }
 
 function updateUI() {
-  updateMoneyBars();
+  updateMoneyBar();
   shopDiv.innerHTML = "";
 
   const itemKey = shopItems[currentShopItem];
@@ -322,8 +368,7 @@ function updateUI() {
 }
 
 function renderTaskListCard() {
-  updateMoneyBars();
-  monthCounterTasks.textContent = "MONTH: 1/12";
+  updateMoneyBar();
   taskListCard.innerHTML = '';
 
   const card = document.createElement('div');
@@ -336,6 +381,9 @@ function renderTaskListCard() {
   card.appendChild(signet);
 
   taskListCard.appendChild(card);
+
+  taskDialogueIndex = 0;
+  nextTaskDialogue();
 }
 
 
@@ -356,3 +404,5 @@ continueBtn.onclick = () => {
 };
 
 updateUI();
+
+taskListPage.addEventListener('click', nextTaskDialogue);
