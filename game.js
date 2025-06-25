@@ -245,6 +245,8 @@ function nextTaskDialogue() {
     taskCurrentText = entry.text;
     typeWriterTask(taskCurrentText, 0);
     taskDialogueIndex++;
+  } else {
+    showScenarioOptions();
   }
 }
 
