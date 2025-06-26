@@ -147,6 +147,29 @@ const scenario2NothingDialogue = [
   { name: 'Director', sprite: 'directorclown.png', text: "This delay puts the order at risk. Customer\u2019s going to feel it. What are you doing, general manager?" },
 ];
 
+// ---------- Scenario 3 Dialogue ----------
+const scenario3Intro = [
+  { name: 'Regulatory Auditor', sprite: 'auditor.png', text: "We\u2019re conducting a spot check on batch lot #8462. I\u2019ll need full traceability data\u2014inputs, processing timestamps, output routing. Live, if possible." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Understood. I\u2019ll start pulling the lot genealogy now\u2026 just a moment." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Heads up\u2014system\u2019s under load. If the PLC chokes again, we could lose connection mid-query." },
+  { name: 'Director of Operations', sprite: 'director.png', text: "Let\u2019s not give them a reason to question our process. Handle it fast\u2014keep production running." },
+  { name: 'Plant Manager', sprite: 'production manager.png', text: "If this delays output, we\u2019ll miss the afternoon load. Let\u2019s not make this a bigger mess than it already is." },
+];
+
+const scenario3DigitalDialogue = [
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Audit request received. Pulling lot genealogy now\u2026 one click." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Upgraded PLC stayed online; data is streaming clean\u2014no gaps." },
+  { name: 'Regulatory Auditor', sprite: 'auditor.png', text: "Trace complete. All checkpoints match. Compliance clear." },
+  { name: 'Director of Operations', sprite: 'director.png', text: "Perfect\u2014zero downtime and the audit\u2019s passed. That keeps us on the preferred list." },
+];
+
+const scenario3ManualDialogue = [
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Paper logs are missing two batches\u2026 audit\u2019s on hold while we hunt them down." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Legacy PLC just crashed during the export; whole line is idle." },
+  { name: 'Plant Manager', sprite: 'production manager.png', text: "We\u2019ll recall the last three days of product to be safe. That\u2019s the only way to cover the gap." },
+  { name: 'Director of Operations', sprite: 'director.png', text: "Costly hit\u2014production lost, and the client\u2019s already questioning our reliability." },
+];
+
 let scenarioDialogue = [];
 let scenarioDialogueIndex = 0;
 
@@ -310,6 +333,8 @@ function showScenarioOptions() {
   optionManual.disabled = false;
   optionMaintenance.disabled = false;
   optionNothing.disabled = false;
+  optionMaintenance.style.display = '';
+  optionNothing.style.display = '';
 
   if (currentScenario === 1 && !state.upgrades.moisture.active) {
     optionDeploy.disabled = true;
@@ -355,6 +380,14 @@ function showScenarioOptions() {
     optionManual.onclick = () => select(-5, scenario2ManualDialogue);
     optionMaintenance.onclick = () => select(-10, scenario2TechDialogue);
     optionNothing.onclick = () => select(-15, scenario2NothingDialogue);
+  } else if (currentScenario === 3) {
+    optionDeploy.textContent = 'Access Digital Traceability Platform';
+    optionManual.textContent = 'Rely on manual records';
+    optionMaintenance.style.display = 'none';
+    optionNothing.style.display = 'none';
+
+    optionDeploy.onclick = () => select(25, scenario3DigitalDialogue);
+    optionManual.onclick = () => select(-20, scenario3ManualDialogue);
   }
 }
 
@@ -376,7 +409,7 @@ function nextScenarioDialogue() {
     scenarioDialogueIndex++;
   } else {
     taskListPage.removeEventListener('click', nextScenarioDialogue);
-    if (currentScenario === 1) {
+    if (currentScenario === 1 || currentScenario === 2) {
       // Add a small delay to prevent the same click from triggering the next scenario
       setTimeout(() => {
         taskListPage.addEventListener('click', handleNextScenarioClick);
@@ -388,7 +421,11 @@ function nextScenarioDialogue() {
 function handleNextScenarioClick() {
   taskListPage.removeEventListener('click', handleNextScenarioClick);
   nextScenarioPrompt.style.display = 'none';
-  startScenarioTwo();
+  if (currentScenario === 1) {
+    startScenarioTwo();
+  } else if (currentScenario === 2) {
+    startScenarioThree();
+  }
 }
 
 function startScenarioTwo() {
@@ -399,6 +436,18 @@ function startScenarioTwo() {
   taskDialogueIndex = 0;
   scenarioDialogueIndex = 0;
   taskListPage.style.backgroundImage = "url('assets/backgrounds/hammermillscene.png')";
+  taskListPage.addEventListener('click', nextTaskDialogue);
+  nextTaskDialogue();
+}
+
+function startScenarioThree() {
+  currentScenario = 3;
+  scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
+  scenarioOptionsDiv.dataset.selected = '';
+  taskDialogue = scenario3Intro;
+  taskDialogueIndex = 0;
+  scenarioDialogueIndex = 0;
+  taskListPage.style.backgroundImage = "url('assets/backgrounds/auditbg.png')";
   taskListPage.addEventListener('click', nextTaskDialogue);
   nextTaskDialogue();
 }
