@@ -611,12 +611,12 @@ function showPerformanceReport() {
 
   const finalScore = document.createElement('div');
   finalScore.className = 'performance-report-line';
-  finalScore.textContent = `Final score: ${points}`;
+  finalScore.innerHTML = `Final score: <span class="${points < 0 ? 'negative-score' : 'positive-score'}">${points}</span>`;
   card.appendChild(finalScore);
 
   const maxScore = document.createElement('div');
   maxScore.className = 'performance-report-line';
-  maxScore.textContent = 'Maximum possible: 55 points';
+  maxScore.textContent = 'Maximum possible: 55';
   card.appendChild(maxScore);
 
   const percent = Math.max(0, Math.round((points / 55) * 100));
@@ -628,14 +628,18 @@ function showPerformanceReport() {
   const badgeLine = document.createElement('div');
   badgeLine.className = 'performance-report-line';
   let badge = '';
+  let badgeClass = '';
   if (points > 41) {
     badge = 'Certified Operational Leader';
+    badgeClass = 'badge-success';
   } else if (points >= 15) {
     badge = 'Mindful Manager';
+    badgeClass = 'badge-success';
   } else {
     badge = 'Dismissed';
+    badgeClass = 'badge-dismissed';
   }
-  badgeLine.textContent = `Badge: ${badge}`;
+  badgeLine.innerHTML = `Badge: <span class="${badgeClass}">${badge}</span>`;
   card.appendChild(badgeLine);
 
   container.appendChild(card);
