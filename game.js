@@ -5,31 +5,31 @@ const state = {
       name: "ACE Moisture Control",
       price: 120000,
       active: false,
-      description: "<p>Maintain pellet moisture with pinpoint accuracy, eliminating costly spec deviations and rework. ACE Moisture Control optimizes drying processes for consistent quality.</p><ul><li>Reduces moisture variability</li><li>Minimizes fines and rework</li><li>Improves product shelf life</li><li>Enhances buyer confidence</li></ul>"
+      description: "<p>Maintain pellet moisture with pinpoint accuracy, eliminating costly spec deviations and rework. ACE Moisture Control optimizes drying processes for consistent quality.</p>"
     },
     training: {
       name: "Operator Training Suite",
       price: 120000,
       active: false,
-      description: "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p><ul><li>Standardizes best practices</li><li>Improves operator confidence</li><li>Reduces human error & downtime</li><li>Supports continuous learning</li></ul>"
+      description: "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p>"
     },
     retrofit: {
       name: "Plant Solutions",
       price: 150000,
       active: false,
-      description: "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p><ul><li>PLC/SCADA retrofit</li><li>Full batch traceability</li><li>Reduces unplanned downtime</li><li>Future-proofs your automation</li></ul>"
+      description: "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p>"
     },
     digitalTwin: {
       name: "Digital Twin & Predictive",
       price: 150000,
       active: false,
-      description: "<p>Leverage real-time simulation and analytics to predict issues before they occur, optimizing throughput and maintenance scheduling.</p><ul><li>Real-time operational insights</li><li>Predictive maintenance alerts</li><li>Optimizes throughput</li><li>Supports data-driven decisions</li></ul>"
+      description: "<p>Leverage real-time simulation and analytics to predict issues before they occur, optimizing throughput and maintenance scheduling.</p>"
     },
     plantInsights: {
       name: "Plant Insights with OEE",
       price: 95000,
       active: false,
-      description: "<p>Track Overall Equipment Effectiveness (OEE) with precision to identify bottlenecks, reduce downtime, and maximize asset utilization.</p><ul><li>Monitors production efficiency</li><li>Identifies downtime causes</li><li>Supports continuous improvement</li><li>Drives better asset management</li></ul>"
+      description: "<p>Track Overall Equipment Effectiveness (OEE) with precision to identify bottlenecks, reduce downtime, and maximize asset utilization.</p>"
     },
     finish: {
       name: "",
