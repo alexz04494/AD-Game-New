@@ -19,6 +19,12 @@ const state = {
       active: false,
       description: "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p><ul><li>PLC/SCADA retrofit</li><li>Full batch traceability</li><li>Reduces unplanned downtime</li><li>Future-proofs your automation</li></ul>"
     },
+    digitalTwin: {
+      name: "Digital Twin & Predictive",
+      price: 200000,
+      active: false,
+      description: "<p>Leverage real-time simulation and analytics to predict issues before they occur, optimizing throughput and maintenance scheduling.</p><ul><li>Real-time operational insights</li><li>Predictive maintenance alerts</li><li>Optimizes throughput</li><li>Supports data-driven decisions</li></ul>"
+    },
     plantInsights: {
       name: "Plant Insights with OEE",
       price: 175000,
