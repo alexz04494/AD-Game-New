@@ -262,7 +262,6 @@ const endYearDialogue = [
   { name: 'Director', sprite: 'director.png', text: "That\u2019s the year. Numbers are in, and so are the outcomes. Let\u2019s take a look at where we landed." },
   { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve seen ups and downs. Some improvements, some setbacks." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Customer reports, compliance notes, internal rework logs\u2014they\u2019re all factored in." },
-  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "Downtime hours and recovery times were tracked closely. It's all in the report." },
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Same on the system side. Every decision had ripple effects, good or bad." },
   { name: 'Director', sprite: 'director.png', text: "Alright. Let\u2019s review the results." }
 ];
