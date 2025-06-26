@@ -607,6 +607,43 @@ function showPerformanceReport() {
   title.textContent = 'Performance report';
   card.appendChild(title);
 
+  const finalScore = document.createElement('div');
+  finalScore.className = 'performance-report-line';
+  finalScore.textContent = `Final score: ${points}`;
+  card.appendChild(finalScore);
+
+  const maxScore = document.createElement('div');
+  maxScore.className = 'performance-report-line';
+  maxScore.textContent = 'Maximum possible: 55 points';
+  card.appendChild(maxScore);
+
+  const percent = Math.max(0, Math.round((points / 55) * 100));
+  const percentLine = document.createElement('div');
+  percentLine.className = 'performance-report-line';
+  percentLine.textContent = `Performance %: ${percent}%`;
+  card.appendChild(percentLine);
+
+  const solutionsHeader = document.createElement('div');
+  solutionsHeader.className = 'performance-report-line';
+  solutionsHeader.textContent = 'Solutions bought:';
+  card.appendChild(solutionsHeader);
+
+  const list = document.createElement('ul');
+  list.className = 'performance-report-list';
+  const purchased = Object.values(state.upgrades).filter(u => u.active && u.name);
+  if (purchased.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = 'None';
+    list.appendChild(li);
+  } else {
+    purchased.forEach(u => {
+      const li = document.createElement('li');
+      li.textContent = u.name;
+      list.appendChild(li);
+    });
+  }
+  card.appendChild(list);
+
   container.appendChild(card);
   container.style.display = 'flex';
   taskListPage.removeEventListener('click', nextTaskDialogue);
