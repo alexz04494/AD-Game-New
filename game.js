@@ -1,33 +1,33 @@
 const state = {
-  money: 500000,
+  money: 365000,
   upgrades: {
     moisture: {
       name: "ACE Moisture Control",
-      price: 180000,
+      price: 120000,
       active: false,
       description: "<p>Maintain pellet moisture with pinpoint accuracy, eliminating costly spec deviations and rework. ACE Moisture Control optimizes drying processes for consistent quality.</p><ul><li>Reduces moisture variability</li><li>Minimizes fines and rework</li><li>Improves product shelf life</li><li>Enhances buyer confidence</li></ul>"
     },
     training: {
       name: "Operator Training Suite",
-      price: 140000,
+      price: 120000,
       active: false,
       description: "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p><ul><li>Standardizes best practices</li><li>Improves operator confidence</li><li>Reduces human error & downtime</li><li>Supports continuous learning</li></ul>"
     },
     retrofit: {
       name: "Plant Solutions",
-      price: 220000,
+      price: 150000,
       active: false,
       description: "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p><ul><li>PLC/SCADA retrofit</li><li>Full batch traceability</li><li>Reduces unplanned downtime</li><li>Future-proofs your automation</li></ul>"
     },
     digitalTwin: {
       name: "Digital Twin & Predictive",
-      price: 200000,
+      price: 150000,
       active: false,
       description: "<p>Leverage real-time simulation and analytics to predict issues before they occur, optimizing throughput and maintenance scheduling.</p><ul><li>Real-time operational insights</li><li>Predictive maintenance alerts</li><li>Optimizes throughput</li><li>Supports data-driven decisions</li></ul>"
     },
     plantInsights: {
       name: "Plant Insights with OEE",
-      price: 175000,
+      price: 95000,
       active: false,
       description: "<p>Track Overall Equipment Effectiveness (OEE) with precision to identify bottlenecks, reduce downtime, and maximize asset utilization.</p><ul><li>Monitors production efficiency</li><li>Identifies downtime causes</li><li>Supports continuous improvement</li><li>Drives better asset management</li></ul>"
     },
@@ -471,8 +471,8 @@ function showScenarioOptions() {
     optionNothing.textContent = 'Do nothing';
 
     optionDeploy.onclick = () => select(25, deployAceDialogue);
-    optionManual.onclick = () => select(-15, manualTuningDialogue);
-    optionMaintenance.onclick = () => select(-10, maintenanceDialogue);
+    optionManual.onclick = () => select(-10, manualTuningDialogue);
+    optionMaintenance.onclick = () => select(-15, maintenanceDialogue);
     optionNothing.onclick = () => select(-20, doNothingDialogue);
   } else if (currentScenario === 2) {
     optionDeploy.textContent = 'Deploy Plant Insights + OEE System';
@@ -492,9 +492,9 @@ function showScenarioOptions() {
     optionMaintenance.style.display = '';
     optionNothing.style.display = '';
 
-    optionDeploy.onclick = () => select(25, scenario3DigitalDialogue);
+    optionDeploy.onclick = () => select(30, scenario3DigitalDialogue);
     optionManual.onclick = () => select(-8, scenario3ManualDialogue);
-    optionMaintenance.onclick = () => select(-10, scenario3RetestDialogue);
+    optionMaintenance.onclick = () => select(-12, scenario3RetestDialogue);
     optionNothing.onclick = () => select(-15, scenario3NothingDialogue);
   } else if (currentScenario === 4) {
     optionDeploy.textContent = 'Run OTS Simulation Drill';
@@ -504,8 +504,8 @@ function showScenarioOptions() {
 
     optionDeploy.onclick = () => select(20, scenario4OTSDialogue);
     optionManual.onclick = () => select(-10, scenario4SupervisorDialogue);
-    optionMaintenance.onclick = () => select(-18, scenario4FigureOutDialogue);
-    optionNothing.onclick = () => select(-12, scenario4KeepRunningDialogue);
+    optionMaintenance.onclick = () => select(-12, scenario4FigureOutDialogue);
+    optionNothing.onclick = () => select(-18, scenario4KeepRunningDialogue);
   } else if (currentScenario === 5) {
     optionDeploy.textContent = 'Use Digital Twin for Predictive Alert';
     optionManual.textContent = 'Call Vendor Support for Emergency Swap';
@@ -513,8 +513,8 @@ function showScenarioOptions() {
     optionNothing.textContent = 'Do Nothing and Wait for Failure Resolution';
 
     optionDeploy.onclick = () => select(30, scenario5TwinDialogue);
-    optionManual.onclick = () => select(-10, scenario5VendorDialogue);
-    optionMaintenance.onclick = () => select(-15, scenario5RebootDialogue);
+    optionManual.onclick = () => select(-15, scenario5VendorDialogue);
+    optionMaintenance.onclick = () => select(-10, scenario5RebootDialogue);
     optionNothing.onclick = () => select(-25, scenario5NothingDialogue);
   }
 }
