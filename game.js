@@ -706,10 +706,6 @@ function goBack() {
   const snap = historyStack.pop();
   restoreSnapshot(snap);
 
-
-  const snap = historyStack.pop();
-  restoreSnapshot(snap);
-
   switch (snap.scenario) {
     case 1:
       startScenarioOne();
