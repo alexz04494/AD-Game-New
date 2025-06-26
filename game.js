@@ -692,6 +692,7 @@ function restoreSnapshot(snap) {
 function goBack() {
   if (historyStack.length === 0) return;
 
+
   taskListPage.removeEventListener('click', nextTaskDialogue);
   taskListPage.removeEventListener('click', nextScenarioDialogue);
   taskListPage.removeEventListener('click', handleNextScenarioClick);
@@ -701,6 +702,10 @@ function goBack() {
     clearTimeout(taskTypingTimeout);
     taskTypingTimeout = null;
   }
+
+  const snap = historyStack.pop();
+  restoreSnapshot(snap);
+
 
   const snap = historyStack.pop();
   restoreSnapshot(snap);
@@ -723,6 +728,8 @@ function goBack() {
       break;
   }
 
+
+
   if (historyStack.length === 0 && backButton) backButton.style.display = 'none';
 }
 
@@ -739,6 +746,7 @@ function startScenarioOne() {
   }
   nextScenarioPrompt.style.display = 'none';
   scenarioOptionsDiv.style.display = 'none';
+
   currentScenario = 1;
   scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
   scenarioCounter.style.display = 'block';
