@@ -98,7 +98,7 @@ let taskSkipTyping = false;
 const deployAceDialogue = [
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Dryer ACE just compensated \u00b10.4% moisture in 15 seconds. Humidity spike caught and corrected." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "QA trending stays green\u2014no off-spec risk despite the monsoon levels." },
-  { name: 'Plant Manager', sprite: 'production manager.png', text: "Good. Keep production at full rate; no reruns today, even with this air." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "Good. Keep production at full rate; no reruns today, even with this air." },
   { name: 'Director', sprite: 'director.png', text: "Energy profile looks smoother, too. ACE is earning its keep." }
 ];
 
@@ -159,7 +159,7 @@ const scenario3Intro = [
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Understood. I\u2019ll start pulling the lot genealogy now\u2026 just a moment." },
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Heads up\u2014system\u2019s under load. If the PLC chokes again, we could lose connection mid-query." },
   { name: 'Director of Operations', sprite: 'director.png', text: "Let\u2019s not give them a reason to question our process. Handle it fast\u2014keep production running." },
-  { name: 'Plant Manager', sprite: 'production manager.png', text: "If this delays output, we\u2019ll miss the afternoon load. Let\u2019s not make this a bigger mess than it already is." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "If this delays output, we\u2019ll miss the afternoon load. Let\u2019s not make this a bigger mess than it already is." },
 ];
 
 const scenario3DigitalDialogue = [
@@ -172,13 +172,13 @@ const scenario3DigitalDialogue = [
 const scenario3ManualDialogue = [
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Paper logs are missing two batches\u2026 audit\u2019s on hold while we hunt them down." },
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Legacy PLC just crashed during the export; whole line is idle." },
-  { name: 'Plant Manager', sprite: 'production manager.png', text: "We\u2019ll recall the last three days of product to be safe. That\u2019s the only way to cover the gap." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ll recall the last three days of product to be safe. That\u2019s the only way to cover the gap." },
   { name: 'Director of Operations', sprite: 'director.png', text: "Costly hit\u2014production lost, and the client\u2019s already questioning our reliability." },
 ];
 
 const scenario3RetestDialogue = [
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "We\u2019ll recheck the entire batch manually\u2014retest all retained samples against the product spec. It\u2019ll take time, and I\u2019ll need every QA hand on it." },
-  { name: 'Plant Manager', sprite: 'production manager.png', text: "That\u2019s going to delay outbound inspections and tie up half the floor. But it\u2019s better than failing the audit outright." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "That\u2019s going to delay outbound inspections and tie up half the floor. But it\u2019s better than failing the audit outright." },
   { name: 'Director of Operations', sprite: 'director.png', text: "Do what you need to. We can\u2019t afford missing data in front of the client." },
 ];
 
@@ -226,7 +226,7 @@ const scenario4KeepRunningDialogue = [
 // ---------- Scenario 5 Dialogue ----------
 const scenario5Intro = [
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'PLC-7 just dropped out\u2014batching and conveyor logic are unresponsive. We\u2019re mid-cycle on two product lines.' },
-  { name: 'Plant Manager', sprite: 'production manager.png', text: 'That\u2019s one of the legacy units. We knew it was on borrowed time.' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'That\u2019s one of the legacy units. We knew it was on borrowed time.' },
   { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'No alarms, no diagnostics\u2014comms just went dark.' },
   { name: 'Director', sprite: 'director.png', text: 'Get it back up. We can\u2019t afford to fall behind right now.' },
 ];
@@ -247,7 +247,7 @@ const scenario5VendorDialogue = [
 const scenario5RebootDialogue = [
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'We\u2019re flashing backup firmware. Takes about 45 minutes to boot each segment.' },
   { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'Wiring\u2019s still intact, but we\u2019ve got to patch the logic loop manually.' },
-  { name: 'Plant Manager', sprite: 'production manager.png', text: 'We lost about three hours, but we\u2019re crawling back online.' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'We lost about three hours, but we\u2019re crawling back online.' },
 ];
 
 const scenario5NothingDialogue = [
