@@ -319,6 +319,7 @@ function restartIntro() {
   continueIndicator = document.getElementById('continue-indicator');
   mainGamePage.addEventListener('click', nextDialogue);
   if (catalogueBack) catalogueBack.style.display = 'none';
+  if (catalogueTextBox) catalogueTextBox.textContent = '';
   nextDialogue();
 }
 
@@ -613,6 +614,8 @@ function startEndYearScene() {
   mainThemeMusic.pause();
   endMusic.volume = 0.2;
   endMusic.play();
+  historyStack.length = 0;
+  if (backButton) backButton.style.display = 'none';
   taskListPage.addEventListener('click', nextTaskDialogue);
   nextTaskDialogue();
 }
@@ -907,7 +910,11 @@ function nextDialogue() {
     mainGamePage.style.display = "none";
     uiDiv.style.display = "block";
     mainGamePage.removeEventListener('click', nextDialogue);
-    typeWriterCatalogue(catalogueDialogue, 0);
+    if (catalogueTextBox && catalogueTextBox.textContent.trim() === '') {
+      typeWriterCatalogue(catalogueDialogue, 0);
+    } else if (catalogueTextBox) {
+      catalogueTextBox.textContent = catalogueDialogue;
+    }
     mainThemeMusic.pause();
     catalogueMusic.volume = 0.1;
     catalogueMusic.play();
