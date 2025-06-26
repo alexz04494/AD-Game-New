@@ -253,9 +253,9 @@ startPage.onclick = () => {
   beepSound.currentTime = 0;
   beepSound.play();
   
-  // Start incident music for the first dialogue
-  incidentMusic.volume = 0.2;
-  incidentMusic.play();
+  // Start main theme music for the first dialogue
+  mainThemeMusic.volume = 0.2;
+  mainThemeMusic.play();
   
   nextDialogue();
 };
@@ -557,7 +557,7 @@ function nextDialogue() {
     uiDiv.style.display = "block";
     mainGamePage.removeEventListener('click', nextDialogue);
     typeWriterCatalogue(catalogueDialogue, 0);
-    incidentMusic.pause();
+    mainThemeMusic.pause();
     catalogueMusic.volume = 0.1;
     catalogueMusic.play();
   }
@@ -642,8 +642,8 @@ function updateUI() {
       uiDiv.style.display = 'none';
       taskListPage.style.display = 'block';
       catalogueMusic.pause();
-      incidentMusic.volume = 0.2;
-      incidentMusic.play();
+      mainThemeMusic.volume = 0.2;
+      mainThemeMusic.play();
       updateMoneyBar();
       taskDialogueIndex = 0;
       scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
