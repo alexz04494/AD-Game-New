@@ -182,6 +182,41 @@ const scenario3NothingDialogue = [
   { name: 'Director of Operations', sprite: 'director.png', text: "Client\u2019s not happy. There\u2019s talk of pulling future orders. We might lose the account over this." },
 ];
 
+// ---------- Scenario 4 Dialogue ----------
+const scenario4Intro = [
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: 'Packaging just flagged a vitamin premix off-ratio. Night-shift rookie entered the wrong set-point in batching.' },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'Confirmed. Formula deviation started two hours ago.' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'Our new operators are unprepared. We need some way to avoid this in the future' },
+  { name: 'Director', sprite: 'director.png', text: 'Options?' },
+];
+
+const scenario4OTSDialogue = [
+  { name: 'New operator', sprite: 'operator.png', text: 'Sim drill covered this. Correcting set-point now.' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'Good catch\u2014no scrap generated.' },
+  { name: 'Director', sprite: 'director.png', text: 'OTS pays for itself every shift.' },
+];
+
+const scenario4SupervisorDialogue = [
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'Supervisor\u2019s on the way. Walking the operator through the checklist.' },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'Line\u2019s idle for two hours while they reset and purge.' },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: 'One batch lost, but we stopped the bleed.' },
+  { name: 'Director', sprite: 'director.png', text: 'Better than a full scrap, but these delays add up.' },
+];
+
+const scenario4FigureOutDialogue = [
+  { name: 'New operator', sprite: 'operator.png', text: 'I\u2019m not sure what value to enter\u2026' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'Stop the line; we need to coach on the spot.' },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: 'Two batches already off-formula.' },
+  { name: 'Director', sprite: 'director.png', text: 'Training backlog is costing us throughput.' },
+];
+
+const scenario4KeepRunningDialogue = [
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'We\u2019ll monitor live and let him adjust on the fly.' },
+  { name: 'New operator', sprite: 'operator.png', text: 'I\u2026 think it\u2019s fixed?' },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: 'Values are still drifting\u2014three more batches scrap.' },
+  { name: 'Director', sprite: 'director.png', text: 'This trial-and-error approach is unacceptable.' },
+];
+
 let scenarioDialogue = [];
 let scenarioDialogueIndex = 0;
 
@@ -354,6 +389,8 @@ function showScenarioOptions() {
     optionDeploy.disabled = true;
   } else if (currentScenario === 3 && !state.upgrades.retrofit.active) {
     optionDeploy.disabled = true;
+  } else if (currentScenario === 4 && !state.upgrades.training.active) {
+    optionDeploy.disabled = true;
   }
 
   const select = (pointsChange, dialogueArray) => {
@@ -406,6 +443,16 @@ function showScenarioOptions() {
     optionManual.onclick = () => select(-8, scenario3ManualDialogue);
     optionMaintenance.onclick = () => select(-10, scenario3RetestDialogue);
     optionNothing.onclick = () => select(-15, scenario3NothingDialogue);
+  } else if (currentScenario === 4) {
+    optionDeploy.textContent = 'Run OTS Simulation Drill';
+    optionManual.textContent = 'Call Shift Supervisor for On-Floor Help';
+    optionMaintenance.textContent = 'Let Operator Figure It Out';
+    optionNothing.textContent = 'Keep Running and Learn on the Job';
+
+    optionDeploy.onclick = () => select(20, scenario4OTSDialogue);
+    optionManual.onclick = () => select(-10, scenario4SupervisorDialogue);
+    optionMaintenance.onclick = () => select(-18, scenario4FigureOutDialogue);
+    optionNothing.onclick = () => select(-12, scenario4KeepRunningDialogue);
   }
 }
 
@@ -427,7 +474,7 @@ function nextScenarioDialogue() {
     scenarioDialogueIndex++;
   } else {
     taskListPage.removeEventListener('click', nextScenarioDialogue);
-    if (currentScenario === 1 || currentScenario === 2) {
+    if (currentScenario === 1 || currentScenario === 2 || currentScenario === 3) {
       // Add a small delay to prevent the same click from triggering the next scenario
       setTimeout(() => {
         taskListPage.addEventListener('click', handleNextScenarioClick);
@@ -443,6 +490,8 @@ function handleNextScenarioClick() {
     startScenarioTwo();
   } else if (currentScenario === 2) {
     startScenarioThree();
+  } else if (currentScenario === 3) {
+    startScenarioFour();
   }
 }
 
@@ -466,6 +515,18 @@ function startScenarioThree() {
   taskDialogueIndex = 0;
   scenarioDialogueIndex = 0;
   taskListPage.style.backgroundImage = "url('assets/backgrounds/auditbg.png')";
+  taskListPage.addEventListener('click', nextTaskDialogue);
+  nextTaskDialogue();
+}
+
+function startScenarioFour() {
+  currentScenario = 4;
+  scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
+  scenarioOptionsDiv.dataset.selected = '';
+  taskDialogue = scenario4Intro;
+  taskDialogueIndex = 0;
+  scenarioDialogueIndex = 0;
+  taskListPage.style.backgroundImage = "url('assets/backgrounds/nightshift.png')";
   taskListPage.addEventListener('click', nextTaskDialogue);
   nextTaskDialogue();
 }
