@@ -625,26 +625,18 @@ function showPerformanceReport() {
   percentLine.textContent = `Performance %: ${percent}%`;
   card.appendChild(percentLine);
 
-  const solutionsHeader = document.createElement('div');
-  solutionsHeader.className = 'performance-report-line';
-  solutionsHeader.textContent = 'Solutions bought:';
-  card.appendChild(solutionsHeader);
-
-  const list = document.createElement('ul');
-  list.className = 'performance-report-list';
-  const purchased = Object.values(state.upgrades).filter(u => u.active && u.name);
-  if (purchased.length === 0) {
-    const li = document.createElement('li');
-    li.textContent = 'None';
-    list.appendChild(li);
+  const badgeLine = document.createElement('div');
+  badgeLine.className = 'performance-report-line';
+  let badge = '';
+  if (points > 41) {
+    badge = 'Certified Operational Leader';
+  } else if (points >= 15) {
+    badge = 'Mindful Manager';
   } else {
-    purchased.forEach(u => {
-      const li = document.createElement('li');
-      li.textContent = u.name;
-      list.appendChild(li);
-    });
+    badge = 'Dismissed';
   }
-  card.appendChild(list);
+  badgeLine.textContent = `Badge: ${badge}`;
+  card.appendChild(badgeLine);
 
   container.appendChild(card);
   container.style.display = 'flex';
