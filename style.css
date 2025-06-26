@@ -1047,3 +1047,16 @@ body.end-year-scene #points-counter {
     z-index: 300;
     filter: invert(1);
 }
+
+/* Catalogue back arrow */
+#catalogue-back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    cursor: pointer;
+    z-index: 300;
+    filter: invert(1);
+}
