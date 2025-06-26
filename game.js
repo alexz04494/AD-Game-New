@@ -945,96 +945,69 @@ function updatePoints(amount) {
 }
 
 function updateUI() {
-  updateMoneyBar();
-  shopDiv.innerHTML = "";
+    updateMoneyBar();
+    shopDiv.innerHTML = "";
 
-  const itemKey = shopItems[currentShopItem];
-  const item = state.upgrades[itemKey];
-  const card = document.createElement("div");
-  card.className = "shop-card";
+    const items = shopItems.filter(k => k !== 'finish');
+    const container = document.createElement('div');
+    container.className = 'catalogue-container';
 
-  const signet = document.createElement("img");
-  signet.className = "card-signet";
-  signet.src = "assets/icons/signet.png";
-  signet.alt = "ANDRITZ";
-  card.appendChild(signet);
+    items.forEach(key => {
+      const item = state.upgrades[key];
+      const card = document.createElement('div');
+      card.className = 'shop-card catalogue-card';
 
-  if (item.name) {
-    const title = document.createElement("h3");
-    title.textContent = item.name;
-    card.appendChild(title);
+      const signet = document.createElement('img');
+      signet.className = 'card-signet';
+      signet.src = 'assets/icons/signet.png';
+      signet.alt = 'ANDRITZ';
+      card.appendChild(signet);
 
-    const price = document.createElement("div");
-    price.className = "price";
-    price.textContent = `€${item.price}`;
-    card.appendChild(price);
+      const title = document.createElement('h3');
+      title.textContent = item.name;
+      card.appendChild(title);
 
-    const description = document.createElement("div");
-    description.className = "description";
-    description.innerHTML = item.description;
-    card.appendChild(description);
+      const price = document.createElement('div');
+      price.className = 'price';
+      price.textContent = `€${item.price}`;
+      card.appendChild(price);
 
-    const btn = document.createElement("button");
-    btn.className = item.active ? "cancel-btn" : "buy-btn";
-    btn.textContent = item.active ? `CANCEL (+€${item.price})` : `BUY`;
-    btn.disabled = !item.active && state.money < item.price;
-    btn.onclick = () => {
-      if (item.active) {
-        cancelSound.currentTime = 0;
-        cancelSound.play();
-      } else {
-        cashRegisterSound.currentTime = 0;
-        cashRegisterSound.play();
-      }
-      item.active = !item.active;
-      state.money += item.active ? -item.price : item.price;
-      updateUI();
-    };
-    card.appendChild(btn);
-  } else {
-    signet.className = 'card-signet-large';
-    card.classList.add('finish-card');
-    const btn = document.createElement("button");
-    btn.className = "finish-selection-btn";
-    btn.textContent = "Finish Selection";
-    btn.onclick = () => {
+      const description = document.createElement('div');
+      description.className = 'description';
+      description.innerHTML = item.description;
+      card.appendChild(description);
+
+      const btn = document.createElement('button');
+      btn.className = item.active ? 'cancel-btn' : 'buy-btn';
+      btn.textContent = item.active ? `CANCEL (+€${item.price})` : 'BUY';
+      btn.disabled = !item.active && state.money < item.price;
+      btn.onclick = () => {
+        if (item.active) {
+          cancelSound.currentTime = 0;
+          cancelSound.play();
+        } else {
+          cashRegisterSound.currentTime = 0;
+          cashRegisterSound.play();
+        }
+        item.active = !item.active;
+        state.money += item.active ? -item.price : item.price;
+        updateUI();
+      };
+      card.appendChild(btn);
+
+      container.appendChild(card);
+    });
+
+    shopDiv.appendChild(container);
+
+    const contBtn = document.createElement('button');
+    contBtn.className = 'catalogue-continue-btn';
+    contBtn.textContent = 'Continue';
+    contBtn.onclick = () => {
       saveSnapshot('catalogue');
       startScenarioOne();
     };
-    card.appendChild(btn);
-  }  const arrow = document.createElement("img");
-  arrow.className = "nav-arrow";
-  arrow.src = "assets/icons/undo.svg";
-  arrow.alt = "Next";
-  arrow.onclick = () => {
-    pageTurnSound.currentTime = 0;
-    pageTurnSound.play();
-    currentShopItem = (currentShopItem + 1) % shopItems.length;
-    updateUI();
-  };
-  card.appendChild(arrow);
-
-  // Add previous button for pages 2 onwards
-  if (currentShopItem > 0) {
-    const prevArrow = document.createElement("img");
-    prevArrow.className = "nav-arrow-prev";
-    prevArrow.src = "assets/icons/undo.svg";
-    prevArrow.alt = "Previous";
-    prevArrow.onclick = () => {
-      pageTurnSound.currentTime = 0;
-      pageTurnSound.play();
-      currentShopItem = (currentShopItem - 1 + shopItems.length) % shopItems.length;
-      updateUI();
-    };
-    card.appendChild(prevArrow);
-  }
-
-  const counter = document.createElement("div");
-  counter.className = "item-counter";
-  counter.textContent = `${currentShopItem + 1}/${shopItems.length}`;
-  card.appendChild(counter);
-
-  shopDiv.appendChild(card);
+    shopDiv.appendChild(contBtn);
 }
 
 
