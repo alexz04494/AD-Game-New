@@ -365,7 +365,7 @@ function typeWriterTask(text, i, callback) {
     taskTypingTimeout = setTimeout(() => typeWriterTask(text, i + 1, callback), 30);
   } else {
     taskTypingTimeout = null;
-    if (taskDialogueIndex >= taskDialogue.length && !scenarioOptionsDiv.dataset.selected) {
+    if (taskDialogueIndex >= taskDialogue.length && !scenarioOptionsDiv.dataset.selected && !endOfYear) {
       showScenarioOptions();
     }
     if (callback) callback();
