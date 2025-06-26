@@ -208,7 +208,7 @@ function updateShop() {
     const btn = document.createElement('button');
     if (item.justPurchased) {
       btn.className = 'cancel-btn';
-      btn.textContent = `CANCEL (+€${item.price})`;
+      btn.textContent = 'CANCEL';
       btn.onclick = () => {
         cancelSound.currentTime = 0;
         cancelSound.play();
