@@ -1051,7 +1051,7 @@ body.end-year-scene #points-counter {
 /* Catalogue back arrow */
 #catalogue-back {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     left: 20px;
     width: 48px;
     height: 48px;
