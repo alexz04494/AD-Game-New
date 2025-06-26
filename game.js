@@ -79,9 +79,10 @@ const taskCharacterName = document.querySelector('#task-character-section .chara
 const taskCharacterBox = document.getElementById('task-character-box');
 
 let taskDialogue = [
-  { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve got a problem. Moisture levels in the pellets are reading nearly 2% above spec. We\u2019ve already had one buyer flag the last shipment, and others are threatening to reject deliveries." },
-  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "This isn\u2019t just about customer complaints \u2014 we could face penalties. And if word gets out, it\u2019ll hurt our reputation with the rest of the supply chain." },
-  { name: 'Production Manager', sprite: 'production manager.png', text: "Right. We need a response now. What do you want to do, general manager?" }
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "We\u2019re getting erratic readings from the dryers. The ambient air\u2019s loaded with moisture \u2014 likely due to the rain. Baseline tuning isn\u2019t holding anymore." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "It\u2019s mid-monsoon. Intake air is way wetter than expected. The dryers can\u2019t stabilize, and operators are falling behind adjusting it manually." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Moisture levels are bouncing around \u2014 we\u2019re dangerously close to being out of spec on multiple batches." },
+  { name: 'Director', sprite: 'director.png', text: "We need a solution now. If this continues, we\u2019ll have to dump product or take penalties." }
 ];
 let taskDialogueIndex = 0;
 let taskCurrentText = '';
@@ -89,16 +90,17 @@ let taskSkipTyping = false;
 
 // Dialogue sequences triggered after selecting a scenario option
 const deployAceDialogue = [
-  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Dryer ACE is online. You can see it stabilizing in real-time." },
-  { name: 'Production Manager', sprite: 'production manager.png', text: "Moisture\u2019s back within 0.5% of the target \u2014 and output is up. That\u2019s the best variability we\u2019ve had in weeks." },
-  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Confirmed. QA readings are clean across the board. No returns, no fines." },
-  { name: 'Director', sprite: 'director.png', text: "Good decision. Also, energy use per ton is down by about 6%. That\u2019ll show up nicely in next month\u2019s numbers." }
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Dryer ACE just compensated \u00b10.4% moisture in 15 seconds. Humidity spike caught and corrected." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "QA trending stays green\u2014no off-spec risk despite the monsoon levels." },
+  { name: 'Plant Manager', sprite: 'production manager.png', text: "Good. Keep production at full rate; no reruns today, even with this air." },
+  { name: 'Director', sprite: 'director.png', text: "Energy profile looks smoother, too. ACE is earning its keep." }
 ];
 
 const manualTuningDialogue = [
-  { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve started manual adjustments, but it\u2019s all over the place. The dryer doesn\u2019t respond consistently." },
-  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "8% of the product is off-spec. We\u2019re reacting too slowly \u2014 the operators can\u2019t keep up with the variability." },
-  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "That\u2019ll cost us. We\u2019re looking at fines or full batch rejections if this keeps up." }
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Humidity spike detected. Dryers are drifting hard with the ambient swings." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "Manual adjustment in progress\u2014but it's slow. We'll need rework." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "8% of pellets already outside spec. We\u2019ll need rework if this keeps up." },
+  { name: 'Director of Operations', sprite: 'director.png', text: "Call maintenance and log the fine; we can\u2019t ship this under current conditions." }
 ];
 
 const maintenanceDialogue = [
