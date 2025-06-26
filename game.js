@@ -62,12 +62,14 @@ const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
 const incidentMusic = document.getElementById("incident-music");
 const retroCoinSound = document.getElementById("retro-coin-sound");
+const endMusic = document.getElementById("end-music");
 const taskListPage = document.getElementById('task-list-page');
 const pointsCounter = document.getElementById('points-counter');
 const scenarioCounter = document.getElementById('scenario-counter');
 const nextScenarioPrompt = document.getElementById('next-scenario-prompt');
 let points = 0;
 let currentScenario = 1;
+let endOfYear = false;
 const scenarioOptionsDiv = document.getElementById('scenario-options');
 const optionDeploy = document.getElementById('option-deploy');
 const optionManual = document.getElementById('option-manual');
@@ -256,6 +258,15 @@ const scenario5NothingDialogue = [
   { name: 'Production Manager', sprite: 'production manager.png', text: 'Twelve hours of idle time. We\u2019ll be paying for that all week.' },
 ];
 
+const endYearDialogue = [
+  { name: 'Director', sprite: 'director.png', text: "That\u2019s the year. Numbers are in, and so are the outcomes. Let\u2019s take a look at where we landed." },
+  { name: 'Production Manager', sprite: 'production manager.png', text: "We\u2019ve seen ups and downs. Some improvements, some setbacks." },
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Customer reports, compliance notes, internal rework logs\u2014they\u2019re all factored in." },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: "Downtime hours and recovery times were tracked closely. It's all in the report." },
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "Same on the system side. Every decision had ripple effects, good or bad." },
+  { name: 'Director', sprite: 'director.png', text: "Alright. Let\u2019s review the results." }
+];
+
 let scenarioDialogue = [];
 let scenarioDialogueIndex = 0;
 
@@ -406,7 +417,9 @@ function nextTaskDialogue() {
     typeWriterTask(taskCurrentText, 0);
     taskDialogueIndex++;
   } else {
-    showScenarioOptions();
+    if (!endOfYear) {
+      showScenarioOptions();
+    }
   }
 }
 
@@ -519,6 +532,11 @@ function nextScenarioDialogue() {
     const isLast = scenarioDialogueIndex === scenarioDialogue.length - 1;
     typeWriterTask(taskCurrentText, 0, () => {
       if (isLast) {
+        if (currentScenario === 5) {
+          nextScenarioPrompt.textContent = 'Double click to finalize year';
+        } else {
+          nextScenarioPrompt.textContent = 'Double click to proceed to next scenario';
+        }
         nextScenarioPrompt.style.display = 'block';
       }
     });
@@ -529,6 +547,10 @@ function nextScenarioDialogue() {
       // Add a small delay to prevent the same click from triggering the next scenario
       setTimeout(() => {
         taskListPage.addEventListener('click', handleNextScenarioClick);
+      }, 100);
+    } else if (currentScenario === 5) {
+      setTimeout(() => {
+        taskListPage.addEventListener('click', handleEndYearClick);
       }, 100);
     }
   }
@@ -546,6 +568,27 @@ function handleNextScenarioClick() {
   } else if (currentScenario === 4) {
     startScenarioFive();
   }
+}
+
+function handleEndYearClick() {
+  taskListPage.removeEventListener('click', handleEndYearClick);
+  nextScenarioPrompt.style.display = 'none';
+  startEndYearScene();
+}
+
+function startEndYearScene() {
+  endOfYear = true;
+  scenarioCounter.style.display = 'none';
+  scenarioOptionsDiv.dataset.selected = '';
+  taskDialogue = endYearDialogue;
+  taskDialogueIndex = 0;
+  scenarioDialogueIndex = 0;
+  taskListPage.style.backgroundImage = "url('assets/backgrounds/endofyearreport.png')";
+  mainThemeMusic.pause();
+  endMusic.volume = 0.2;
+  endMusic.play();
+  taskListPage.addEventListener('click', nextTaskDialogue);
+  nextTaskDialogue();
 }
 
 function startScenarioTwo() {
