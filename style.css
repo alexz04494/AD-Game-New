@@ -424,6 +424,22 @@ h1 {
     color: #00aa00;
 }
 
+.performance-badge-icon {
+    width: 150px;
+    height: auto;
+    margin-top: 20px;
+    align-self: center;
+}
+
+.best-badge-icon {
+    width: 200px;
+    margin-left: 40px;
+}
+
+.dismissed-badge-icon {
+    margin-top: auto;
+}
+
 .shop-card {
     width: 400px;
     height: 500px;

@@ -629,18 +629,35 @@ function showPerformanceReport() {
   badgeLine.className = 'performance-report-line';
   let badge = '';
   let badgeClass = '';
+  let badgeIcon = '';
   if (points > 41) {
     badge = 'Certified Operational Leader';
     badgeClass = 'badge-success';
+    badgeIcon = 'assets/icons/bestbadge.png';
   } else if (points >= 15) {
     badge = 'Mindful Manager';
     badgeClass = 'badge-success';
+    badgeIcon = 'assets/icons/okbadge.png';
   } else {
     badge = 'Dismissed';
     badgeClass = 'badge-dismissed';
+    badgeIcon = 'assets/icons/firedbadge.png';
   }
   badgeLine.innerHTML = `Badge: <span class="${badgeClass}">${badge}</span>`;
   card.appendChild(badgeLine);
+
+  if (badgeIcon) {
+    const icon = document.createElement('img');
+    icon.src = badgeIcon;
+    icon.alt = badge;
+    icon.className = 'performance-badge-icon';
+    if (badge === 'Certified Operational Leader') {
+      icon.classList.add('best-badge-icon');
+    } else if (badge === 'Dismissed') {
+      icon.classList.add('dismissed-badge-icon');
+    }
+    card.appendChild(icon);
+  }
 
   container.appendChild(card);
   container.style.display = 'flex';
