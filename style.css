@@ -1034,3 +1034,15 @@ body.end-year-scene #points-counter {
     background-color: #6c757d;
     cursor: not-allowed;
 }
+
+/* Back button */
+#back-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    cursor: pointer;
+    z-index: 300;
+}

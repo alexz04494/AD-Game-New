@@ -67,6 +67,8 @@ const taskListPage = document.getElementById('task-list-page');
 const pointsCounter = document.getElementById('points-counter');
 const scenarioCounter = document.getElementById('scenario-counter');
 const nextScenarioPrompt = document.getElementById('next-scenario-prompt');
+const backButton = document.getElementById('back-button');
+const historyStack = [];
 let points = 0;
 let currentScenario = 1;
 let endOfYear = false;
@@ -86,12 +88,13 @@ if (taskTextBox) taskTextBox.textContent = '';
 const taskCharacterName = document.querySelector('#task-character-section .character-name');
 const taskCharacterBox = document.getElementById('task-character-box');
 
-let taskDialogue = [
+const scenario1Intro = [
   { name: 'Automation Engineer', sprite: 'automationengineer.png', text: "We\u2019re getting erratic readings from the dryers. The ambient air\u2019s loaded with moisture \u2014 likely due to the rain. Baseline tuning isn\u2019t holding anymore." },
   { name: 'Production Manager', sprite: 'production manager.png', text: "It\u2019s mid-monsoon. Intake air is way wetter than expected. The dryers can\u2019t stabilize, and operators are falling behind adjusting it manually." },
   { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "Moisture levels are bouncing around \u2014 we\u2019re dangerously close to being out of spec on multiple batches." },
   { name: 'Director', sprite: 'director.png', text: "We need a solution now. If this continues, we\u2019ll have to dump product or take penalties." }
 ];
+let taskDialogue = scenario1Intro;
 let taskDialogueIndex = 0;
 let taskCurrentText = '';
 let taskSkipTyping = false;
@@ -429,6 +432,7 @@ function nextTaskDialogue() {
 
 function showScenarioOptions() {
   if (!scenarioOptionsDiv) return;
+  saveSnapshot();
   scenarioOptionsDiv.style.display = 'flex';
   taskListPage.removeEventListener('click', nextTaskDialogue);
 
@@ -664,6 +668,72 @@ function showPerformanceReport() {
   taskListPage.removeEventListener('click', nextTaskDialogue);
 }
 
+function saveSnapshot() {
+  const snapshot = {
+    scenario: currentScenario,
+    points,
+    money: state.money,
+    upgrades: JSON.parse(JSON.stringify(state.upgrades))
+  };
+  historyStack.push(snapshot);
+  if (backButton) backButton.style.display = 'block';
+}
+
+function restoreSnapshot(snap) {
+  points = snap.points;
+  state.money = snap.money;
+  Object.keys(state.upgrades).forEach(k => {
+    state.upgrades[k].active = snap.upgrades[k].active;
+  });
+  updateUI();
+  updatePoints(0);
+}
+
+function goBack() {
+  if (historyStack.length === 0) return;
+  const snap = historyStack.pop();
+  restoreSnapshot(snap);
+  switch (snap.scenario) {
+    case 1:
+      startScenarioOne();
+      break;
+    case 2:
+      startScenarioTwo();
+      break;
+    case 3:
+      startScenarioThree();
+      break;
+    case 4:
+      startScenarioFour();
+      break;
+    case 5:
+      startScenarioFive();
+      break;
+  }
+  if (historyStack.length === 0 && backButton) backButton.style.display = 'none';
+}
+
+backButton.addEventListener('click', goBack);
+
+function startScenarioOne() {
+  currentScenario = 1;
+  scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
+  scenarioCounter.style.display = 'block';
+  scenarioOptionsDiv.dataset.selected = '';
+  taskDialogue = scenario1Intro;
+  taskDialogueIndex = 0;
+  scenarioDialogueIndex = 0;
+  taskListPage.style.backgroundImage = "url('assets/backgrounds/controlroom.png')";
+  uiDiv.style.display = 'none';
+  taskListPage.style.display = 'block';
+  catalogueMusic.pause();
+  mainThemeMusic.volume = 0.2;
+  mainThemeMusic.play();
+  nextScenarioPrompt.style.display = 'none';
+  taskListPage.addEventListener('click', nextTaskDialogue);
+  nextTaskDialogue();
+}
+
 function startScenarioTwo() {
   currentScenario = 2;
   scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
@@ -814,17 +884,8 @@ function updateUI() {
     btn.className = "finish-selection-btn";
     btn.textContent = "Finish Selection";
     btn.onclick = () => {
-      uiDiv.style.display = 'none';
-      taskListPage.style.display = 'block';
-      catalogueMusic.pause();
-      mainThemeMusic.volume = 0.2;
-      mainThemeMusic.play();
-      updateMoneyBar();
-      taskDialogueIndex = 0;
-      scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
-      scenarioCounter.style.display = 'block';
-      nextScenarioPrompt.style.display = 'none';
-      nextTaskDialogue();
+      saveSnapshot();
+      startScenarioOne();
     };
     card.appendChild(btn);
   }  const arrow = document.createElement("img");
