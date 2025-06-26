@@ -223,6 +223,39 @@ const scenario4KeepRunningDialogue = [
   { name: 'Director', sprite: 'director.png', text: 'This trial-and-error approach is unacceptable.' },
 ];
 
+// ---------- Scenario 5 Dialogue ----------
+const scenario5Intro = [
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'PLC-7 just dropped out\u2014batching and conveyor logic are unresponsive. We\u2019re mid-cycle on two product lines.' },
+  { name: 'Plant Manager', sprite: 'production manager.png', text: 'That\u2019s one of the legacy units. We knew it was on borrowed time.' },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'No alarms, no diagnostics\u2014comms just went dark.' },
+  { name: 'Director', sprite: 'director.png', text: 'Get it back up. We can\u2019t afford to fall behind right now.' },
+];
+
+const scenario5TwinDialogue = [
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'Vibration threshold on PLC-7 hits 0.9 g\u2014planned failure in 8 hrs.' },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'We swapped the unit out during the night shift. No interruption.' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'No shipment delays. Excellent foresight.' },
+];
+
+const scenario5VendorDialogue = [
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'Confirmed crash\u2014unknown fault. No restart response from control rack.' },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'Calling the vendor now. We\u2019ll need a courier and maybe remote login.' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'Entire line\u2019s down during peak run.' },
+  { name: 'Director', sprite: 'director.png', text: 'This will delay operations by about five hours\u2026 let sales know.' },
+];
+
+const scenario5RebootDialogue = [
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'We\u2019re flashing backup firmware. Takes about 45 minutes to boot each segment.' },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'Wiring\u2019s still intact, but we\u2019ve got to patch the logic loop manually.' },
+  { name: 'Plant Manager', sprite: 'production manager.png', text: 'We lost about three hours, but we\u2019re crawling back online.' },
+];
+
+const scenario5NothingDialogue = [
+  { name: 'Automation Engineer', sprite: 'automationengineer.png', text: 'PLC\u2019s still down. No comms. No backup image.' },
+  { name: 'Maintenance Lead', sprite: 'maintenancelead.webp', text: 'We\u2019ve got nothing left to try without a replacement. We\'re stuck.' },
+  { name: 'Production Manager', sprite: 'production manager.png', text: 'Twelve hours of idle time. We\u2019ll be paying for that all week.' },
+];
+
 let scenarioDialogue = [];
 let scenarioDialogueIndex = 0;
 
@@ -397,6 +430,8 @@ function showScenarioOptions() {
     optionDeploy.disabled = true;
   } else if (currentScenario === 4 && !state.upgrades.training.active) {
     optionDeploy.disabled = true;
+  } else if (currentScenario === 5 && !state.upgrades.digitalTwin.active) {
+    optionDeploy.disabled = true;
   }
 
   const select = (pointsChange, dialogueArray) => {
@@ -459,6 +494,16 @@ function showScenarioOptions() {
     optionManual.onclick = () => select(-10, scenario4SupervisorDialogue);
     optionMaintenance.onclick = () => select(-18, scenario4FigureOutDialogue);
     optionNothing.onclick = () => select(-12, scenario4KeepRunningDialogue);
+  } else if (currentScenario === 5) {
+    optionDeploy.textContent = 'Use Digital Twin for Predictive Alert';
+    optionManual.textContent = 'Call Vendor Support for Emergency Swap';
+    optionMaintenance.textContent = 'Attempt Reboot and Patch In-House';
+    optionNothing.textContent = 'Do Nothing and Wait for Failure Resolution';
+
+    optionDeploy.onclick = () => select(30, scenario5TwinDialogue);
+    optionManual.onclick = () => select(-10, scenario5VendorDialogue);
+    optionMaintenance.onclick = () => select(-15, scenario5RebootDialogue);
+    optionNothing.onclick = () => select(-25, scenario5NothingDialogue);
   }
 }
 
@@ -480,7 +525,7 @@ function nextScenarioDialogue() {
     scenarioDialogueIndex++;
   } else {
     taskListPage.removeEventListener('click', nextScenarioDialogue);
-    if (currentScenario === 1 || currentScenario === 2 || currentScenario === 3) {
+    if (currentScenario === 1 || currentScenario === 2 || currentScenario === 3 || currentScenario === 4) {
       // Add a small delay to prevent the same click from triggering the next scenario
       setTimeout(() => {
         taskListPage.addEventListener('click', handleNextScenarioClick);
@@ -498,6 +543,8 @@ function handleNextScenarioClick() {
     startScenarioThree();
   } else if (currentScenario === 3) {
     startScenarioFour();
+  } else if (currentScenario === 4) {
+    startScenarioFive();
   }
 }
 
@@ -533,6 +580,18 @@ function startScenarioFour() {
   taskDialogueIndex = 0;
   scenarioDialogueIndex = 0;
   taskListPage.style.backgroundImage = "url('assets/backgrounds/nightshift.png')";
+  taskListPage.addEventListener('click', nextTaskDialogue);
+  nextTaskDialogue();
+}
+
+function startScenarioFive() {
+  currentScenario = 5;
+  scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
+  scenarioOptionsDiv.dataset.selected = '';
+  taskDialogue = scenario5Intro;
+  taskDialogueIndex = 0;
+  scenarioDialogueIndex = 0;
+  taskListPage.style.backgroundImage = "url('assets/backgrounds/plcdown.png')";
   taskListPage.addEventListener('click', nextTaskDialogue);
   nextTaskDialogue();
 }
