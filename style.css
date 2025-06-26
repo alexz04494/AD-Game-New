@@ -382,20 +382,20 @@ h1 {
     z-index: 200;
 }
 
+#performance-report-container .shop-card {
+    text-align: center;
+}
+
 .performance-report-line {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.8rem;
+    color: #000000;
+    margin: 15px 0;
+    text-align: left;
+}
+#performance-report-container .shop-card h3 {
     color: #003A70;
-    margin: 10px 0;
-}
-
-#performance-report-container .shop-card {
-    text-align: right;
-}
-
-#performance-report-container .shop-card h3,
-#performance-report-container .performance-report-line {
-    color: #ffffff;
+    text-align: center;
 }
 
 .performance-report-list {
