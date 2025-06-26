@@ -170,6 +170,18 @@ const scenario3ManualDialogue = [
   { name: 'Director of Operations', sprite: 'director.png', text: "Costly hit\u2014production lost, and the client\u2019s already questioning our reliability." },
 ];
 
+const scenario3RetestDialogue = [
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "We\u2019ll recheck the entire batch manually\u2014retest all retained samples against the product spec. It\u2019ll take time, and I\u2019ll need every QA hand on it." },
+  { name: 'Plant Manager', sprite: 'production manager.png', text: "That\u2019s going to delay outbound inspections and tie up half the floor. But it\u2019s better than failing the audit outright." },
+  { name: 'Director of Operations', sprite: 'director.png', text: "Do what you need to. We can\u2019t afford missing data in front of the client." },
+];
+
+const scenario3NothingDialogue = [
+  { name: 'Quality Manager', sprite: 'qualitymanager.png', text: "We\u2019ve halted the outbound lot until we can verify it fully. No trace, no movement." },
+  { name: 'Regulatory Auditor', sprite: 'auditor.png', text: "That\u2019s the right call from a compliance standpoint." },
+  { name: 'Director of Operations', sprite: 'director.png', text: "Client\u2019s not happy. There\u2019s talk of pulling future orders. We might lose the account over this." },
+];
+
 let scenarioDialogue = [];
 let scenarioDialogueIndex = 0;
 
@@ -340,6 +352,8 @@ function showScenarioOptions() {
     optionDeploy.disabled = true;
   } else if (currentScenario === 2 && !state.upgrades.plantInsights.active) {
     optionDeploy.disabled = true;
+  } else if (currentScenario === 3 && !state.upgrades.retrofit.active) {
+    optionDeploy.disabled = true;
   }
 
   const select = (pointsChange, dialogueArray) => {
@@ -383,11 +397,15 @@ function showScenarioOptions() {
   } else if (currentScenario === 3) {
     optionDeploy.textContent = 'Access Digital Traceability Platform';
     optionManual.textContent = 'Rely on manual records';
-    optionMaintenance.style.display = 'none';
-    optionNothing.style.display = 'none';
+    optionMaintenance.textContent = 'Retest and verify manually';
+    optionNothing.textContent = 'Do nothing';
+    optionMaintenance.style.display = '';
+    optionNothing.style.display = '';
 
     optionDeploy.onclick = () => select(25, scenario3DigitalDialogue);
-    optionManual.onclick = () => select(-20, scenario3ManualDialogue);
+    optionManual.onclick = () => select(-8, scenario3ManualDialogue);
+    optionMaintenance.onclick = () => select(-10, scenario3RetestDialogue);
+    optionNothing.onclick = () => select(-15, scenario3NothingDialogue);
   }
 }
 
