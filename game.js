@@ -583,6 +583,8 @@ function handleEndYearClick() {
 function startEndYearScene() {
   endOfYear = true;
   scenarioCounter.style.display = 'none';
+  // Hide points counter for end year scene
+  document.body.classList.add('end-year-scene');
   scenarioOptionsDiv.dataset.selected = '';
   taskDialogue = endYearDialogue;
   taskDialogueIndex = 0;

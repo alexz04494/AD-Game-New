@@ -678,6 +678,11 @@ h1 {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
 }
 
+/* Hide points counter during end of year performance report */
+body.end-year-scene #points-counter {
+    display: none !important;
+}
+
 /* Dynamic coloring for point numbers */
 .points-positive {
     color: #00ff00; /* Green for positive points */
