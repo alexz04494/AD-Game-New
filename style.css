@@ -573,7 +573,7 @@ h1 {
     margin-bottom: 25px;
     line-height: 1.4;
     flex-grow: 1;
-    text-align: left;
+    text-align: center;
 }
 
 .shop-card .description p {
@@ -581,9 +581,9 @@ h1 {
 }
 
 .shop-card .description ul {
-    padding-left: 20px;
+    padding-left: 0;
     margin: 10px 0 0 0;
-    list-style-position: inside;
+    list-style: none;
 }
 
 .shop-card button {
@@ -596,7 +596,7 @@ h1 {
     cursor: pointer;
     transition: background-color 0.2s ease;
     position: absolute;
-    bottom: 70px; /* Position above the arrow and counter */
+    bottom: 45px; /* Position above the arrow and counter */
     left: 30px;
     right: 30px;
     width: calc(100% - 60px); /* Account for left/right positioning */
