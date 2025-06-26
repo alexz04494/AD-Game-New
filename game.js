@@ -68,6 +68,7 @@ const pointsCounter = document.getElementById('points-counter');
 const scenarioCounter = document.getElementById('scenario-counter');
 const nextScenarioPrompt = document.getElementById('next-scenario-prompt');
 const backButton = document.getElementById('back-button');
+const catalogueBack = document.getElementById('catalogue-back');
 const historyStack = [];
 let points = 0;
 let currentScenario = 1;
@@ -302,9 +303,24 @@ startPage.onclick = () => {
   // Start main theme music for the first dialogue
   mainThemeMusic.volume = 0.2;
   mainThemeMusic.play();
-  
+
   nextDialogue();
 };
+
+function restartIntro() {
+  uiDiv.style.display = 'none';
+  taskListPage.style.display = 'none';
+  mainGamePage.style.display = 'block';
+  catalogueMusic.pause();
+  mainThemeMusic.volume = 0.2;
+  mainThemeMusic.play();
+  dialogueIndex = 0;
+  textBox.innerHTML = '<div class="text-content"></div><div class="continue-indicator" id="continue-indicator"></div>';
+  continueIndicator = document.getElementById('continue-indicator');
+  mainGamePage.addEventListener('click', nextDialogue);
+  if (catalogueBack) catalogueBack.style.display = 'none';
+  nextDialogue();
+}
 
 function typeWriter(text, i) {
   isTyping = true;
@@ -666,14 +682,17 @@ function showPerformanceReport() {
   container.appendChild(card);
   container.style.display = 'flex';
   taskListPage.removeEventListener('click', nextTaskDialogue);
+  historyStack.length = 0;
+  if (backButton) backButton.style.display = 'none';
 }
 
-function saveSnapshot() {
+function saveSnapshot(scene = currentScenario) {
   const snapshot = {
-    scenario: currentScenario,
+    scene,
     points,
     money: state.money,
-    upgrades: JSON.parse(JSON.stringify(state.upgrades))
+    upgrades: JSON.parse(JSON.stringify(state.upgrades)),
+    shopItem: currentShopItem
   };
   historyStack.push(snapshot);
   if (backButton) backButton.style.display = 'block';
@@ -682,11 +701,26 @@ function saveSnapshot() {
 function restoreSnapshot(snap) {
   points = snap.points;
   state.money = snap.money;
+  if (typeof snap.shopItem === 'number') {
+    currentShopItem = snap.shopItem;
+  }
   Object.keys(state.upgrades).forEach(k => {
     state.upgrades[k].active = snap.upgrades[k].active;
   });
   updateUI();
   updatePoints(0);
+}
+
+function showCatalogue() {
+  mainGamePage.style.display = 'none';
+  taskListPage.style.display = 'none';
+  uiDiv.style.display = 'block';
+  if (catalogueBack) catalogueBack.style.display = 'block';
+  if (catalogueTextBox) catalogueTextBox.textContent = catalogueDialogue;
+  mainThemeMusic.pause();
+  catalogueMusic.volume = 0.1;
+  catalogueMusic.play();
+  updateUI();
 }
 
 function goBack() {
@@ -706,7 +740,10 @@ function goBack() {
   const snap = historyStack.pop();
   restoreSnapshot(snap);
 
-  switch (snap.scenario) {
+  switch (snap.scene) {
+    case 'catalogue':
+      showCatalogue();
+      break;
     case 1:
       startScenarioOne();
       break;
@@ -730,6 +767,7 @@ function goBack() {
 }
 
 backButton.addEventListener('click', goBack);
+if (catalogueBack) catalogueBack.addEventListener('click', restartIntro);
 
 function startScenarioOne() {
   taskListPage.removeEventListener('click', nextTaskDialogue);
@@ -752,6 +790,7 @@ function startScenarioOne() {
   scenarioDialogueIndex = 0;
   taskListPage.style.backgroundImage = "url('assets/backgrounds/controlroom.png')";
   uiDiv.style.display = 'none';
+  if (catalogueBack) catalogueBack.style.display = 'none';
   taskListPage.style.display = 'block';
   catalogueMusic.pause();
   mainThemeMusic.volume = 0.2;
@@ -872,6 +911,7 @@ function nextDialogue() {
     mainThemeMusic.pause();
     catalogueMusic.volume = 0.1;
     catalogueMusic.play();
+    if (catalogueBack) catalogueBack.style.display = 'block';
   }
 }
 
@@ -951,7 +991,7 @@ function updateUI() {
     btn.className = "finish-selection-btn";
     btn.textContent = "Finish Selection";
     btn.onclick = () => {
-      saveSnapshot();
+      saveSnapshot('catalogue');
       startScenarioOne();
     };
     card.appendChild(btn);
