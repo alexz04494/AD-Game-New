@@ -979,7 +979,7 @@ function updateUI() {
 
       const btn = document.createElement('button');
       btn.className = item.active ? 'cancel-btn' : 'buy-btn';
-      btn.textContent = item.active ? `CANCEL (+€${item.price})` : 'BUY';
+      btn.textContent = item.active ? 'CANCEL' : 'BUY';
       btn.disabled = !item.active && state.money < item.price;
       btn.onclick = () => {
         if (item.active) {
