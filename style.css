@@ -373,6 +373,15 @@ h1 {
     margin: 20px 0;
 }
 
+#performance-report-container {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
 .shop-card {
     width: 400px;
     height: 500px;

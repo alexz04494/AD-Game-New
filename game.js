@@ -413,7 +413,12 @@ function nextTaskDialogue() {
     const entry = taskDialogue[taskDialogueIndex];
     setTaskSpeaker(entry);
     taskCurrentText = entry.text;
-    typeWriterTask(taskCurrentText, 0);
+    const isLastEndYear = endOfYear && taskDialogueIndex === taskDialogue.length - 1;
+    typeWriterTask(taskCurrentText, 0, () => {
+      if (isLastEndYear) {
+        showPerformanceReport();
+      }
+    });
     taskDialogueIndex++;
   } else {
     if (!endOfYear) {
@@ -588,6 +593,23 @@ function startEndYearScene() {
   endMusic.play();
   taskListPage.addEventListener('click', nextTaskDialogue);
   nextTaskDialogue();
+}
+
+function showPerformanceReport() {
+  const container = document.getElementById('performance-report-container');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'shop-card';
+
+  const title = document.createElement('h3');
+  title.textContent = 'Performance report';
+  card.appendChild(title);
+
+  container.appendChild(card);
+  container.style.display = 'flex';
+  taskListPage.removeEventListener('click', nextTaskDialogue);
 }
 
 function startScenarioTwo() {
