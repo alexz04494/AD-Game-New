@@ -691,8 +691,25 @@ function restoreSnapshot(snap) {
 
 function goBack() {
   if (historyStack.length === 0) return;
+
+
+  taskListPage.removeEventListener('click', nextTaskDialogue);
+  taskListPage.removeEventListener('click', nextScenarioDialogue);
+  taskListPage.removeEventListener('click', handleNextScenarioClick);
+  taskListPage.removeEventListener('click', handleEndYearClick);
+  nextScenarioPrompt.style.display = 'none';
+  if (taskTypingTimeout) {
+    clearTimeout(taskTypingTimeout);
+    taskTypingTimeout = null;
+  }
+
   const snap = historyStack.pop();
   restoreSnapshot(snap);
+
+
+  const snap = historyStack.pop();
+  restoreSnapshot(snap);
+
   switch (snap.scenario) {
     case 1:
       startScenarioOne();
@@ -710,12 +727,26 @@ function goBack() {
       startScenarioFive();
       break;
   }
+
+
+
   if (historyStack.length === 0 && backButton) backButton.style.display = 'none';
 }
 
 backButton.addEventListener('click', goBack);
 
 function startScenarioOne() {
+  taskListPage.removeEventListener('click', nextTaskDialogue);
+  taskListPage.removeEventListener('click', nextScenarioDialogue);
+  taskListPage.removeEventListener('click', handleNextScenarioClick);
+  taskListPage.removeEventListener('click', handleEndYearClick);
+  if (taskTypingTimeout) {
+    clearTimeout(taskTypingTimeout);
+    taskTypingTimeout = null;
+  }
+  nextScenarioPrompt.style.display = 'none';
+  scenarioOptionsDiv.style.display = 'none';
+
   currentScenario = 1;
   scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
   scenarioCounter.style.display = 'block';
@@ -735,6 +766,16 @@ function startScenarioOne() {
 }
 
 function startScenarioTwo() {
+  taskListPage.removeEventListener('click', nextTaskDialogue);
+  taskListPage.removeEventListener('click', nextScenarioDialogue);
+  taskListPage.removeEventListener('click', handleNextScenarioClick);
+  taskListPage.removeEventListener('click', handleEndYearClick);
+  if (taskTypingTimeout) {
+    clearTimeout(taskTypingTimeout);
+    taskTypingTimeout = null;
+  }
+  nextScenarioPrompt.style.display = 'none';
+  scenarioOptionsDiv.style.display = 'none';
   currentScenario = 2;
   scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
   scenarioOptionsDiv.dataset.selected = '';
@@ -747,6 +788,16 @@ function startScenarioTwo() {
 }
 
 function startScenarioThree() {
+  taskListPage.removeEventListener('click', nextTaskDialogue);
+  taskListPage.removeEventListener('click', nextScenarioDialogue);
+  taskListPage.removeEventListener('click', handleNextScenarioClick);
+  taskListPage.removeEventListener('click', handleEndYearClick);
+  if (taskTypingTimeout) {
+    clearTimeout(taskTypingTimeout);
+    taskTypingTimeout = null;
+  }
+  nextScenarioPrompt.style.display = 'none';
+  scenarioOptionsDiv.style.display = 'none';
   currentScenario = 3;
   scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
   scenarioOptionsDiv.dataset.selected = '';
@@ -759,6 +810,16 @@ function startScenarioThree() {
 }
 
 function startScenarioFour() {
+  taskListPage.removeEventListener('click', nextTaskDialogue);
+  taskListPage.removeEventListener('click', nextScenarioDialogue);
+  taskListPage.removeEventListener('click', handleNextScenarioClick);
+  taskListPage.removeEventListener('click', handleEndYearClick);
+  if (taskTypingTimeout) {
+    clearTimeout(taskTypingTimeout);
+    taskTypingTimeout = null;
+  }
+  nextScenarioPrompt.style.display = 'none';
+  scenarioOptionsDiv.style.display = 'none';
   currentScenario = 4;
   scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
   scenarioOptionsDiv.dataset.selected = '';
@@ -771,6 +832,16 @@ function startScenarioFour() {
 }
 
 function startScenarioFive() {
+  taskListPage.removeEventListener('click', nextTaskDialogue);
+  taskListPage.removeEventListener('click', nextScenarioDialogue);
+  taskListPage.removeEventListener('click', handleNextScenarioClick);
+  taskListPage.removeEventListener('click', handleEndYearClick);
+  if (taskTypingTimeout) {
+    clearTimeout(taskTypingTimeout);
+    taskTypingTimeout = null;
+  }
+  nextScenarioPrompt.style.display = 'none';
+  scenarioOptionsDiv.style.display = 'none';
   currentScenario = 5;
   scenarioCounter.textContent = `SCENARIO ${currentScenario}`;
   scenarioOptionsDiv.dataset.selected = '';

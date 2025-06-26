@@ -1045,4 +1045,5 @@ body.end-year-scene #points-counter {
     image-rendering: pixelated;
     cursor: pointer;
     z-index: 300;
+    filter: invert(1);
 }
