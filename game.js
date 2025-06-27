@@ -294,10 +294,45 @@ const scenarios = [
         wins.push('Plant Insights with OEE: +10k');
       }
 
+  return { wins, neutrals, losses };
+    }
+  },
+  {
+    title: 'SCENARIO 2 - SUBTLE ANOMALIES IN LINE 2',
+    text:
+      "Subtle anomalies have begun to surface in Line 2, the plant\u2019s highest-volume extruder. Over the past few days, minor fluctuations in energy consumption and vibration levels have been recorded\u2014just enough to raise concern, but still within what\u2019s often dismissed as operational variance.",
+    apply: () => {
+      const wins = [];
+      const neutrals = [];
+      const losses = [];
+
+      if (state.upgrades.moisture.owned) {
+        state.money += 30000;
+        wins.push('Dryer ACE: +30k');
+      }
+
+      if (state.upgrades.training.owned) {
+        state.money += 20000;
+        wins.push('Operator Training Suite: +20k');
+      }
+
+      if (state.upgrades.digitalTwin.owned) {
+        state.money += 25000;
+        wins.push('Digital Twin & Predictive: +25k');
+      }
+
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+        neutrals.push('150k loss avoided due to Plant Insights');
+      } else {
+        state.money -= 150000;
+        losses.push('Without Plant Insights you lost 150k.');
+      }
+
       return { wins, neutrals, losses };
     }
   },
-  { text: 'Scenario 2 coming soon.', apply: () => 'No effect this month.' },
   { text: 'Scenario 3 coming soon.', apply: () => 'No effect this month.' },
   { text: 'Scenario 4 coming soon.', apply: () => 'No effect this month.' },
   { text: 'Scenario 5 coming soon.', apply: () => 'No effect this month.' }
