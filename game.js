@@ -272,7 +272,7 @@ const scenarios = [
       if (state.upgrades.moisture.owned) {
         state.money += 50000;
         wins.push('Dryer ACE: +50k');
-        neutrals.push('200k loss avoided');
+        neutrals.push('200k loss avoided due to Dryer ACE');
       } else {
         state.money -= 200000;
         losses.push('Without Dryer ACE you lost 200k.');
@@ -386,7 +386,7 @@ function showPerformanceReport() {
   } else {
     result.losses.forEach(msg => {
       const li = document.createElement('li');
-      li.className = 'performance-report-line';
+      li.className = 'performance-report-line negative-score';
       li.textContent = msg;
       lossList.appendChild(li);
     });

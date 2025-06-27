@@ -450,6 +450,7 @@ h1 {
 
 .report-section-header.win {
     color: #00aa00;
+    margin-top: 10px;
 }
 
 .report-section-header.loss {
