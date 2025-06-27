@@ -534,6 +534,12 @@ function showPerformanceReport() {
   scenarioPage.style.display = 'none';
   performanceReportPage.style.display = 'flex';
 
+  // Switch music back to the main theme
+  incidentMusic.pause();
+  mainThemeMusic.currentTime = 0;
+  mainThemeMusic.volume = 0.2;
+  mainThemeMusic.play();
+
   performanceReportCard.innerHTML = '';
   
   // Add "Performance Report" title
