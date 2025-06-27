@@ -135,7 +135,7 @@ function typeWriter(text, i) {
     textBox.firstChild.textContent += text.charAt(i);
     typingSound.play();
     i++;
-    setTimeout(() => typeWriter(text, i), 30);
+    setTimeout(() => typeWriter(text, i), 5);
   } else {
     isTyping = false;
     continueIndicator.style.opacity = '1';
@@ -392,6 +392,21 @@ const scenarios = [
         wins.push('Operator Training Suite: +100k');
       }
 
+      if (state.upgrades.retrofit.owned) {
+        state.money += 10000;
+        wins.push('Plant automation upgrade: +10k');
+      }
+
+      if (state.upgrades.digitalTwin.owned) {
+        state.money += 10000;
+        wins.push('Asset management: +10k');
+      }
+
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+      }
+
       return { wins, neutrals, losses };
     }
   },
@@ -459,7 +474,7 @@ function showMonthTransition(callback) {
         monthTransitionText.style.transition = ''; // Reset transition
         if (callback) callback();
       }, 1500); // 1.5 seconds of black screen
-    }, 2000); // 2 seconds showing the image
+    }, 1500); // 2 seconds showing the image
   } else {
     // Fallback if no image found
     if (callback) callback();
