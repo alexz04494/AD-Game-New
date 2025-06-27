@@ -424,6 +424,20 @@ const scenarios = [
         wins.push('Dryer ACE: +50k');
       }
 
+      if (state.upgrades.training.owned) {
+        state.money += 10000;
+        wins.push('Operator Training Suite: +10k');
+      }
+
+      if (state.upgrades.digitalTwin.owned) {
+        state.money += 10000;
+        wins.push('Asset management: +10k');
+      }
+
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+      }
 
       if (state.upgrades.retrofit.owned) {
         state.money += 100000;
