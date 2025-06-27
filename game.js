@@ -63,6 +63,8 @@ const uiDiv = document.getElementById("ui");
 const catalogueBack = document.getElementById("catalogue-back");
 
 const monthCounter = document.getElementById("month-counter");
+const rulesPage = document.getElementById("rules-page");
+const rulesNextBtn = document.getElementById("rules-next-btn");
 const scenarioPage = document.getElementById("scenario-page");
 const scenarioCard = document.getElementById("scenario-card");
 const scenarioNextBtn = document.getElementById("scenario-next-btn");
@@ -170,13 +172,11 @@ function nextDialogue() {
     dialogueIndex++;
   } else {
     mainGamePage.style.display = 'none';
-    uiDiv.style.display = 'block';
-    moneyBar.style.display = 'block';
+    rulesPage.style.display = 'flex';
     mainGamePage.removeEventListener('click', nextDialogue);
     mainThemeMusic.pause();
     catalogueMusic.volume = 0.1;
     catalogueMusic.play();
-    updateShop();
   }
 }
 
@@ -639,6 +639,14 @@ function showPerformanceReport() {
 
   updateMoneyBar();
 }
+
+// Rules page next button - go to shop
+rulesNextBtn.onclick = () => {
+  rulesPage.style.display = 'none';
+  uiDiv.style.display = 'block';
+  moneyBar.style.display = 'block';
+  updateShop();
+};
 
 // Scenario page next button - go to performance report
 scenarioNextBtn.onclick = () => {
