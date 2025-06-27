@@ -1,4 +1,4 @@
-// Simplified game logic for quarterly scenarios
+// Simplified game logic for monthly scenarios
 
 const state = {
   money: 350000,
@@ -51,8 +51,8 @@ const state = {
   }
 };
 
-const totalQuarters = 4;
-let currentQuarter = 1;
+const totalMonths = 5;
+let currentMonth = 1;
 
 // DOM elements
 const shopDiv = document.getElementById("shop");
@@ -62,7 +62,7 @@ const mainGamePage = document.getElementById("main-game-page");
 const uiDiv = document.getElementById("ui");
 const catalogueBack = document.getElementById("catalogue-back");
 
-const quarterCounter = document.getElementById("quarter-counter");
+const monthCounter = document.getElementById("month-counter");
 const scenarioPage = document.getElementById("scenario-page");
 const scenarioCard = document.getElementById("scenario-card");
 const scenarioNextBtn = document.getElementById("scenario-next-btn");
@@ -180,6 +180,7 @@ function updateMoneyBar() {
 }
 
 function updateShop() {
+  monthCounter.style.display = "none";
   updateMoneyBar();
   shopDiv.innerHTML = '';
   const container = document.createElement('div');
@@ -247,7 +248,7 @@ function updateShop() {
   contBtn.className = 'catalogue-continue-btn';
   contBtn.textContent = 'Continue';
   contBtn.onclick = () => {
-    startQuarter();
+    startMonth();
   };
   shopDiv.appendChild(contBtn);
 }
@@ -296,26 +297,27 @@ const scenarios = [
       return { wins, neutrals, losses };
     }
   },
-  { text: 'Scenario 2 coming soon.', apply: () => 'No effect this quarter.' },
-  { text: 'Scenario 3 coming soon.', apply: () => 'No effect this quarter.' },
-  { text: 'Scenario 4 coming soon.', apply: () => 'No effect this quarter.' }
+  { text: 'Scenario 2 coming soon.', apply: () => 'No effect this month.' },
+  { text: 'Scenario 3 coming soon.', apply: () => 'No effect this month.' },
+  { text: 'Scenario 4 coming soon.', apply: () => 'No effect this month.' }
+  { text: 'Scenario 5 coming soon.', apply: () => 'No effect this month.' }
 ];
 
-function startQuarter() {
+function startMonth() {
   Object.values(state.upgrades).forEach(u => {
     if (u.justPurchased) {
       u.justPurchased = false;
     }
   });
   applyPassiveIncome();
-  quarterCounter.textContent = `Quarter ${currentQuarter}/${totalQuarters}`;
-  quarterCounter.style.display = 'block';
+  monthCounter.textContent = `Month ${currentMonth}/${totalMonths}`;
+  monthCounter.style.display = 'block';
   uiDiv.style.display = 'none';
   moneyBar.style.display = 'block';
   scenarioPage.style.display = 'flex';
   scenarioCard.innerHTML = '';
   
-  const scenario = scenarios[currentQuarter - 1];
+  const scenario = scenarios[currentMonth - 1];
   
   // Add title if it exists
   if (scenario.title) {
@@ -345,7 +347,7 @@ function showPerformanceReport() {
   performanceReportCard.appendChild(title);
   
   // Apply scenario effects and show results
-  const scenario = scenarios[currentQuarter - 1];
+  const scenario = scenarios[currentMonth - 1];
   const result = scenario.apply();
 
   const winsHeader = document.createElement('h3');
@@ -404,9 +406,9 @@ scenarioNextBtn.onclick = () => {
 // Performance report next button - go to catalogue
 reportNextBtn.onclick = () => {
   performanceReportPage.style.display = 'none';
-  currentQuarter++;
-  if (currentQuarter > totalQuarters) {
-    quarterCounter.style.display = 'none';
+  currentMonth++;
+  if (currentMonth > totalMonths) {
+    monthCounter.style.display = 'none';
     catalogueMusic.pause();
     mainThemeMusic.pause();
   } else {
