@@ -302,17 +302,11 @@ const scenarios = [
     title: 'Incident - Subtle anomalies in line 2',
     text:
       "Subtle anomalies have begun to surface in Line 2, the plant\u2019s highest-volume extruder. Over the past few days, minor fluctuations in energy consumption and vibration levels have been recorded\u2014just enough to raise concern, but still within what\u2019s often dismissed as operational variance.",
-    extraHeader: 'Unexpected windfall',
-    extraText:
-      'A major client placed a last-minute order for premium pet food at 25% above standard pricing. Thanks to exceptional weekend efforts by the operations and quality teams, the batch was delivered on time and met all specifications. The resulting margin windfall led to an additional $200,000 in CAPEX approval from corporate, which can now be allocated toward critical upgrades or digital initiatives in upcoming quarters.',
+    
     apply: () => {
       const wins = [];
       const neutrals = [];
       const losses = [];
-
-      // The large rush order brings in an immediate bonus
-      state.money += 200000;
-      wins.push('Large order: +200k');
 
       if (state.upgrades.moisture.owned) {
         state.money += 30000;
