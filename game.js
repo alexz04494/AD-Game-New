@@ -509,7 +509,7 @@ function showScenario() {
     const extraHeader = document.createElement('h3');
     extraHeader.textContent = scenario.extraHeader;
     extraHeader.style.cssText =
-      'color: #00aa00; font-family: "Press Start 2P", cursive; font-size: 0.9rem; margin-bottom: 10px; text-align: center; line-height: 1.4;';
+      'color: #00aa00; font-family: "Press Start 2P", cursive; font-size: 1rem; margin-bottom: 10px; text-align: center; line-height: 1.4;';
     scenarioCard.appendChild(extraHeader);
   }
 
