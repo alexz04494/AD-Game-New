@@ -22,7 +22,7 @@ const state = {
         "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p>"
     },
     retrofit: {
-      name: "Plant Solutions",
+      name: "Plant automation upgrade",
       price: 225000,
       owned: false,
       justPurchased: false,
@@ -354,7 +354,7 @@ const scenarios = [
 
       if (state.upgrades.retrofit.owned) {
         state.money += 50000;
-        wins.push('Plant Solutions: +50k');
+        wins.push('Plant automation upgrade: +50k');
       }
 
       if (state.upgrades.digitalTwin.owned) {
