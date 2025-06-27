@@ -1,7 +1,7 @@
 // Simplified game logic for monthly scenarios
 
 const state = {
-  money: 350000,
+  money: 400000,
   upgrades: {
     moisture: {
       name: "Dryer ACE",
@@ -31,7 +31,7 @@ const state = {
         "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p>"
     },
     digitalTwin: {
-      name: "Digital Twin & Predictive",
+      name: "Asset management",
       price: 150000,
       owned: false,
       justPurchased: false,
@@ -286,7 +286,7 @@ const scenarios = [
 
       if (state.upgrades.digitalTwin.owned) {
         state.money += 25000;
-        wins.push('Digital Twin & Predictive: +25k');
+        wins.push('Asset management: +25k');
       }
 
       if (state.upgrades.plantInsights.owned) {
@@ -318,7 +318,7 @@ const scenarios = [
 
       if (state.upgrades.digitalTwin.owned) {
         state.money += 25000;
-        wins.push('Digital Twin & Predictive: +25k');
+        wins.push('Asset management: +25k');
       }
 
       if (state.upgrades.plantInsights.owned) {
@@ -359,7 +359,7 @@ const scenarios = [
 
       if (state.upgrades.digitalTwin.owned) {
         state.money += 10000;
-        wins.push('Digital Twin & Predictive: +10k');
+        wins.push('Asset management: +10k');
       }
 
       if (state.upgrades.plantInsights.owned) {
