@@ -51,7 +51,7 @@ const state = {
   }
 };
 
-const totalMonths = 10;
+const totalMonths = 5;
 let currentMonth = 1;
 
 // DOM elements
@@ -375,8 +375,78 @@ const scenarios = [
       return { wins, neutrals, losses };
     }
   },
-  { text: 'Scenario 4 coming soon.', apply: () => 'No effect this month.' },
-  { text: 'Scenario 5 coming soon.', apply: () => 'No effect this month.' }
+  {
+    title: 'Incident - Training crisis',
+    text:
+      'Midway through the quarter, your most experienced extruder operator resigns unexpectedly. The new hire is unfamiliar with the complex settings, and downtime increases.',
+    apply: () => {
+      const wins = [];
+      const neutrals = [];
+      const losses = [];
+
+      if (state.upgrades.moisture.owned) {
+        state.money += 20000;
+        wins.push('Dryer ACE: +20k');
+      }
+
+      if (state.upgrades.training.owned) {
+        state.money += 100000;
+        wins.push('Operator Training Suite: +100k');
+        neutrals.push('150k loss avoided due to OTS');
+      } else {
+        state.money -= 150000;
+        losses.push('Without OTS you lost 150k.');
+      }
+
+      if (state.upgrades.digitalTwin.owned) {
+        state.money += 10000;
+        wins.push('Asset management: +10k');
+      }
+
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+      }
+
+      return { wins, neutrals, losses };
+    }
+  },
+  {
+    title: 'Incident - PLC Failure - Plant Shutdown',
+    text:
+      'A central PLC fails unexpectedly. No automation or control functions respond. Without system-level backup, the plant halts, resulting in lost production and contract delays.',
+    apply: () => {
+      const wins = [];
+      const neutrals = [];
+      const losses = [];
+
+      if (state.upgrades.moisture.owned) {
+        state.money += 10000;
+        wins.push('Dryer ACE: +10k');
+      }
+
+      if (state.upgrades.training.owned) {
+        state.money += 10000;
+        wins.push('Operator Training Suite: +10k');
+      }
+
+      if (state.upgrades.retrofit.owned) {
+        state.money += 50000;
+        wins.push('Plant automation upgrade: +50k');
+        neutrals.push('200k loss avoided due to Plant automation upgrade');
+      } else {
+        state.money -= 200000;
+        losses.push('Without Plant automation upgrade you lost 200k.');
+      }
+
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+      }
+
+      return { wins, neutrals, losses };
+    }
+  }
 ];
 
 function showMonthTransition(callback) {
