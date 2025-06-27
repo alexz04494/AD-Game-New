@@ -265,12 +265,35 @@ const scenarios = [
     title: 'SCENARIO 1 - MOISTURE SURGE IN DRYER',
     text: 'It\'s mid-monsoon, and unexpected rains have increased the ambient moisture levels in the intake air. The plant\'s dryers—tuned for stable dry-season baselines—are suddenly unable to maintain their moisture targets. As the air\'s humidity swings, so does the product moisture. Operators struggle to catch up manually, resulting in inconsistent output.\n\nThe stakes are high: even a 1% deviation in moisture leads to regulatory non-compliance, customer rejections, and the need to reprocess or discard product.',
     apply: () => {
+      const wins = [];
+      const neutrals = [];
+      const losses = [];
+
       if (state.upgrades.moisture.owned) {
         state.money += 50000;
-        return 'Dryer ACE kept production stable. +€50k';
+        wins.push('Dryer ACE: +50k');
+        neutrals.push('200k loss avoided');
+      } else {
+        state.money -= 200000;
+        losses.push('Without Dryer ACE you lost 200k.');
       }
-      state.money -= 200000;
-      return 'Without Dryer ACE you lost €200k.';
+
+      if (state.upgrades.training.owned) {
+        state.money += 20000;
+        wins.push('Operator Training Suite: +20k');
+      }
+
+      if (state.upgrades.digitalTwin.owned) {
+        state.money += 25000;
+        wins.push('Digital Twin & Predictive: +25k');
+      }
+
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+      }
+
+      return { wins, neutrals, losses };
     }
   },
   { text: 'Scenario 2 coming soon.', apply: () => 'No effect this quarter.' },
@@ -312,7 +335,7 @@ function startQuarter() {
 function showPerformanceReport() {
   scenarioPage.style.display = 'none';
   performanceReportPage.style.display = 'flex';
-  
+
   performanceReportCard.innerHTML = '';
   
   // Add "Performance Report" title
@@ -323,11 +346,53 @@ function showPerformanceReport() {
   
   // Apply scenario effects and show results
   const scenario = scenarios[currentQuarter - 1];
-  const outcome = document.createElement('p');
-  outcome.textContent = scenario.apply();
-  outcome.style.cssText = 'font-weight: bold; color: #333; text-align: center; font-size: 1.1rem; line-height: 1.6;';
-  performanceReportCard.appendChild(outcome);
-  
+  const result = scenario.apply();
+
+  const winsHeader = document.createElement('h3');
+  winsHeader.textContent = 'WINS';
+  winsHeader.className = 'report-section-header win';
+  performanceReportCard.appendChild(winsHeader);
+
+  const winList = document.createElement('ul');
+  winList.className = 'performance-report-list';
+  result.wins.forEach(msg => {
+    const li = document.createElement('li');
+    li.className = 'performance-report-line positive-score';
+    li.textContent = msg;
+    winList.appendChild(li);
+  });
+  result.neutrals.forEach(msg => {
+    const li = document.createElement('li');
+    li.className = 'performance-report-line';
+    li.textContent = msg;
+    winList.appendChild(li);
+  });
+  if (result.wins.length || result.neutrals.length) {
+    performanceReportCard.appendChild(winList);
+  }
+
+  const lossHeader = document.createElement('h3');
+  lossHeader.textContent = 'LOSSES';
+  lossHeader.className = 'report-section-header loss';
+  performanceReportCard.appendChild(lossHeader);
+
+  const lossList = document.createElement('ul');
+  lossList.className = 'performance-report-list';
+  if (result.losses.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'performance-report-line';
+    li.textContent = 'No losses this month.';
+    lossList.appendChild(li);
+  } else {
+    result.losses.forEach(msg => {
+      const li = document.createElement('li');
+      li.className = 'performance-report-line';
+      li.textContent = msg;
+      lossList.appendChild(li);
+    });
+  }
+  performanceReportCard.appendChild(lossList);
+
   updateMoneyBar();
 }
 
