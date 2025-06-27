@@ -314,6 +314,9 @@ function startMonth() {
   monthCounter.style.display = 'block';
   uiDiv.style.display = 'none';
   moneyBar.style.display = 'block';
+  catalogueMusic.pause();
+  mainThemeMusic.volume = 0.2;
+  mainThemeMusic.play();
   scenarioPage.style.display = 'flex';
   scenarioCard.innerHTML = '';
   
@@ -417,6 +420,9 @@ reportNextBtn.onclick = () => {
     catalogueMusic.pause();
     mainThemeMusic.pause();
   } else {
+    mainThemeMusic.pause();
+    catalogueMusic.volume = 0.1;
+    catalogueMusic.play();
     uiDiv.style.display = 'block';
     updateShop();
   }
