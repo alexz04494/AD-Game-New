@@ -333,7 +333,43 @@ const scenarios = [
       return { wins, neutrals, losses };
     }
   },
-  { text: 'Scenario 3 coming soon.', apply: () => 'No effect this month.' },
+  {
+    title: 'SCENARIO 3 - MAJOR CLIENT ORDERS SPIKE',
+    text:
+      'A major customer places a rush order, requiring the mill to increase throughput by 15%. This sudden spike is a chance to generate extra revenue, but only plants equipped with the right digital tools can respond quickly enough.',
+    apply: () => {
+      const wins = [];
+      const neutrals = [];
+      const losses = [];
+
+      if (state.upgrades.moisture.owned) {
+        state.money += 50000;
+        wins.push('Dryer ACE: +50k');
+      }
+
+      if (state.upgrades.training.owned) {
+        state.money += 10000;
+        wins.push('Operator Training Suite: +10k');
+      }
+
+      if (state.upgrades.retrofit.owned) {
+        state.money += 50000;
+        wins.push('Plant Solutions: +50k');
+      }
+
+      if (state.upgrades.digitalTwin.owned) {
+        state.money += 10000;
+        wins.push('Digital Twin & Predictive: +10k');
+      }
+
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+      }
+
+      return { wins, neutrals, losses };
+    }
+  },
   { text: 'Scenario 4 coming soon.', apply: () => 'No effect this month.' },
   { text: 'Scenario 5 coming soon.', apply: () => 'No effect this month.' }
 ];
