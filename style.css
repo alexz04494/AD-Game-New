@@ -196,6 +196,7 @@ h1 {
 
 .scenario-text p {
   font-size: 1.1rem;
+  line-height: 1.6;
 }
 
 #continueBtn {
@@ -484,6 +485,12 @@ h1 {
     width: 280px;
     height: 420px;
     transform: none;
+}
+
+/* Scenario card - make it much larger and wider */
+#scenario-page .catalogue-card {
+    width: 700px;
+    height: 400px;
 }
 
 .finish-selection-container {
@@ -1109,4 +1116,18 @@ body.end-year-scene #points-counter {
     align-items: center;
     gap: 20px;
     margin-top: 60px;
+}
+
+/* Performance Report Page Layout */
+#performance-report-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 60px;
+}
+
+#performance-report-page .catalogue-card {
+    width: 400px;
+    height: 600px;
 }

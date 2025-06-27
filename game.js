@@ -1,11 +1,11 @@
 // Simplified game logic for quarterly scenarios
 
 const state = {
-  money: 365000,
+  money: 350000,
   upgrades: {
     moisture: {
-      name: "ACE Moisture Control",
-      price: 120000,
+      name: "Dryer ACE",
+      price: 150000,
       owned: false,
       justPurchased: false,
       passive: 50000,
@@ -14,7 +14,7 @@ const state = {
     },
     training: {
       name: "Operator Training Suite",
-      price: 120000,
+      price: 200000,
       owned: false,
       justPurchased: false,
       passive: 0,
@@ -23,7 +23,7 @@ const state = {
     },
     retrofit: {
       name: "Plant Solutions",
-      price: 150000,
+      price: 225000,
       owned: false,
       justPurchased: false,
       passive: 0,
@@ -41,7 +41,7 @@ const state = {
     },
     plantInsights: {
       name: "Plant Insights with OEE",
-      price: 95000,
+      price: 120000,
       owned: false,
       justPurchased: false,
       passive: 0,
@@ -65,7 +65,10 @@ const catalogueBack = document.getElementById("catalogue-back");
 const quarterCounter = document.getElementById("quarter-counter");
 const scenarioPage = document.getElementById("scenario-page");
 const scenarioCard = document.getElementById("scenario-card");
-const nextQuarterBtn = document.getElementById("next-quarter-btn");
+const scenarioNextBtn = document.getElementById("scenario-next-btn");
+const performanceReportPage = document.getElementById("performance-report-page");
+const performanceReportCard = document.getElementById("performance-report-card");
+const reportNextBtn = document.getElementById("report-next-btn");
 
 // Audio elements
 const beepSound = document.getElementById("beep-sound");
@@ -163,6 +166,7 @@ function nextDialogue() {
   } else {
     mainGamePage.style.display = 'none';
     uiDiv.style.display = 'block';
+    moneyBar.style.display = 'block';
     mainGamePage.removeEventListener('click', nextDialogue);
     mainThemeMusic.pause();
     catalogueMusic.volume = 0.1;
@@ -258,7 +262,8 @@ function applyPassiveIncome() {
 
 const scenarios = [
   {
-    text: 'Moisture variability in the pellets is very high.',
+    title: 'SCENARIO 1 - MOISTURE SURGE IN DRYER',
+    text: 'It\'s mid-monsoon, and unexpected rains have increased the ambient moisture levels in the intake air. The plant\'s dryers—tuned for stable dry-season baselines—are suddenly unable to maintain their moisture targets. As the air\'s humidity swings, so does the product moisture. Operators struggle to catch up manually, resulting in inconsistent output.\n\nThe stakes are high: even a 1% deviation in moisture leads to regulatory non-compliance, customer rejections, and the need to reprocess or discard product.',
     apply: () => {
       if (state.upgrades.moisture.owned) {
         state.money += 50000;
@@ -283,19 +288,57 @@ function startQuarter() {
   quarterCounter.textContent = `Quarter ${currentQuarter}/${totalQuarters}`;
   quarterCounter.style.display = 'block';
   uiDiv.style.display = 'none';
+  moneyBar.style.display = 'block';
   scenarioPage.style.display = 'flex';
   scenarioCard.innerHTML = '';
+  
+  const scenario = scenarios[currentQuarter - 1];
+  
+  // Add title if it exists
+  if (scenario.title) {
+    const title = document.createElement('h2');
+    title.textContent = scenario.title;
+    title.style.cssText = 'color: #0075be; font-family: "Press Start 2P", cursive; font-size: 1rem; margin-bottom: 20px; text-align: center; line-height: 1.4;';
+    scenarioCard.appendChild(title);
+  }
+  
   const p = document.createElement('p');
-  p.textContent = scenarios[currentQuarter - 1].text;
+  p.textContent = scenario.text;
+  p.style.cssText = 'line-height: 1.6; margin-bottom: 20px; font-size: 1.1rem;';
   scenarioCard.appendChild(p);
+  // Don't apply scenario effects yet - that happens in the performance report
+}
+
+function showPerformanceReport() {
+  scenarioPage.style.display = 'none';
+  performanceReportPage.style.display = 'flex';
+  
+  performanceReportCard.innerHTML = '';
+  
+  // Add "Performance Report" title
+  const title = document.createElement('h2');
+  title.textContent = 'PERFORMANCE REPORT';
+  title.style.cssText = 'color: #0075be; font-family: "Press Start 2P", cursive; font-size: 1.2rem; margin-bottom: 20px; text-align: center; line-height: 1.4;';
+  performanceReportCard.appendChild(title);
+  
+  // Apply scenario effects and show results
+  const scenario = scenarios[currentQuarter - 1];
   const outcome = document.createElement('p');
-  outcome.textContent = scenarios[currentQuarter - 1].apply();
-  scenarioCard.appendChild(outcome);
+  outcome.textContent = scenario.apply();
+  outcome.style.cssText = 'font-weight: bold; color: #333; text-align: center; font-size: 1.1rem; line-height: 1.6;';
+  performanceReportCard.appendChild(outcome);
+  
   updateMoneyBar();
 }
 
-nextQuarterBtn.onclick = () => {
-  scenarioPage.style.display = 'none';
+// Scenario page next button - go to performance report
+scenarioNextBtn.onclick = () => {
+  showPerformanceReport();
+};
+
+// Performance report next button - go to catalogue
+reportNextBtn.onclick = () => {
+  performanceReportPage.style.display = 'none';
   currentQuarter++;
   if (currentQuarter > totalQuarters) {
     quarterCounter.style.display = 'none';
