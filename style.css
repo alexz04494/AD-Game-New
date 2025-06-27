@@ -140,6 +140,38 @@ body::before {
 }
 
 /*---------------------------------------------------
+  Intro Screen
+---------------------------------------------------*/
+#intro-screen {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.intro-text {
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 80%;
+    opacity: 0;
+    animation: fadeInText 3s ease-in-out forwards;
+}
+
+@keyframes fadeInText {
+    0% { opacity: 0; }
+    20% { opacity: 0; }
+    50% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/*---------------------------------------------------
   Header & Money display
 ---------------------------------------------------*/
 h1 {

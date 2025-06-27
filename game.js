@@ -4,7 +4,7 @@ const state = {
   money: 300000,
   upgrades: {
     moisture: {
-      name: "Dryer ACE",
+      name: "Metris Dryer ACE",
       price: 150000,
       owned: false,
       justPurchased: false,
@@ -13,7 +13,7 @@ const state = {
         "<p>Maintain pellet moisture with pinpoint accuracy, eliminating costly spec deviations and rework. ACE Moisture Control optimizes drying processes for consistent quality.</p>"
     },
     training: {
-      name: "Operator Training Suite",
+      name: "Metris Operator Training Suite",
       price: 200000,
       owned: false,
       justPurchased: false,
@@ -22,7 +22,7 @@ const state = {
         "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p>"
     },
     retrofit: {
-      name: "Plant automation upgrade",
+      name: "Metris Plant automation upgrade",
       price: 225000,
       owned: false,
       justPurchased: false,
@@ -31,7 +31,7 @@ const state = {
         "<p>Upgrade your legacy control systems to reduce faults, improve uptime, and integrate with modern analytics for smarter plant operations.</p>"
     },
     digitalTwin: {
-      name: "Asset management",
+      name: "Metris Asset management",
       price: 150000,
       owned: false,
       justPurchased: false,
@@ -40,7 +40,7 @@ const state = {
         "<p>Leverage real-time simulation and analytics to predict issues before they occur, optimizing throughput and maintenance scheduling.</p>"
     },
     plantInsights: {
-      name: "Plant Insights with OEE",
+      name: "Metris Plant Insights with OEE",
       price: 120000,
       owned: false,
       justPurchased: false,
@@ -63,6 +63,7 @@ const uiDiv = document.getElementById("ui");
 const catalogueBack = document.getElementById("catalogue-back");
 
 const monthCounter = document.getElementById("month-counter");
+const introScreen = document.getElementById("intro-screen");
 const rulesPage = document.getElementById("rules-page");
 const rulesNextBtn = document.getElementById("rules-next-btn");
 const scenarioPage = document.getElementById("scenario-page");
@@ -146,12 +147,23 @@ function typeWriter(text, i) {
 
 startPage.onclick = () => {
   startPage.style.display = "none";
-  mainGamePage.style.display = "block";
+  introScreen.style.display = "flex";
   beepSound.currentTime = 0;
   beepSound.play();
   mainThemeMusic.volume = 0.2;
   mainThemeMusic.play();
-  nextDialogue();
+  
+  // After 4 seconds, crossfade to main game page
+  setTimeout(() => {
+    introScreen.style.transition = 'opacity 1s ease-out';
+    introScreen.style.opacity = '0';
+    
+    setTimeout(() => {
+      introScreen.style.display = 'none';
+      mainGamePage.style.display = 'block';
+      nextDialogue();
+    }, 1000); // Wait for fade out to complete
+  }, 4000); // Show intro text for 4 seconds
 };
 
 mainGamePage.addEventListener('click', nextDialogue);
@@ -585,7 +597,7 @@ function showPerformanceReport() {
 
   // Global monthly bonus
   state.money += 100000;
-  result.wins.push('Production efficiency: +100k');
+  result.wins.push('Cash flow from production: +100k');
 
   const winsHeader = document.createElement('h3');
   winsHeader.textContent = 'WINS';
