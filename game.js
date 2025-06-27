@@ -71,6 +71,7 @@ const scenarioNextBtn = document.getElementById("scenario-next-btn");
 const performanceReportPage = document.getElementById("performance-report-page");
 const performanceReportCard = document.getElementById("performance-report-card");
 const reportNextBtn = document.getElementById("report-next-btn");
+const finalReportContainer = document.getElementById("performance-report-container");
 const monthTransition = document.getElementById("month-transition");
 const monthTransitionText = document.querySelector('#month-transition .transition-text');
 const monthTransitionImages = document.querySelectorAll('#month-transition img');
@@ -84,6 +85,7 @@ const cashRegisterSound = document.getElementById("cash-register-sound");
 const cancelSound = document.getElementById("cancel-sound");
 const fireballSound = document.getElementById("fireball-sound");
 const incidentMusic = document.getElementById("incident-music");
+const endMusic = document.getElementById("end-music");
 
 // Dialogue setup
 const dialogue = [
@@ -638,6 +640,82 @@ function showPerformanceReport() {
   performanceReportCard.appendChild(lossList);
 
   updateMoneyBar();
+
+  // Update next button label depending on month
+  if (currentMonth === totalMonths) {
+    reportNextBtn.textContent = 'Finalize';
+  } else {
+    reportNextBtn.textContent = 'Continue';
+  }
+}
+
+function showFinalReport() {
+  mainThemeMusic.pause();
+  catalogueMusic.pause();
+  incidentMusic.pause();
+  endMusic.volume = 0.2;
+  endMusic.play();
+
+  uiDiv.style.display = 'none';
+  performanceReportPage.style.display = 'none';
+
+  finalReportContainer.innerHTML = '';
+  finalReportContainer.style.display = 'flex';
+  document.body.classList.add('end-year-scene');
+
+  const card = document.createElement('div');
+  card.className = 'shop-card catalogue-card';
+
+  const title = document.createElement('h2');
+  title.textContent = 'YEAR-END REPORT';
+  title.style.cssText = 'color: #0075be; font-family: "Press Start 2P", cursive; font-size: 1.2rem; margin-bottom: 20px; text-align: center; line-height: 1.4;';
+  card.appendChild(title);
+
+  const moneyLine = document.createElement('div');
+  moneyLine.className = 'performance-report-line';
+  moneyLine.textContent = `Final balance: €${state.money.toLocaleString()}`;
+  card.appendChild(moneyLine);
+
+  const percent = Math.max(0, Math.min(100, Math.round((state.money / 1000000) * 100)));
+  const percentLine = document.createElement('div');
+  percentLine.className = 'performance-report-line';
+  percentLine.textContent = `Score: ${percent}% of €1,000,000`;
+  card.appendChild(percentLine);
+
+  let badge = '';
+  let badgeClass = '';
+  let badgeIcon = '';
+  if (state.money < 400000) {
+    badge = 'Dismissed';
+    badgeClass = 'badge-dismissed';
+    badgeIcon = 'assets/icons/firedbadge.png';
+  } else if (state.money <= 800000) {
+    badge = 'Mindful Manager';
+    badgeClass = 'badge-success';
+    badgeIcon = 'assets/icons/okbadge.png';
+  } else {
+    badge = 'Certified Operational Leader';
+    badgeClass = 'badge-success';
+    badgeIcon = 'assets/icons/bestbadge.png';
+  }
+
+  const badgeLine = document.createElement('div');
+  badgeLine.className = 'performance-report-line';
+  badgeLine.innerHTML = `Badge: <span class="${badgeClass}">${badge}</span>`;
+  card.appendChild(badgeLine);
+
+  const icon = document.createElement('img');
+  icon.src = badgeIcon;
+  icon.alt = badge;
+  icon.className = 'performance-badge-icon';
+  if (badge === 'Certified Operational Leader') {
+    icon.classList.add('best-badge-icon');
+  } else if (badge === 'Dismissed') {
+    icon.classList.add('dismissed-badge-icon');
+  }
+  card.appendChild(icon);
+
+  finalReportContainer.appendChild(card);
 }
 
 // Rules page next button - go to shop
@@ -653,16 +731,14 @@ scenarioNextBtn.onclick = () => {
   showPerformanceReport();
 };
 
-// Performance report next button - go to catalogue
+// Performance report next button - continue or finalize
 reportNextBtn.onclick = () => {
   performanceReportPage.style.display = 'none';
-  currentMonth++;
-  if (currentMonth > totalMonths) {
+  if (currentMonth === totalMonths) {
+    showFinalReport();
     monthCounter.style.display = 'none';
-    catalogueMusic.pause();
-    mainThemeMusic.pause();
-    incidentMusic.pause();
   } else {
+    currentMonth++;
     mainThemeMusic.pause();
     incidentMusic.pause();
     catalogueMusic.volume = 0.1;
