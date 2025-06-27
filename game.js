@@ -346,6 +346,10 @@ const scenarios = [
       const neutrals = [];
       const losses = [];
 
+      // The large rush order brings in an immediate bonus
+      state.money += 200000;
+      wins.push('Large order: +200k');
+
       if (state.upgrades.moisture.owned) {
         state.money += 50000;
         wins.push('Dryer ACE: +50k');
