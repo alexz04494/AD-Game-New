@@ -413,20 +413,22 @@ function showMonthTransition(callback) {
   }
   monthTransition.style.display = 'flex';
   monthTransitionImages.forEach(img => (img.style.opacity = 0));
-  monthTransitionText.style.opacity = 0; // Hide text for new transition style
+  monthTransitionText.style.opacity = 1; // Show "A month passes..." text
 
   // Show only one image based on current month (bg1 for month 1, bg2 for month 2, etc.)
   const imageIndex = Math.min(currentMonth - 1, monthTransitionImages.length - 1);
   const targetImage = monthTransitionImages[imageIndex];
   
   if (targetImage) {
-    // Phase 1: Show the background image for 3 seconds
+    // Phase 1: Show the background image for 2 seconds
     targetImage.style.opacity = 1;
     
     setTimeout(() => {
-      // Phase 2: Cross-fade to black for 1.5 seconds
-      targetImage.style.transition = 'opacity 0.5s ease-out';
+      // Phase 2: Cross-fade to black slower (1 second fade)
+      targetImage.style.transition = 'opacity 1s ease-out';
       targetImage.style.opacity = 0;
+      monthTransitionText.style.transition = 'opacity 1s ease-out';
+      monthTransitionText.style.opacity = 0;
       
       setTimeout(() => {
         // Phase 3: Hide transition and start incident after black screen
@@ -435,9 +437,10 @@ function showMonthTransition(callback) {
           img.style.opacity = 0;
           img.style.transition = ''; // Reset transition
         });
+        monthTransitionText.style.transition = ''; // Reset transition
         if (callback) callback();
       }, 1500); // 1.5 seconds of black screen
-    }, 3000); // 3 seconds showing the image
+    }, 3000); // 2 seconds showing the image
   } else {
     // Fallback if no image found
     if (callback) callback();
