@@ -384,9 +384,11 @@ function showMonthTransition(callback) {
   }
   monthTransition.style.display = 'flex';
   monthTransitionImages.forEach(img => (img.style.opacity = 0));
-  monthTransitionText.style.opacity = 0;
+  // Display the transition text for the entire animation
+  monthTransitionText.style.opacity = 1;
 
-  const stepDuration = 800; // ~0.8s per slide for ~4s total
+  // Show each image for ~2 seconds with a slower cross fade
+  const stepDuration = 2000;
   let index = 0;
 
   const next = () => {
@@ -400,13 +402,13 @@ function showMonthTransition(callback) {
       index++;
       setTimeout(next, stepDuration);
     } else {
-      monthTransitionText.style.opacity = 1;
+      // Fade out the overlay and text after the last slide
+      monthTransitionText.style.opacity = 0;
       setTimeout(() => {
         monthTransition.style.display = 'none';
         monthTransitionImages.forEach(img => (img.style.opacity = 0));
-        monthTransitionText.style.opacity = 0;
         if (callback) callback();
-      }, stepDuration);
+      }, 500);
     }
   };
 
