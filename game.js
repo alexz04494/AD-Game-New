@@ -355,6 +355,18 @@ const scenarios = [
         state.money += 80000;
         wins.push('Plant automation upgrade: +80k');
       }
+      if (state.upgrades.training.owned) {
+        state.money += 10000;
+        wins.push('Operator Training Suite: +10k');
+      }
+      if (state.upgrades.digitalTwin.owned) {
+        state.money += 10000;
+        wins.push('Asset management: +10k');
+      }
+      if (state.upgrades.plantInsights.owned) {
+        state.money += 10000;
+        wins.push('Plant Insights with OEE: +10k');
+      }
       return { wins, neutrals, losses };
     }
   },
