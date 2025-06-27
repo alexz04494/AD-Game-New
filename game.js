@@ -299,7 +299,7 @@ const scenarios = [
   },
   { text: 'Scenario 2 coming soon.', apply: () => 'No effect this month.' },
   { text: 'Scenario 3 coming soon.', apply: () => 'No effect this month.' },
-  { text: 'Scenario 4 coming soon.', apply: () => 'No effect this month.' }
+  { text: 'Scenario 4 coming soon.', apply: () => 'No effect this month.' },
   { text: 'Scenario 5 coming soon.', apply: () => 'No effect this month.' }
 ];
 
