@@ -51,7 +51,7 @@ const state = {
   }
 };
 
-const totalMonths = 5;
+const totalMonths = 10;
 let currentMonth = 1;
 
 // DOM elements
@@ -80,6 +80,8 @@ const catalogueMusic = document.getElementById("catalogue-music");
 const mainThemeMusic = document.getElementById("main-theme-music");
 const cashRegisterSound = document.getElementById("cash-register-sound");
 const cancelSound = document.getElementById("cancel-sound");
+const fireballSound = document.getElementById("fireball-sound");
+const incidentMusic = document.getElementById("incident-music");
 
 // Dialogue setup
 const dialogue = [
@@ -266,7 +268,7 @@ function applyPassiveIncome() {
 
 const scenarios = [
   {
-    title: 'SCENARIO 1 - MOISTURE SURGE IN DRYER',
+    title: 'Incident - Moisture Surge in dryer',
     text: 'It\'s mid-monsoon, and unexpected rains have increased the ambient moisture levels in the intake air. The plant\'s dryers—tuned for stable dry-season baselines—are suddenly unable to maintain their moisture targets. As the air\'s humidity swings, so does the product moisture. Operators struggle to catch up manually, resulting in inconsistent output.\n\nThe stakes are high: even a 1% deviation in moisture leads to regulatory non-compliance, customer rejections, and the need to reprocess or discard product.',
     apply: () => {
       const wins = [];
@@ -301,7 +303,7 @@ const scenarios = [
     }
   },
   {
-    title: 'SCENARIO 2 - SUBTLE ANOMALIES IN LINE 2',
+    title: 'Incident - Subtle anomalies in line 2',
     text:
       "Subtle anomalies have begun to surface in Line 2, the plant\u2019s highest-volume extruder. Over the past few days, minor fluctuations in energy consumption and vibration levels have been recorded\u2014just enough to raise concern, but still within what\u2019s often dismissed as operational variance.",
     apply: () => {
@@ -337,7 +339,7 @@ const scenarios = [
     }
   },
   {
-    title: 'SCENARIO 3 - MAJOR CLIENT ORDERS SPIKE',
+    title: 'Incident - Major client orders spike',
     text:
       'A major customer places a rush order, requiring the mill to increase throughput by 15%. This sudden spike is a chance to generate extra revenue, but only plants equipped with the right digital tools can respond quickly enough.',
     apply: () => {
@@ -408,7 +410,7 @@ function showMonthTransition(callback) {
         monthTransition.style.display = 'none';
         monthTransitionImages.forEach(img => (img.style.opacity = 0));
         if (callback) callback();
-      }, 500);
+      }, 3000);
     }
   };
 
@@ -435,6 +437,11 @@ function startMonth() {
 function showScenario() {
   scenarioPage.style.display = 'flex';
   scenarioCard.innerHTML = '';
+  mainThemeMusic.pause();
+  incidentMusic.currentTime = 0;
+  incidentMusic.play();
+  fireballSound.currentTime = 0;
+  fireballSound.play();
 
   const scenario = scenarios[currentMonth - 1];
 
@@ -535,8 +542,10 @@ reportNextBtn.onclick = () => {
     monthCounter.style.display = 'none';
     catalogueMusic.pause();
     mainThemeMusic.pause();
+    incidentMusic.pause();
   } else {
     mainThemeMusic.pause();
+    incidentMusic.pause();
     catalogueMusic.volume = 0.1;
     catalogueMusic.play();
     uiDiv.style.display = 'block';
