@@ -494,7 +494,7 @@ function showScenario() {
   const p = document.createElement('p');
   p.textContent = scenario.text;
   // Use larger font size for incidents, normal size for regular scenarios
-  const fontSize = isIncident ? '3rem' : '1.1rem';
+  const fontSize = isIncident ? '1.3rem' : '1.1rem';
   p.style.cssText = `line-height: 1.6; margin-bottom: 20px; font-size: ${fontSize};`;
   scenarioCard.appendChild(p);
   // Don't apply scenario effects yet - that happens in the performance report

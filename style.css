@@ -518,7 +518,7 @@ h1 {
 
 /* Incident text styling - make text larger */
 #scenario-page .catalogue-card.incident-card p {
-    font-size: 3rem;
+    font-size: 1.2rem;
     line-height: 1.6;
 }
 
