@@ -509,6 +509,30 @@ h1 {
     height: 400px;
 }
 
+/* Incident card styling - make it twice as tall and move up */
+#scenario-page .catalogue-card.incident-card {
+    width: 700px;
+    height: 800px;
+    transform: translateY(-40px);
+}
+
+/* Incident text styling - make text larger */
+#scenario-page .catalogue-card.incident-card p {
+    font-size: 3rem;
+    line-height: 1.6;
+}
+
+#scenario-page .catalogue-card.incident-card .incident-description {
+    font-size: 3rem;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+/* Incident page button positioning - move button lower */
+#scenario-page.incident-scenario .catalogue-continue-btn {
+    margin-top: 50px;
+}
+
 .finish-selection-container {
     text-align: center;
     margin-top: -60px;

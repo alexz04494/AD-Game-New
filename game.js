@@ -510,10 +510,21 @@ function showScenario() {
   mainThemeMusic.pause();
   incidentMusic.currentTime = 0;
   incidentMusic.play();
+  fireballSound.volume = 0.05;
   fireballSound.currentTime = 0;
   fireballSound.play();
 
   const scenario = scenarios[currentMonth - 1];
+  
+  // Check if this is an incident and add CSS classes accordingly
+  const isIncident = scenario.title && scenario.title.includes('Incident');
+  if (isIncident) {
+    scenarioPage.classList.add('incident-scenario');
+    scenarioCard.classList.add('incident-card');
+  } else {
+    scenarioPage.classList.remove('incident-scenario');
+    scenarioCard.classList.remove('incident-card');
+  }
 
   // Add title if it exists
   if (scenario.title) {
@@ -525,7 +536,9 @@ function showScenario() {
 
   const p = document.createElement('p');
   p.textContent = scenario.text;
-  p.style.cssText = 'line-height: 1.6; margin-bottom: 20px; font-size: 1.1rem;';
+  // Use larger font size for incidents, normal size for regular scenarios
+  const fontSize = isIncident ? '3rem' : '1.1rem';
+  p.style.cssText = `line-height: 1.6; margin-bottom: 20px; font-size: ${fontSize};`;
   scenarioCard.appendChild(p);
   // Don't apply scenario effects yet - that happens in the performance report
 }
