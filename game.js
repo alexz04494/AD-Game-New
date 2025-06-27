@@ -176,7 +176,7 @@ function nextDialogue() {
 }
 
 function updateMoneyBar() {
-  moneyBar.textContent = `€${state.money}`;
+  moneyBar.textContent = `€${state.money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 }
 
 function updateShop() {
@@ -201,7 +201,7 @@ function updateShop() {
 
     const price = document.createElement('div');
     price.className = 'price';
-    price.textContent = `€${item.price}`;
+    price.textContent = `€${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
     card.appendChild(price);
 
     const description = document.createElement('div');

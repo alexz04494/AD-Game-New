@@ -355,12 +355,12 @@ h1 {
     border-image-source: url('assets/borders/border_04_nobackground.png');
     border-image-slice: 10;
     border-image-repeat: stretch;
-    padding: 8px 15px;
+    padding: 16px 25px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 1rem;
+    font-size: 1.4rem;
     color: #1E1E1E;
     z-index: 1000;
-    min-width: 120px;
+    min-width: 180px;
     text-align: center;
 }
 
