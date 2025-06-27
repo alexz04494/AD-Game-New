@@ -405,6 +405,7 @@ h1 {
     justify-content: center;
     align-items: flex-start;
     padding-top: 10vh;
+    background: url('assets/backgrounds/endofyearreport.png') center/cover no-repeat;
     z-index: 200;
 }
 
