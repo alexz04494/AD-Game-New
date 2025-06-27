@@ -447,7 +447,7 @@ function showMonthTransition(callback) {
         monthTransitionText.style.transition = ''; // Reset transition
         if (callback) callback();
       }, 1500); // 1.5 seconds of black screen
-    }, 3000); // 2 seconds showing the image
+    }, 2000); // 2 seconds showing the image
   } else {
     // Fallback if no image found
     if (callback) callback();
