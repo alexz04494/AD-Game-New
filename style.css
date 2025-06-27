@@ -1137,3 +1137,35 @@ body.end-year-scene #points-counter {
     width: 400px;
     height: 600px;
 }
+
+/* Month transition overlay */
+#month-transition {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 2000;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+}
+
+#month-transition img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s linear;
+}
+
+#month-transition .transition-text {
+    position: absolute;
+    text-align: center;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    opacity: 0;
+    transition: opacity 0.8s linear;
+}

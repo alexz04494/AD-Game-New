@@ -69,6 +69,9 @@ const scenarioNextBtn = document.getElementById("scenario-next-btn");
 const performanceReportPage = document.getElementById("performance-report-page");
 const performanceReportCard = document.getElementById("performance-report-card");
 const reportNextBtn = document.getElementById("report-next-btn");
+const monthTransition = document.getElementById("month-transition");
+const monthTransitionText = document.querySelector('#month-transition .transition-text');
+const monthTransitionImages = document.querySelectorAll('#month-transition img');
 
 // Audio elements
 const beepSound = document.getElementById("beep-sound");
@@ -374,6 +377,42 @@ const scenarios = [
   { text: 'Scenario 5 coming soon.', apply: () => 'No effect this month.' }
 ];
 
+function showMonthTransition(callback) {
+  if (!monthTransition) {
+    callback();
+    return;
+  }
+  monthTransition.style.display = 'flex';
+  monthTransitionImages.forEach(img => (img.style.opacity = 0));
+  monthTransitionText.style.opacity = 0;
+
+  const stepDuration = 800; // ~0.8s per slide for ~4s total
+  let index = 0;
+
+  const next = () => {
+    if (index > 0 && index <= monthTransitionImages.length) {
+      monthTransitionImages[index - 1].style.opacity = 0;
+    }
+
+    if (index < monthTransitionImages.length) {
+      const img = monthTransitionImages[index];
+      img.style.opacity = 1;
+      index++;
+      setTimeout(next, stepDuration);
+    } else {
+      monthTransitionText.style.opacity = 1;
+      setTimeout(() => {
+        monthTransition.style.display = 'none';
+        monthTransitionImages.forEach(img => (img.style.opacity = 0));
+        monthTransitionText.style.opacity = 0;
+        if (callback) callback();
+      }, stepDuration);
+    }
+  };
+
+  next();
+}
+
 function startMonth() {
   Object.values(state.upgrades).forEach(u => {
     if (u.justPurchased) {
@@ -388,11 +427,15 @@ function startMonth() {
   catalogueMusic.pause();
   mainThemeMusic.volume = 0.2;
   mainThemeMusic.play();
+  showMonthTransition(showScenario);
+}
+
+function showScenario() {
   scenarioPage.style.display = 'flex';
   scenarioCard.innerHTML = '';
-  
+
   const scenario = scenarios[currentMonth - 1];
-  
+
   // Add title if it exists
   if (scenario.title) {
     const title = document.createElement('h2');
@@ -400,7 +443,7 @@ function startMonth() {
     title.style.cssText = 'color: #0075be; font-family: "Press Start 2P", cursive; font-size: 1rem; margin-bottom: 20px; text-align: center; line-height: 1.4;';
     scenarioCard.appendChild(title);
   }
-  
+
   const p = document.createElement('p');
   p.textContent = scenario.text;
   p.style.cssText = 'line-height: 1.6; margin-bottom: 20px; font-size: 1.1rem;';
