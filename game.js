@@ -371,6 +371,8 @@ const scenarios = [
       if (state.upgrades.training.owned) {
         state.money += 100000;
         wins.push('Operator Training Suite: +100k');
+      }
+
       return { wins, neutrals, losses };
     }
   },
