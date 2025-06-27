@@ -338,6 +338,9 @@ const scenarios = [
     title: 'Incident - Major client orders spike',
     text:
       'A major customer places a rush order, requiring the mill to increase throughput by 15%. This sudden spike is a chance to generate extra revenue, but only plants equipped with the right digital tools can respond quickly enough.',
+    extraHeader: 'Unexpected windfall',
+    extraText:
+      'A major client placed a last-minute order for premium pet food at 25% above standard pricing. Thanks to exceptional weekend efforts by the operations and quality teams, the batch was delivered on time and met all specifications. The resulting margin windfall led to an additional $200,000 in CAPEX approval from corporate, which can now be allocated toward critical upgrades or digital initiatives in upcoming quarters.',
     apply: () => {
       const wins = [];
       const neutrals = [];
@@ -497,6 +500,22 @@ function showScenario() {
   const fontSize = isIncident ? '1.3rem' : '1.1rem';
   p.style.cssText = `line-height: 1.6; margin-bottom: 20px; font-size: ${fontSize};`;
   scenarioCard.appendChild(p);
+
+  // Add optional extra header and description
+  if (scenario.extraHeader) {
+    const extraHeader = document.createElement('h3');
+    extraHeader.textContent = scenario.extraHeader;
+    extraHeader.style.cssText =
+      'color: #00aa00; font-family: "Press Start 2P", cursive; font-size: 0.9rem; margin-bottom: 10px; text-align: center; line-height: 1.4;';
+    scenarioCard.appendChild(extraHeader);
+  }
+
+  if (scenario.extraText) {
+    const extraP = document.createElement('p');
+    extraP.textContent = scenario.extraText;
+    extraP.className = 'incident-description';
+    scenarioCard.appendChild(extraP);
+  }
   // Don't apply scenario effects yet - that happens in the performance report
 }
 
