@@ -1,7 +1,7 @@
 // Simplified game logic for monthly scenarios
 
 const state = {
-  money: 400000,
+  money: 300000,
   upgrades: {
     moisture: {
       name: "Dryer ACE",
