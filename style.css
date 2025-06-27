@@ -1112,7 +1112,7 @@ body.end-year-scene #points-counter {
     color: white;
     font-family: 'Press Start 2P', cursive;
     font-size: 0.8rem;
-    z-index: 1000;
+    z-index: 2100;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
 }
 
