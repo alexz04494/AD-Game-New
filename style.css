@@ -1148,6 +1148,51 @@ body.end-year-scene #points-counter {
     margin-top: 60px;
 }
 
+/* Rules page layout */
+#rules-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 60px;
+}
+#rules-page .catalogue-card {
+    width: 700px;
+    height: 800px;
+}
+#rules-page .catalogue-card h2 {
+    color: #0075be;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 1.4;
+}
+#rules-page .rules-body {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left;
+    margin-bottom: 20px;
+}
+#rules-page .rules-subheader {
+    color: #0075be;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+#rules-page .rules-list {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+#rules-page .rules-list li {
+    margin-bottom: 8px;
+}
+
 /* Performance Report Page Layout */
 #performance-report-page {
     display: flex;
