@@ -49,7 +49,7 @@ body::before {
   position: fixed;          /* covers whole viewport */
   inset: 0;
   background: url("assets/overlay/signet-small.png") repeat;
-  background-size: 70px;   /* spacing between instances */
+  background-size: 150px;   /* spacing between instances */
   opacity: 0.08;            /* subtle! adjust 0.03–0.08 */
   pointer-events: none;     /* keep it non-interactive */
   animation: drift 60s linear infinite;

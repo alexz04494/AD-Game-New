@@ -355,21 +355,26 @@ function showPerformanceReport() {
 
   const winList = document.createElement('ul');
   winList.className = 'performance-report-list';
-  result.wins.forEach(msg => {
-    const li = document.createElement('li');
-    li.className = 'performance-report-line positive-score';
-    li.textContent = msg;
-    winList.appendChild(li);
-  });
-  result.neutrals.forEach(msg => {
+  if (result.wins.length === 0 && result.neutrals.length === 0) {
     const li = document.createElement('li');
     li.className = 'performance-report-line';
-    li.textContent = msg;
+    li.textContent = 'No wins this month.';
     winList.appendChild(li);
-  });
-  if (result.wins.length || result.neutrals.length) {
-    performanceReportCard.appendChild(winList);
+  } else {
+    result.wins.forEach(msg => {
+      const li = document.createElement('li');
+      li.className = 'performance-report-line positive-score';
+      li.textContent = msg;
+      winList.appendChild(li);
+    });
+    result.neutrals.forEach(msg => {
+      const li = document.createElement('li');
+      li.className = 'performance-report-line';
+      li.textContent = msg;
+      winList.appendChild(li);
+    });
   }
+  performanceReportCard.appendChild(winList);
 
   const lossHeader = document.createElement('h3');
   lossHeader.textContent = 'LOSSES';
