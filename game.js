@@ -276,12 +276,12 @@ const scenarios = [
       const losses = [];
 
       if (state.upgrades.moisture.owned) {
-        state.money += 50000;
-        wins.push('Dryer ACE: +50k');
-        neutrals.push('200k loss avoided due to Dryer ACE');
+        state.money += 60000;
+        wins.push('Dryer ACE: +60k');
+        neutrals.push('120k loss avoided due to Dryer ACE');
       } else {
-        state.money -= 200000;
-        losses.push('Without Dryer ACE you lost 200k.');
+        state.money -= 120000;
+        losses.push('Without Dryer ACE you lost 120k.');
       }
 
       if (state.upgrades.training.owned) {
@@ -289,10 +289,6 @@ const scenarios = [
         wins.push('Operator Training Suite: +20k');
       }
 
-      if (state.upgrades.digitalTwin.owned) {
-        state.money += 25000;
-        wins.push('Asset management: +25k');
-      }
 
       if (state.upgrades.plantInsights.owned) {
         state.money += 10000;
@@ -317,22 +313,22 @@ const scenarios = [
       }
 
       if (state.upgrades.training.owned) {
-        state.money += 20000;
-        wins.push('Operator Training Suite: +20k');
+        state.money += 10000;
+        wins.push('Operator Training Suite: +10k');
       }
 
       if (state.upgrades.digitalTwin.owned) {
-        state.money += 25000;
-        wins.push('Asset management: +25k');
+        state.money += 20000;
+        wins.push('Asset management: +20k');
       }
 
       if (state.upgrades.plantInsights.owned) {
-        state.money += 10000;
-        wins.push('Plant Insights with OEE: +10k');
-        neutrals.push('150k loss avoided due to Plant Insights');
+        state.money += 50000;
+        wins.push('Plant Insights with OEE: +50k');
+        neutrals.push('120k loss avoided due to Plant Insights');
       } else {
-        state.money -= 150000;
-        losses.push('Without Plant Insights you lost 150k.');
+        state.money -= 120000;
+        losses.push('Without Plant Insights you lost 120k.');
       }
 
       return { wins, neutrals, losses };
@@ -351,27 +347,10 @@ const scenarios = [
         state.money += 50000;
         wins.push('Dryer ACE: +50k');
       }
-
-      if (state.upgrades.training.owned) {
-        state.money += 10000;
-        wins.push('Operator Training Suite: +10k');
-      }
-
       if (state.upgrades.retrofit.owned) {
-        state.money += 50000;
-        wins.push('Plant automation upgrade: +50k');
+        state.money += 80000;
+        wins.push('Plant automation upgrade: +80k');
       }
-
-      if (state.upgrades.digitalTwin.owned) {
-        state.money += 10000;
-        wins.push('Asset management: +10k');
-      }
-
-      if (state.upgrades.plantInsights.owned) {
-        state.money += 10000;
-        wins.push('Plant Insights with OEE: +10k');
-      }
-
       return { wins, neutrals, losses };
     }
   },
@@ -385,29 +364,13 @@ const scenarios = [
       const losses = [];
 
       if (state.upgrades.moisture.owned) {
-        state.money += 20000;
-        wins.push('Dryer ACE: +20k');
+        state.money += 30000;
+        wins.push('Dryer ACE: +30k');
       }
 
       if (state.upgrades.training.owned) {
         state.money += 100000;
         wins.push('Operator Training Suite: +100k');
-        neutrals.push('150k loss avoided due to OTS');
-      } else {
-        state.money -= 150000;
-        losses.push('Without OTS you lost 150k.');
-      }
-
-      if (state.upgrades.digitalTwin.owned) {
-        state.money += 10000;
-        wins.push('Asset management: +10k');
-      }
-
-      if (state.upgrades.plantInsights.owned) {
-        state.money += 10000;
-        wins.push('Plant Insights with OEE: +10k');
-      }
-
       return { wins, neutrals, losses };
     }
   },
@@ -421,28 +384,20 @@ const scenarios = [
       const losses = [];
 
       if (state.upgrades.moisture.owned) {
-        state.money += 10000;
-        wins.push('Dryer ACE: +10k');
+        state.money += 50000;
+        wins.push('Dryer ACE: +50k');
       }
 
-      if (state.upgrades.training.owned) {
-        state.money += 10000;
-        wins.push('Operator Training Suite: +10k');
-      }
 
       if (state.upgrades.retrofit.owned) {
-        state.money += 50000;
-        wins.push('Plant automation upgrade: +50k');
-        neutrals.push('200k loss avoided due to Plant automation upgrade');
+        state.money += 100000;
+        wins.push('Plant automation upgrade: +100k');
+        neutrals.push('100k loss avoided due to Plant automation upgrade');
       } else {
-        state.money -= 200000;
-        losses.push('Without Plant automation upgrade you lost 200k.');
+        state.money -= 100000;
+        losses.push('Without Plant automation upgrade you lost 100k.');
       }
 
-      if (state.upgrades.plantInsights.owned) {
-        state.money += 10000;
-        wins.push('Plant Insights with OEE: +10k');
-      }
 
       return { wins, neutrals, losses };
     }
