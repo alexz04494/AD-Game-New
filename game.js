@@ -490,6 +490,10 @@ function startMonth() {
 function showScenario() {
   scenarioPage.style.display = 'flex';
   scenarioCard.innerHTML = '';
+  
+  // Add month-specific class for background
+  scenarioPage.className = `month-${currentMonth}`;
+  
   mainThemeMusic.pause();
   incidentMusic.currentTime = 0;
   incidentMusic.play();

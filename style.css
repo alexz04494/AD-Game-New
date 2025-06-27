@@ -447,7 +447,7 @@ h1 {
 /* Make final report card larger */
 #performance-report-container .final-report-card {
     width: 600px;
-    height: 700px;
+    height: 720px;
 }
 
 /* Make text larger in final report card */
@@ -575,11 +575,24 @@ h1 {
     height: 400px;
 }
 
-/* Incident card styling - make it twice as tall and move up */
+/* Incident card styling - make it smaller */
 #scenario-page .catalogue-card.incident-card {
     width: 700px;
-    height: 800px;
+    height: 350px;
     transform: translateY(-40px);
+    background: rgba(255, 255, 255, 0.85); /* More opaque background */
+}
+
+/* Incident text styling - make text larger and bold */
+#scenario-page .catalogue-card.incident-card p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    font-weight: bold;
+}
+
+/* Incident title styling - make bold */
+#scenario-page .catalogue-card.incident-card h2 {
+    font-weight: bold;
 }
 
 /* Incident text styling - make text larger */
@@ -594,9 +607,9 @@ h1 {
     margin-top: 20px;
 }
 
-/* Incident page button positioning - move button lower */
+/* Incident page button positioning - move button closer */
 #scenario-page.incident-scenario .catalogue-continue-btn {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .finish-selection-container {
@@ -1210,8 +1223,32 @@ body.end-year-scene #points-counter {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 20px;
-    margin-top: 60px;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+}
+
+/* Background images for incident screens by month - full backdrop */
+#scenario-page.month-1 {
+    background: url('assets/slide backgrounds/bg1.png') center/cover no-repeat;
+}
+
+#scenario-page.month-2 {
+    background: url('assets/slide backgrounds/bg2.png') center/cover no-repeat;
+}
+
+#scenario-page.month-3 {
+    background: url('assets/slide backgrounds/bg3.png') center/cover no-repeat;
+}
+
+#scenario-page.month-4 {
+    background: url('assets/slide backgrounds/bg4.png') center/cover no-repeat;
+}
+
+#scenario-page.month-5 {
+    background: url('assets/slide backgrounds/bg5.png') center/cover no-repeat;
 }
 
 /* Rules page layout */
@@ -1273,7 +1310,7 @@ body.end-year-scene #points-counter {
 
 #performance-report-page .catalogue-card {
     width: 400px;
-    height: 600px;
+    height: 700px;
 }
 
 /* Month transition overlay */
