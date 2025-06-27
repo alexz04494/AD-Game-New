@@ -22,7 +22,7 @@ const state = {
         "<p>A comprehensive training platform designed to upskill your operators, reducing errors and downtime while enhancing operational safety and efficiency.</p>"
     },
     retrofit: {
-      name: "Metris Plant automation upgrade",
+      name: "Plant automation upgrade",
       price: 225000,
       owned: false,
       justPurchased: false,
@@ -153,17 +153,12 @@ startPage.onclick = () => {
   mainThemeMusic.volume = 0.2;
   mainThemeMusic.play();
   
-  // After 4 seconds, crossfade to main game page
+  // After 4 seconds total (fade in + 2 seconds + fade out), cut directly to main game page
   setTimeout(() => {
-    introScreen.style.transition = 'opacity 1s ease-out';
-    introScreen.style.opacity = '0';
-    
-    setTimeout(() => {
-      introScreen.style.display = 'none';
-      mainGamePage.style.display = 'block';
-      nextDialogue();
-    }, 1000); // Wait for fade out to complete
-  }, 4000); // Show intro text for 4 seconds
+    introScreen.style.display = 'none';
+    mainGamePage.style.display = 'block';
+    nextDialogue();
+  }, 4000);
 };
 
 mainGamePage.addEventListener('click', nextDialogue);
@@ -281,7 +276,7 @@ function applyPassiveIncome() {
 const scenarios = [
   {
     title: 'Incident - Moisture Surge in dryer',
-    text: 'It\'s mid-monsoon, and unexpected rains have increased the ambient moisture levels in the intake air. The plant\'s dryers—tuned for stable dry-season baselines—are suddenly unable to maintain their moisture targets. As the air\'s humidity swings, so does the product moisture. Operators struggle to catch up manually, resulting in inconsistent output.\n\nThe stakes are high: even a 1% deviation in moisture leads to regulatory non-compliance, customer rejections, and the need to reprocess or discard product.',
+    text: 'Unexpected monsoon rains have raised humidity in the intake air, throwing off the plant\'s dryers. Tuned for dry-season conditions, they now struggle to maintain moisture targets. Operators can\'t keep up manually, and even a 1% deviation risks compliance issues, customer rejections, and costly rework.',
     apply: () => {
       const wins = [];
       const neutrals = [];
@@ -466,39 +461,13 @@ function showMonthTransition(callback) {
     return;
   }
   monthTransition.style.display = 'flex';
-  monthTransitionImages.forEach(img => (img.style.opacity = 0));
-  monthTransitionText.style.opacity = 1; // Show "A month passes..." text
+  monthTransitionText.style.opacity = 1;
 
-  // Show only one image based on current month (bg1 for month 1, bg2 for month 2, etc.)
-  const imageIndex = Math.min(currentMonth - 1, monthTransitionImages.length - 1);
-  const targetImage = monthTransitionImages[imageIndex];
-  
-  if (targetImage) {
-    // Phase 1: Show the background image for 2 seconds
-    targetImage.style.opacity = 1;
-    
-    setTimeout(() => {
-      // Phase 2: Cross-fade to black slower (1 second fade)
-      targetImage.style.transition = 'opacity 1s ease-out';
-      targetImage.style.opacity = 0;
-      monthTransitionText.style.transition = 'opacity 1s ease-out';
-      monthTransitionText.style.opacity = 0;
-      
-      setTimeout(() => {
-        // Phase 3: Hide transition and start incident after black screen
-        monthTransition.style.display = 'none';
-        monthTransitionImages.forEach(img => {
-          img.style.opacity = 0;
-          img.style.transition = ''; // Reset transition
-        });
-        monthTransitionText.style.transition = ''; // Reset transition
-        if (callback) callback();
-      }, 1500); // 1.5 seconds of black screen
-    }, 1500); // 2 seconds showing the image
-  } else {
-    // Fallback if no image found
+  // Simple 3-second black screen with text animation
+  setTimeout(() => {
+    monthTransition.style.display = 'none';
     if (callback) callback();
-  }
+  }, 3000);
 }
 
 function startMonth() {
