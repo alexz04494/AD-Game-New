@@ -662,10 +662,10 @@ function showFinalReport() {
   document.body.classList.add('end-year-scene');
 
   const card = document.createElement('div');
-  card.className = 'shop-card catalogue-card';
+  card.className = 'shop-card catalogue-card final-report-card';
 
   const title = document.createElement('h2');
-  title.textContent = 'YEAR-END REPORT';
+  title.textContent = 'Final Report';
   title.style.cssText = 'color: #0075be; font-family: "Press Start 2P", cursive; font-size: 1.2rem; margin-bottom: 20px; text-align: center; line-height: 1.4;';
   card.appendChild(title);
 
@@ -677,7 +677,7 @@ function showFinalReport() {
   const percent = Math.max(0, Math.min(100, Math.round((state.money / 1000000) * 100)));
   const percentLine = document.createElement('div');
   percentLine.className = 'performance-report-line';
-  percentLine.textContent = `Score: ${percent}% of €1,000,000`;
+  percentLine.textContent = `Score: ${percent}%`;
   card.appendChild(percentLine);
 
   let badge = '';

@@ -413,6 +413,40 @@ h1 {
     text-align: center;
 }
 
+/* Make final report card larger */
+#performance-report-container .final-report-card {
+    width: 600px;
+    height: 700px;
+}
+
+/* Make text larger in final report card */
+#performance-report-container .final-report-card .performance-report-line {
+    font-size: 1.2rem;
+    margin: 25px 0;
+}
+
+/* Make dismissed badge text larger and move it up in final report */
+#performance-report-container .final-report-card .badge-dismissed {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Make success badge text larger in final report */
+#performance-report-container .final-report-card .badge-success {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Move dismissed badge icon up to fill space */
+#performance-report-container .final-report-card .dismissed-badge-icon {
+    margin-top: 10px;
+}
+
+/* Move other badge icons up to fill space */
+#performance-report-container .final-report-card .performance-badge-icon {
+    margin-top: 10px;
+}
+
 .performance-report-line {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.8rem;
