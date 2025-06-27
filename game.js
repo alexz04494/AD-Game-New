@@ -589,6 +589,10 @@ function showPerformanceReport() {
   const scenario = scenarios[currentMonth - 1];
   const result = scenario.apply();
 
+  // Global monthly bonus
+  state.money += 100000;
+  result.wins.push('Production efficiency: +100k');
+
   const winsHeader = document.createElement('h3');
   winsHeader.textContent = 'WINS';
   winsHeader.className = 'report-section-header win';
