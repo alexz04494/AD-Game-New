@@ -413,35 +413,35 @@ function showMonthTransition(callback) {
   }
   monthTransition.style.display = 'flex';
   monthTransitionImages.forEach(img => (img.style.opacity = 0));
-  // Display the transition text for the entire animation
-  monthTransitionText.style.opacity = 1;
+  monthTransitionText.style.opacity = 0; // Hide text for new transition style
 
-  // Show each image for ~2 seconds with a slower cross fade
-  const stepDuration = 2000;
-  let index = 0;
-
-  const next = () => {
-    if (index > 0 && index <= monthTransitionImages.length) {
-      monthTransitionImages[index - 1].style.opacity = 0;
-    }
-
-    if (index < monthTransitionImages.length) {
-      const img = monthTransitionImages[index];
-      img.style.opacity = 1;
-      index++;
-      setTimeout(next, stepDuration);
-    } else {
-      // Fade out the overlay and text after the last slide
-      monthTransitionText.style.opacity = 0;
+  // Show only one image based on current month (bg1 for month 1, bg2 for month 2, etc.)
+  const imageIndex = Math.min(currentMonth - 1, monthTransitionImages.length - 1);
+  const targetImage = monthTransitionImages[imageIndex];
+  
+  if (targetImage) {
+    // Phase 1: Show the background image for 3 seconds
+    targetImage.style.opacity = 1;
+    
+    setTimeout(() => {
+      // Phase 2: Cross-fade to black for 1.5 seconds
+      targetImage.style.transition = 'opacity 0.5s ease-out';
+      targetImage.style.opacity = 0;
+      
       setTimeout(() => {
+        // Phase 3: Hide transition and start incident after black screen
         monthTransition.style.display = 'none';
-        monthTransitionImages.forEach(img => (img.style.opacity = 0));
+        monthTransitionImages.forEach(img => {
+          img.style.opacity = 0;
+          img.style.transition = ''; // Reset transition
+        });
         if (callback) callback();
-      }, 3000);
-    }
-  };
-
-  next();
+      }, 1500); // 1.5 seconds of black screen
+    }, 3000); // 3 seconds showing the image
+  } else {
+    // Fallback if no image found
+    if (callback) callback();
+  }
 }
 
 function startMonth() {
