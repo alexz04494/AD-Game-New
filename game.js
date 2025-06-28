@@ -698,6 +698,18 @@ function showFinalReport() {
   }
   card.appendChild(icon);
 
+  // Add Play Again button
+  const playAgainBtn = document.createElement('button');
+  playAgainBtn.className = 'catalogue-continue-btn';
+  playAgainBtn.textContent = 'Play Again';
+  playAgainBtn.style.marginTop = '30px';
+  playAgainBtn.style.backgroundColor = '#003A70';
+  playAgainBtn.style.color = 'white';
+  playAgainBtn.onclick = () => {
+    location.reload();
+  };
+  card.appendChild(playAgainBtn);
+
   finalReportContainer.appendChild(card);
 }
 
