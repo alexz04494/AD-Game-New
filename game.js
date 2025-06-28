@@ -659,7 +659,7 @@ function showFinalReport() {
   moneyLine.textContent = `Final balance: €${state.money.toLocaleString()}`;
   card.appendChild(moneyLine);
 
-  const percent = Math.max(0, Math.min(100, Math.round((state.money / 650000) * 100)));
+  const percent = Math.max(0, Math.min(100, Math.round((state.money / 900000) * 100)));
   const percentLine = document.createElement('div');
   percentLine.className = 'performance-report-line';
   percentLine.textContent = `Score: ${percent}%`;
@@ -668,11 +668,11 @@ function showFinalReport() {
   let badge = '';
   let badgeClass = '';
   let badgeIcon = '';
-  if (state.money < 50000) {
+  if (state.money < 300000) {
     badge = 'Dismissed';
     badgeClass = 'badge-dismissed';
     badgeIcon = 'assets/icons/firedbadge.png';
-  } else if (state.money <= 450000) {
+  } else if (state.money <= 650000) {
     badge = 'Mindful Manager';
     badgeClass = 'badge-success';
     badgeIcon = 'assets/icons/okbadge.png';
