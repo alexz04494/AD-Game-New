@@ -1,7 +1,7 @@
 // Simplified game logic for monthly scenarios
 
 const state = {
-  money: 300000,
+  money: 200000,
   upgrades: {
     moisture: {
       name: "Metris Dryer ACE",
@@ -569,8 +569,8 @@ function showPerformanceReport() {
   const result = scenario.apply();
 
   // Global monthly bonus
-  state.money += 100000;
-  result.wins.push('Cash flow from production: +100k');
+  state.money += 50000;
+  result.wins.push('Cash flow from production: +50k');
 
   const winsHeader = document.createElement('h3');
   winsHeader.textContent = 'WINS';
