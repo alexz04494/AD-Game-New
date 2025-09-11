@@ -349,8 +349,8 @@ h1 {
     font-size: 1.1rem;
     color: #1E1E1E;
     line-height: 1.5;
-    height: 160px;
-    max-height: 160px;
+    height: clamp(120px, 22vh, 160px);
+    max-height: clamp(120px, 22vh, 160px);
     overflow-y: auto;
     margin-left: 20px;
     box-sizing: border-box;
@@ -435,7 +435,7 @@ h1 {
     display: none;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 10vh;
+    padding-top: 8vh;
     background: url('assets/backgrounds/endofyearreport.png') center/cover no-repeat;
     z-index: 200;
 }
@@ -446,8 +446,8 @@ h1 {
 
 /* Make final report card larger */
 #performance-report-container .final-report-card {
-    width: 600px;
-    height: 720px;
+    width: clamp(320px, 80vw, 600px);
+    height: clamp(480px, 80vh, 720px);
 }
 
 /* Make text larger in final report card */
@@ -548,8 +548,8 @@ h1 {
 }
 
 .shop-card {
-    width: 400px;
-    height: 500px;
+    width: clamp(280px, 40vw, 400px);
+    height: clamp(360px, 65vh, 500px);
     background: rgba(255, 255, 255, 0.95);
     border: 8px solid #000000;
     border-radius: 12px;
@@ -561,24 +561,25 @@ h1 {
     justify-content: flex-start;
     box-sizing: border-box;
     transform: translateY(-60px);
+    overflow: auto;
 }
 
 .catalogue-card {
-    width: 280px;
-    height: 420px;
+    width: clamp(240px, 32vw, 280px);
+    height: clamp(320px, 60vh, 420px);
     transform: none;
 }
 
 /* Scenario card - make it much larger and wider */
 #scenario-page .catalogue-card {
-    width: 700px;
-    height: 400px;
+    width: clamp(320px, 85vw, 700px);
+    height: clamp(300px, 55vh, 400px);
 }
 
 /* Incident card styling - make it smaller */
 #scenario-page .catalogue-card.incident-card {
-    width: 700px;
-    height: 350px;
+    width: clamp(320px, 85vw, 700px);
+    height: clamp(280px, 50vh, 350px);
     transform: translateY(-40px);
     background: rgba(255, 255, 255, 0.85); /* More opaque background */
 }
@@ -677,6 +678,12 @@ h1 {
     50% { opacity: 0.7; }
 }
 
+/* Responsive tuning for short viewports */
+@media (max-height: 700px) {
+    .shop-card { transform: translateY(-30px); }
+    #performance-report-container { padding-top: 5vh; }
+}
+
 .shop-card h3 {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.9rem;
@@ -699,6 +706,7 @@ h1 {
     margin-bottom: 25px;
     line-height: 1.4;
     flex-grow: 1;
+    overflow: auto;
     text-align: center;
 }
 
@@ -966,8 +974,8 @@ body.end-year-scene #points-counter {
     font-size: 1.1rem;
     color: #1E1E1E;
     line-height: 1.5;
-    height: 160px;
-    max-height: 160px;
+    height: clamp(120px, 22vh, 160px);
+    max-height: clamp(120px, 22vh, 160px);
     overflow-y: auto;
     margin-left: 20px;
     box-sizing: border-box;
@@ -1073,8 +1081,8 @@ body.end-year-scene #points-counter {
     font-size: 1.1rem;
     color: #1E1E1E;
     line-height: 1.5;
-    height: 160px;
-    max-height: 160px;
+    height: clamp(120px, 22vh, 160px);
+    max-height: clamp(120px, 22vh, 160px);
     overflow-y: auto;
     margin-left: 20px;
     box-sizing: border-box;
