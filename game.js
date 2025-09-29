@@ -283,6 +283,7 @@ const baseScenarios = [
   {
     title: 'Incident - Moisture Surge in dryer',
     text: 'Unexpected monsoon rains have raised humidity in the intake air, throwing off the plant\'s dryers. Tuned for dry-season conditions, they now struggle to maintain moisture targets. Operators can\'t keep up manually, and even a 1% deviation risks compliance issues, customer rejections, and costly rework.',
+    background: 'assets/slide backgrounds/bg1.png',
     apply: () => {
       const wins = [];
       const neutrals = [];
@@ -315,6 +316,7 @@ const baseScenarios = [
     title: 'Incident - Subtle anomalies in line 2',
     text:
       "Subtle anomalies have begun to surface in Line 2, the plant\u2019s highest-volume extruder. Over the past few days, minor fluctuations in energy consumption and vibration levels have been recorded\u2014just enough to raise concern, but still within what\u2019s often dismissed as operational variance.",
+    background: 'assets/slide backgrounds/bg2.png',
     
     apply: () => {
       const wins = [];
@@ -352,6 +354,7 @@ const baseScenarios = [
     title: 'Incident - Major client orders spike',
     text:
       'A major customer places a rush order, requiring the mill to increase throughput by 15%. This sudden spike is a chance to generate extra revenue, but only plants equipped with the right digital tools can respond quickly enough.',
+    background: 'assets/slide backgrounds/bg3.png',
     apply: () => {
       const wins = [];
       const neutrals = [];
@@ -384,6 +387,7 @@ const baseScenarios = [
     title: 'Incident - Training crisis',
     text:
       'Midway through the quarter, your most experienced extruder operator resigns unexpectedly. The new hire is unfamiliar with the complex settings, and downtime increases.',
+    background: 'assets/slide backgrounds/bg4.png',
     apply: () => {
       const wins = [];
       const neutrals = [];
@@ -421,6 +425,7 @@ const baseScenarios = [
     title: 'Incident - PLC Failure - Plant Shutdown',
     text:
       'A central PLC fails unexpectedly. No automation or control functions respond. Without system-level backup, the plant halts, resulting in lost production and contract delays.',
+    background: 'assets/slide backgrounds/bg5.png',
     apply: () => {
       const wins = [];
       const neutrals = [];
@@ -500,8 +505,15 @@ function showScenario() {
   scenarioPage.style.display = 'flex';
   scenarioCard.innerHTML = '';
   
-  // Add month-specific class for background
-  scenarioPage.className = `month-${currentMonth}`;
+  // Reset visual state and apply background tied to the scenario
+  scenarioPage.classList.remove('incident-scenario');
+  scenarioCard.classList.remove('incident-card');
+  const scenario = scenarios[currentMonth - 1];
+  if (scenario.background) {
+    scenarioPage.style.background = "url('" + scenario.background + "') center/cover no-repeat";
+  } else {
+    scenarioPage.style.background = '';
+  }
   
   mainThemeMusic.pause();
   incidentMusic.currentTime = 0;
@@ -509,17 +521,11 @@ function showScenario() {
   fireballSound.volume = 0.05;
   fireballSound.currentTime = 0;
   fireballSound.play();
-
-  const scenario = scenarios[currentMonth - 1];
-  
   // Check if this is an incident and add CSS classes accordingly
   const isIncident = scenario.title && scenario.title.includes('Incident');
   if (isIncident) {
     scenarioPage.classList.add('incident-scenario');
     scenarioCard.classList.add('incident-card');
-  } else {
-    scenarioPage.classList.remove('incident-scenario');
-    scenarioCard.classList.remove('incident-card');
   }
 
   // Add title if it exists
