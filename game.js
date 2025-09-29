@@ -51,7 +51,6 @@ const state = {
   }
 };
 
-const totalMonths = 5;
 let currentMonth = 1;
 
 // DOM elements
@@ -273,7 +272,14 @@ function applyPassiveIncome() {
   });
 }
 
-const scenarios = [
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+const baseScenarios = [
   {
     title: 'Incident - Moisture Surge in dryer',
     text: 'Unexpected monsoon rains have raised humidity in the intake air, throwing off the plant\'s dryers. Tuned for dry-season conditions, they now struggle to maintain moisture targets. Operators can\'t keep up manually, and even a 1% deviation risks compliance issues, customer rejections, and costly rework.',
@@ -454,6 +460,9 @@ const scenarios = [
     }
   }
 ];
+
+const scenarios = shuffleArray([...baseScenarios]);
+const totalMonths = scenarios.length;
 
 function showMonthTransition(callback) {
   if (!monthTransition) {
@@ -748,3 +757,4 @@ reportNextBtn.onclick = () => {
 };
 
 updateMoneyBar();
+
